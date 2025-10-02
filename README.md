@@ -25,6 +25,30 @@ This project uses a monorepo structure with:
 
 ## Setup
 
+### Option 1: Dev Container (Recommended)
+
+For a consistent development environment using VS Code Dev Containers:
+
+1. **Prerequisites**
+   - [Docker](https://www.docker.com/products/docker-desktop) installed and running
+   - [VS Code](https://code.visualstudio.com/) with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+2. **Clone and open**
+   ```bash
+   git clone https://github.com/maxneuvians/camille.git
+   cd camille
+   code .
+   ```
+
+3. **Reopen in container**
+   - Click "Reopen in Container" when prompted
+   - Or use Command Palette: `Dev Containers: Reopen in Container`
+   - Dependencies will be installed automatically
+
+See [.devcontainer/README.md](.devcontainer/README.md) for more details.
+
+### Option 2: Local Setup
+
 1. **Clone the repository**
    ```bash
    git clone https://github.com/maxneuvians/camille.git
