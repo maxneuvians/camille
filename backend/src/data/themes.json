@@ -1,0 +1,35 @@
+[
+  {
+    "id": "teamwork",
+    "title": "Le travail en équipe",
+    "description": "Discussion sur les compétences et expériences de travail en équipe",
+    "questions": [
+      "Pouvez-vous décrire une situation où vous avez dû travailler en équipe pour accomplir un objectif commun?",
+      "Comment gérez-vous les conflits au sein d'une équipe?",
+      "Qu'est-ce qui fait, selon vous, une équipe efficace?",
+      "Pouvez-vous donner un exemple d'un rôle que vous avez joué dans une équipe et comment cela a contribué au succès du projet?"
+    ]
+  },
+  {
+    "id": "communication",
+    "title": "La communication au travail",
+    "description": "Exploration des compétences en communication professionnelle",
+    "questions": [
+      "Comment adaptez-vous votre style de communication selon votre interlocuteur?",
+      "Pouvez-vous décrire une fois où vous avez dû communiquer une information difficile?",
+      "Comment assurez-vous que votre message est bien compris?",
+      "Quel est votre canal de communication préféré et pourquoi?"
+    ]
+  },
+  {
+    "id": "problem-solving",
+    "title": "La résolution de problèmes",
+    "description": "Discussion sur les approches de résolution de problèmes",
+    "questions": [
+      "Décrivez votre processus pour résoudre un problème complexe au travail.",
+      "Pouvez-vous partager un exemple d'un problème difficile que vous avez résolu?",
+      "Comment priorisez-vous plusieurs problèmes qui nécessitent votre attention?",
+      "Qu'avez-vous appris d'une situation où votre solution n'a pas fonctionné comme prévu?"
+    ]
+  }
+]
