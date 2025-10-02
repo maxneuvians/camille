@@ -1,22 +1,54 @@
 # Camille
 
-Interactive real-time French voice agent for conducting professional interviews.
+Interactive French voice agent## Prerequisites
+
+- Node.js 18+ and npm
+- OpenAI API key with access to:
+  - **Whisper API** (for speech-to-text)
+  - **GPT-4** (`gpt-4o` model)
+  - **TTS API** (`tts-1` model)
+
+> **Note**: This project previously used the Realtime API but migrated to the more stable STT→GPT→TTS pipeline. If you need WebSocket/Realtime functionality, it's still available but deprecated. conducting professional interviews using AI-powered speech recognition and generation.
 
 ## Features
 
-- 🎤 **Real-time Voice Conversations**: Interact with an AI agent in French using OpenAI's Realtime API
+- 🎤 **Voice Conversations**: Speak naturally with an AI agent in French
+- 🔄 **Speech-to-Text-to-Speech**: Reliable audio processing pipeline using OpenAI APIs
 - 💬 **Live Transcription**: See conversation transcripts in real-time
 - 🎯 **Themed Interviews**: Pre-defined themes with professional interview questions
 - 📝 **Push-to-Talk**: Simple push-to-talk interface for controlled conversations
 - 💾 **Conversation Storage**: Save and review past conversations
-- 📊 **Evaluation Framework**: Extensible evaluation system for assessing conversations
+- � **Natural Voice**: High-quality text-to-speech responses
+- �📊 **Evaluation Framework**: Extensible evaluation system for assessing conversations
 
 ## Architecture
 
-This project uses a monorepo structure with:
+This project uses a modern, reliable audio processing pipeline:
+
+**Audio Flow:**
+
+```
+🎤 Recording → 📝 Whisper (STT) → 🤖 GPT-4 → 🔊 TTS → ▶️ Playback
+```
+
+**Tech Stack:**
+
 - **Frontend**: React + TypeScript + Vite
-- **Backend**: Node.js + Express + WebSocket
-- **AI**: OpenAI Realtime API for voice interactions
+- **Backend**: Node.js + Express + Multer
+- **AI Services**:
+  - OpenAI Whisper API (Speech-to-Text)
+  - OpenAI GPT-4 (Conversation AI)
+  - OpenAI TTS API (Text-to-Speech)
+
+### Why Not Realtime API?
+
+The previous implementation used OpenAI's Realtime API, but we migrated to a more reliable request-response pattern because:
+
+- ✅ **More Stable**: No WebSocket connection issues
+- ✅ **Better Error Handling**: Clear failure points and recovery
+- ✅ **Easier Debugging**: Each step is logged and traceable
+- ✅ **Cost Effective**: Pay only for what you use
+- ✅ **Higher Quality**: Uses proven, stable APIs
 
 ## Prerequisites
 
@@ -30,10 +62,12 @@ This project uses a monorepo structure with:
 For a consistent development environment using VS Code Dev Containers:
 
 1. **Prerequisites**
+
    - [Docker](https://www.docker.com/products/docker-desktop) installed and running
    - [VS Code](https://code.visualstudio.com/) with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 2. **Clone and open**
+
    ```bash
    git clone https://github.com/maxneuvians/camille.git
    cd camille
@@ -50,12 +84,14 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
 ### Option 2: Local Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/maxneuvians/camille.git
    cd camille
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -63,6 +99,7 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
 3. **Configure environment variables**
 
    Backend (optional - uses defaults):
+
    ```bash
    cd backend
    cp .env.example .env
@@ -70,6 +107,7 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
    ```
 
    Frontend (optional - uses defaults):
+
    ```bash
    cd frontend
    cp .env.example .env
@@ -79,6 +117,7 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
 4. **Start the development servers**
 
    From the root directory:
+
    ```bash
    npm run dev
    ```
@@ -86,6 +125,7 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
    This will start both backend (port 3001) and frontend (port 5173) servers.
 
    Alternatively, you can start them separately:
+
    ```bash
    # Terminal 1 - Backend
    npm run dev:backend
@@ -102,10 +142,27 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
 
 1. **Select a Theme**: Choose from pre-defined interview themes like "Le travail en équipe"
 2. **Enter API Key**: Provide your OpenAI API key (stored locally in browser)
-3. **Connect**: Click "Se connecter" to establish connection
-4. **Push to Talk**: Hold down the microphone button to speak, release to send
-5. **View Transcripts**: See real-time transcription of the conversation
-6. **End Conversation**: Click "Terminer" to save and exit
+3. **Connect**: Click "Se connecter" to initialize the audio system
+4. **Push to Talk**: Hold down the microphone button to speak, release to process
+5. **Wait for Response**: The system will:
+   - Transcribe your speech using Whisper
+   - Generate a response using GPT-4
+   - Convert the response to speech using TTS
+   - Play the audio automatically
+6. **View Transcripts**: See the conversation transcript in real-time
+7. **End Conversation**: Click "Terminer" to save and exit
+
+## How It Works
+
+When you speak:
+
+1. 🎤 **Recording**: Browser captures audio using MediaRecorder (WebM/Opus)
+2. 📤 **Upload**: Audio blob sent to `/api/audio/process` endpoint
+3. 📝 **Transcription**: Whisper API converts speech to French text
+4. 🤖 **AI Response**: GPT-4 generates a contextual response
+5. 🔊 **Text-to-Speech**: TTS API converts response to MP3 audio
+6. 📥 **Download**: Audio returned as base64-encoded data
+7. ▶️ **Playback**: Frontend plays the audio response
 
 ## Project Structure
 
@@ -114,15 +171,17 @@ camille/
 ├── backend/
 │   ├── src/
 │   │   ├── data/           # Themes and conversation storage
-│   │   ├── routes/         # API endpoints
-│   │   ├── services/       # Business logic
+│   │   ├── routes/         # API endpoints (audio, conversations, themes)
+│   │   ├── services/       # Business logic (audio pipeline, realtime-legacy)
 │   │   ├── types/          # TypeScript types
 │   │   └── index.ts        # Server entry point
 │   └── package.json
 ├── frontend/
+│   ├── public/
+│   │   └── audio-processor.js  # AudioWorklet for modern audio processing
 │   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── services/       # API and WebSocket clients
+│   │   ├── components/     # React components (VoiceAgent, ThemeSelector)
+│   │   ├── services/       # API clients (audio, realtime-legacy)
 │   │   ├── types/          # TypeScript types
 │   │   └── App.tsx         # Main app component
 │   └── package.json
@@ -148,12 +207,7 @@ Edit `backend/src/data/themes.json`:
   "id": "new-theme-id",
   "title": "Titre du thème",
   "description": "Description du thème",
-  "questions": [
-    "Question 1?",
-    "Question 2?",
-    "Question 3?",
-    "Question 4?"
-  ]
+  "questions": ["Question 1?", "Question 2?", "Question 3?", "Question 4?"]
 }
 ```
 
@@ -168,18 +222,44 @@ Conversations can be evaluated after completion. The evaluation framework is ext
 
 ## API Endpoints
 
+### Audio Processing (Primary)
+
+**POST /api/audio/process**
+
+- Processes audio through STT→GPT→TTS pipeline
+- Request: `multipart/form-data`
+  - `audio`: Audio file (WebM/Opus from browser)
+  - `conversationId`: Conversation ID
+  - `themeId`: Theme ID
+  - `apiKey`: OpenAI API key
+- Response: `{ transcript, response, audioBase64 }`
+- Audio response: MP3 in base64 encoding
+
+**POST /api/audio/transcribe** (optional)
+
+- Transcribe audio without generating response
+- Request: `multipart/form-data` with `audio` and `apiKey`
+- Response: `{ transcript }`
+
 ### Themes
+
 - `GET /api/themes` - List all themes
 - `GET /api/themes/:id` - Get theme by ID
 
 ### Conversations
+
 - `GET /api/conversations` - List all conversations
 - `GET /api/conversations/:id` - Get conversation by ID
 - `POST /api/conversations` - Create new conversation
 - `PUT /api/conversations/:id` - Update conversation
 
-### WebSocket
-- `WS /realtime?conversationId=<id>&apiKey=<key>` - Real-time voice connection
+### Legacy Endpoints (Deprecated)
+
+**WebSocket /realtime** ⚠️
+
+- Real-time voice using OpenAI Realtime API
+- Query: `?conversationId=<id>&apiKey=<key>`
+- **Deprecated**: Use HTTP audio endpoints instead for better stability
 
 ## Building for Production
 
@@ -188,8 +268,41 @@ npm run build
 ```
 
 This builds both frontend and backend:
+
 - Backend: Compiled to `backend/dist/`
 - Frontend: Built to `frontend/dist/`
+
+## Troubleshooting
+
+### Audio Not Playing
+
+If you're experiencing audio playback issues, see the comprehensive debugging guide:
+
+- [AUDIO_PLAYBACK_DEBUG.md](AUDIO_PLAYBACK_DEBUG.md) - Step-by-step debugging instructions
+- [NEW_AUDIO_FLOW.md](NEW_AUDIO_FLOW.md) - Technical details of the audio pipeline
+
+Common issues:
+
+- **Browser autoplay policy**: Some browsers block automatic audio playback
+- **HTTPS requirement**: Audio APIs may require secure context (HTTPS)
+- **API key permissions**: Ensure your OpenAI key has Whisper, GPT-4, and TTS access
+- **Network issues**: Check browser console and network tab for errors
+
+### Connection Issues
+
+If using the legacy WebSocket endpoint:
+
+- Check that your OpenAI API key has Realtime API access
+- Verify WebSocket connection in browser DevTools
+- Consider migrating to the HTTP audio endpoints for better stability
+
+### Development
+
+See additional documentation:
+
+- [QUICK_START.md](QUICK_START.md) - Quick start guide
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Development guidelines
+- [ERROR_HANDLING_FIXES.md](ERROR_HANDLING_FIXES.md) - Error handling implementation details
 
 ## License
 

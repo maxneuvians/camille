@@ -1,7 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
+import type { Theme, Conversation, ConversationMessage } from '../types';
+import { api } from '../services/api';
+import { AudioClient } from '../services/audio';
+import './VoiceAgent.css';t { useState, useEffect, useRef } from "react";
 import type { Theme, Conversation, ConversationMessage } from "../types";
 import { api } from "../services/api";
-import { AudioClient } from "../services/audio";
+import { RealtimeClient } from "../services/realtime";
 import "./VoiceAgent.css";
 
 interface VoiceAgentProps {
@@ -14,42 +18,42 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const [apiKey, setApiKey] = useState(
     localStorage.getItem("openai_api_key") || ""
   );
+  const [connected, setConnected] = useState(false);
   const [recording, setRecording] = useState(false);
-  const [processing, setProcessing] = useState(false);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [status, setStatus] = useState<string>("Initialisation...");
   const [error, setError] = useState<string | null>(null);
 
-  const audioClient = useRef<AudioClient | null>(null);
+  const realtimeClient = useRef<RealtimeClient | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const initConversation = async () => {
+    try {
+      const conv = await api.createConversation(theme.id);
+      setConversation(conv);
+      setMessages(conv.messages);
+      setStatus("Prêt à commencer");
+    } catch (err) {
+      setError("Erreur lors de la création de la conversation");
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-    const initConversation = async () => {
-      try {
-        const conv = await api.createConversation(theme.id);
-        setConversation(conv);
-        setMessages(conv.messages);
-        setStatus("Prêt à commencer - Entrez votre clé API");
-      } catch (err) {
-        setError("Erreur lors de la création de la conversation");
-        console.error(err);
-      }
-    };
-
     initConversation();
-
     return () => {
-      if (audioClient.current) {
-        audioClient.current.cleanup();
+      if (realtimeClient.current) {
+        realtimeClient.current.disconnect();
       }
     };
-  }, [theme.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSetupClient = () => {
+  const handleConnect = async () => {
     if (!apiKey) {
       setError("Veuillez entrer votre clé API OpenAI");
       return;
@@ -61,78 +65,121 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
     }
 
     localStorage.setItem("openai_api_key", apiKey);
-    audioClient.current = new AudioClient(conversation.id, apiKey);
-    setStatus('Prêt - Appuyez sur "Parler" pour commencer');
+
+    try {
+      setStatus("Connexion en cours...");
+      setError(null);
+
+      realtimeClient.current = new RealtimeClient(
+        conversation.id,
+        apiKey,
+        handleRealtimeMessage,
+        handleRealtimeError,
+        handleRealtimeClose
+      );
+
+      await realtimeClient.current.connect();
+      setConnected(true);
+      setStatus('Connecté - Appuyez sur "Parler" pour commencer');
+    } catch (err) {
+      setConnected(false);
+      setError(
+        "Erreur de connexion à OpenAI. Veuillez vérifier votre clé API."
+      );
+      console.error(err);
+      setStatus("Erreur de connexion");
+    }
+  };
+
+  const handleRealtimeMessage = (message: Record<string, unknown>) => {
+    console.log("Realtime message:", message);
+
+    if (message.type === "session.ready") {
+      setStatus('Session prête - Appuyez sur "Parler" pour commencer');
+    }
+
+    if (message.type === "session.closed") {
+      setConnected(false);
+      setStatus("Session fermée");
+    }
+
+    if (
+      message.type === "conversation.item.input_audio_transcription.completed"
+    ) {
+      const userMessage: ConversationMessage = {
+        role: "user",
+        content: message.transcript as string,
+        timestamp: Date.now(),
+        audio: true,
+      };
+      setMessages((prev) => [...prev, userMessage]);
+    }
+
+    if (message.type === "response.audio_transcript.done") {
+      const assistantMessage: ConversationMessage = {
+        role: "assistant",
+        content: message.transcript as string,
+        timestamp: Date.now(),
+        audio: true,
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+    }
+
+    if (message.type === "response.audio.delta") {
+      // Play audio chunk
+      if (realtimeClient.current && message.delta) {
+        realtimeClient.current.playAudio(message.delta as string);
+      }
+    }
+
+    if (message.type === "error") {
+      setError((message.error as string) || "Une erreur est survenue");
+      setStatus("Erreur");
+    }
+  };
+
+  const handleRealtimeError = (err: Error) => {
+    setError(err.message);
+    setStatus("Erreur");
+    setConnected(false);
+  };
+
+  const handleRealtimeClose = () => {
+    setConnected(false);
+    if (recording) {
+      setRecording(false);
+    }
+    setStatus("Connexion fermée - Reconnectez-vous pour continuer");
   };
 
   const startRecording = async () => {
-    if (!audioClient.current) {
-      setError("Client audio non initialisé");
-      return;
-    }
+    if (!realtimeClient.current) return;
 
     try {
-      await audioClient.current.startRecording();
+      await realtimeClient.current.startRecording();
       setRecording(true);
       setStatus("Enregistrement en cours... Relâchez pour envoyer");
-      setError(null);
     } catch (err) {
       setError("Erreur lors du démarrage de l'enregistrement");
       console.error(err);
     }
   };
 
-  const stopRecordingAndProcess = async () => {
-    if (!audioClient.current) return;
+  const stopRecording = () => {
+    if (!realtimeClient.current) return;
 
-    try {
-      setRecording(false);
-      setProcessing(true);
-      setStatus("Traitement en cours...");
+    realtimeClient.current.stopRecording();
+    setRecording(false);
+    setStatus("Traitement de votre message...");
+  };
 
-      const result = await audioClient.current.recordAndProcess();
-
-      console.log("Received result:", {
-        userText: result.userText,
-        assistantText: result.assistantText,
-        audioBase64Length: result.audioBase64?.length || 0,
-      });
-
-      // Add messages to the UI
-      const userMessage: ConversationMessage = {
-        role: "user",
-        content: result.userText,
-        timestamp: Date.now(),
-        audio: true,
-      };
-
-      const assistantMessage: ConversationMessage = {
-        role: "assistant",
-        content: result.assistantText,
-        timestamp: Date.now(),
-        audio: true,
-      };
-
-      setMessages((prev) => [...prev, userMessage, assistantMessage]);
-      setStatus("Lecture de la réponse...");
-
-      // Play the response
-      if (result.audioBase64) {
-        console.log("Attempting to play audio...");
-        await audioClient.current.playAudio(result.audioBase64);
-        console.log("Audio playback completed");
-      } else {
-        console.warn("No audio data received from backend");
-      }
-
-      setStatus('Prêt - Appuyez sur "Parler" pour continuer');
-      setProcessing(false);
-    } catch (err) {
-      setError("Erreur lors du traitement audio");
-      console.error(err);
-      setProcessing(false);
-      setStatus("Erreur - Réessayez");
+  const handleDisconnect = () => {
+    if (realtimeClient.current) {
+      realtimeClient.current.disconnect();
     }
+    setConnected(false);
+    setRecording(false);
+    setStatus("Déconnecté");
   };
 
   const handleEndConversation = async () => {
@@ -144,8 +191,8 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
         messages,
       });
 
-      if (audioClient.current) {
-        audioClient.current.cleanup();
+      if (realtimeClient.current) {
+        realtimeClient.current.disconnect();
       }
 
       alert("Conversation terminée et sauvegardée!");
@@ -174,13 +221,13 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
         <button
           onClick={handleEndConversation}
           className="end-button"
-          disabled={!audioClient.current}
+          disabled={!connected}
         >
           Terminer
         </button>
       </div>
 
-      {!audioClient.current ? (
+      {!connected ? (
         <div className="connection-panel">
           <div className="api-key-input">
             <label htmlFor="apiKey">Clé API OpenAI:</label>
@@ -192,8 +239,8 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
               placeholder="sk-..."
             />
           </div>
-          <button onClick={handleSetupClient} className="connect-button">
-            {error ? "Réessayer" : "Configurer"}
+          <button onClick={handleConnect} className="connect-button">
+            {error ? "Réessayer" : "Se connecter"}
           </button>
         </div>
       ) : (
@@ -220,32 +267,24 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
           <div className="control-panel">
             <div className="status-bar">
               <span
-                className={`status-indicator ${
-                  recording
-                    ? "recording"
-                    : processing
-                    ? "processing"
-                    : "connected"
-                }`}
+                className={`status-indicator ${connected ? "connected" : ""}`}
               ></span>
               <span className="status-text">{status}</span>
+              <button onClick={handleDisconnect} className="disconnect-button">
+                Déconnecter
+              </button>
             </div>
 
             <div className="push-to-talk">
               <button
                 className={`talk-button ${recording ? "recording" : ""}`}
                 onMouseDown={startRecording}
-                onMouseUp={stopRecordingAndProcess}
-                onMouseLeave={recording ? stopRecordingAndProcess : undefined}
+                onMouseUp={stopRecording}
+                onMouseLeave={recording ? stopRecording : undefined}
                 onTouchStart={startRecording}
-                onTouchEnd={stopRecordingAndProcess}
-                disabled={processing}
+                onTouchEnd={stopRecording}
               >
-                {recording
-                  ? "🔴 Enregistrement..."
-                  : processing
-                  ? "⏳ Traitement..."
-                  : "🎤 Appuyer pour parler"}
+                {recording ? "🔴 Enregistrement..." : "🎤 Appuyer pour parler"}
               </button>
               <p className="push-to-talk-hint">
                 Maintenez le bouton enfoncé pour parler, relâchez pour envoyer
