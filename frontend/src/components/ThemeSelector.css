@@ -1,0 +1,77 @@
+.theme-selector {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.theme-selector h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.theme-selector.loading,
+.theme-selector.error {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+}
+
+.theme-selector.error {
+  color: #d32f2f;
+}
+
+.themes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.theme-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-card:hover {
+  border-color: #2196f3;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+  transform: translateY(-2px);
+}
+
+.theme-card h3 {
+  color: #2196f3;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.theme-description {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.theme-questions {
+  font-size: 0.9rem;
+}
+
+.theme-questions strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.theme-questions ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.theme-questions li {
+  margin-bottom: 0.5rem;
+  color: #555;
+  line-height: 1.4;
+}
