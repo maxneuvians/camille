@@ -272,6 +272,52 @@ This builds both frontend and backend:
 - Backend: Compiled to `backend/dist/`
 - Frontend: Built to `frontend/dist/`
 
+## Testing
+
+The project includes comprehensive test coverage for both backend and frontend.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run backend tests only
+npm run test:backend
+
+# Run frontend tests only
+npm run test:frontend
+
+# Run tests with coverage
+npm run test:coverage --workspace=backend
+npm run test:coverage --workspace=frontend
+```
+
+### Test Coverage
+
+- **Backend**: 29 tests using Jest (routes, services)
+- **Frontend**: 15 tests using Vitest (components, API client)
+- **Total**: 44 automated tests
+
+See [TESTING.md](TESTING.md) for detailed testing documentation.
+
+## Continuous Integration
+
+This project uses GitHub Actions for CI/CD:
+
+- ✅ **Automated Testing**: All tests run on every push and pull request
+- ✅ **Code Quality**: ESLint checks on frontend code
+- ✅ **Security Scanning**: CodeQL analyzes code for vulnerabilities
+- ✅ **Dependency Review**: Checks for vulnerable dependencies
+- ✅ **Build Verification**: Ensures both backend and frontend build successfully
+
+Workflows are located in `.github/workflows/`:
+- `ci.yml` - Main CI pipeline (build, test, lint)
+- `codeql.yml` - Security code scanning
+- `dependency-review.yml` - Dependency vulnerability scanning
+
+See [CI.md](CI.md) for detailed CI/CD documentation.
+
 ## Troubleshooting
 
 ### Audio Not Playing
