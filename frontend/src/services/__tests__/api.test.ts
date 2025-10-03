@@ -2,10 +2,13 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { api } from '../api';
 import type { Theme, Conversation } from '../../types';
 
+// Mock fetch globally
+const mockFetch = vi.fn();
+global.fetch = mockFetch as unknown as typeof fetch;
+
 describe('API Service', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    global.fetch = vi.fn();
   });
 
   describe('getThemes', () => {
@@ -19,10 +22,10 @@ describe('API Service', () => {
         },
       ];
 
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockThemes,
-      });
+      } as Response);
 
       const result = await api.getThemes();
 
@@ -33,9 +36,9 @@ describe('API Service', () => {
     });
 
     it('should throw error on fetch failure', async () => {
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: false,
-      });
+      } as Response);
 
       await expect(api.getThemes()).rejects.toThrow('Failed to fetch themes');
     });
@@ -50,10 +53,10 @@ describe('API Service', () => {
         questions: ['Q1'],
       };
 
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockTheme,
-      });
+      } as Response);
 
       const result = await api.getTheme('theme-1');
 
@@ -64,9 +67,9 @@ describe('API Service', () => {
     });
 
     it('should throw error when theme not found', async () => {
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: false,
-      });
+      } as Response);
 
       await expect(api.getTheme('non-existent')).rejects.toThrow(
         'Failed to fetch theme'
@@ -85,10 +88,10 @@ describe('API Service', () => {
         },
       ];
 
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockConversations,
-      });
+      } as Response);
 
       const result = await api.getConversations();
 
@@ -108,10 +111,10 @@ describe('API Service', () => {
         messages: [],
       };
 
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockConversation,
-      });
+      } as Response);
 
       const result = await api.getConversation('conv-1');
 
@@ -131,10 +134,10 @@ describe('API Service', () => {
         messages: [],
       };
 
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockConversation,
-      });
+      } as Response);
 
       const result = await api.createConversation('theme-1');
 
@@ -150,9 +153,9 @@ describe('API Service', () => {
     });
 
     it('should throw error on creation failure', async () => {
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: false,
-      });
+      } as Response);
 
       await expect(api.createConversation('theme-1')).rejects.toThrow(
         'Failed to create conversation'
@@ -171,10 +174,10 @@ describe('API Service', () => {
         ...updateData,
       };
 
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockConversation,
-      });
+      } as Response);
 
       const result = await api.updateConversation('conv-1', updateData);
 
@@ -190,9 +193,9 @@ describe('API Service', () => {
     });
 
     it('should throw error on update failure', async () => {
-      (global.fetch as any).mockResolvedValue({
+      mockFetch.mockResolvedValue({
         ok: false,
-      });
+      } as Response);
 
       await expect(
         api.updateConversation('conv-1', { endTime: Date.now() })
