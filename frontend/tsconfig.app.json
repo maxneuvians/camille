@@ -25,5 +25,5 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src"],
-  "exclude": ["**/*.old.tsx", "**/*.old.ts"]
+  "exclude": ["**/*.old.tsx", "**/*.old.ts", "**/*.test.tsx", "**/*.test.ts", "**/__tests__"]
 }
