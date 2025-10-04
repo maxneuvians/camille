@@ -7,7 +7,15 @@
       "Pouvez-vous décrire une situation où vous avez dû travailler en équipe pour accomplir un objectif commun?",
       "Comment gérez-vous les conflits au sein d'une équipe?",
       "Qu'est-ce qui fait, selon vous, une équipe efficace?",
-      "Pouvez-vous donner un exemple d'un rôle que vous avez joué dans une équipe et comment cela a contribué au succès du projet?"
+      "Pouvez-vous donner un exemple d'un rôle que vous avez joué dans une équipe et comment cela a contribué au succès du projet?",
+      "Dans quelle mesure dépend-on de ses coéquipiers pour atteindre ses objectifs?",
+      "Quelle est la meilleure façon d'émettre son point de vue quand on travaille au sein d'une équipe?",
+      "Quels sont les critères essentiels à considérer afin de former une équipe interdisciplinaire?",
+      "Selon vous, quel est le mode de communication idéal au sein d'une équipe de travail?",
+      "D'après vous, constituer de manière aléatoire une équipe de travail est-elle la meilleure approche?",
+      "À quelle fréquence une équipe doit-elle se réunir afin d'assurer la réussite d'un projet?",
+      "Comment prendre en considération l'imputabilité du travail d'équipe, de manière individuelle ou collective?",
+      "Quels sont les inconvénients de la constitution d'une équipe transversale à la fonction publique?"
     ]
   },
   {
@@ -18,7 +26,13 @@
       "Comment adaptez-vous votre style de communication selon votre interlocuteur?",
       "Pouvez-vous décrire une fois où vous avez dû communiquer une information difficile?",
       "Comment assurez-vous que votre message est bien compris?",
-      "Quel est votre canal de communication préféré et pourquoi?"
+      "Quel est votre canal de communication préféré et pourquoi?",
+      "Selon vous, quelle est la valeur de la communication au travail?",
+      "Est-ce que la communication est toujours absolument nécessaire au bon fonctionnement d'une entreprise?",
+      "En quoi une politique de porte ouverte est préférable pour avoir une bonne communication?",
+      "Quelle est l'incidence d'un manque de communication sur la productivité au bureau?",
+      "D'après vous, quelles sont les meilleures techniques de communication que l'on peut appliquer de manière efficace au bureau?",
+      "La communication non verbale joue-t-elle un rôle majeur au travail?"
     ]
   },
   {
@@ -30,6 +44,300 @@
       "Pouvez-vous partager un exemple d'un problème difficile que vous avez résolu?",
       "Comment priorisez-vous plusieurs problèmes qui nécessitent votre attention?",
       "Qu'avez-vous appris d'une situation où votre solution n'a pas fonctionné comme prévu?"
+    ]
+  },
+  {
+    "id": "training",
+    "title": "La formation",
+    "description": "Discussion sur la formation et le développement professionnel",
+    "questions": [
+      "Jusqu'à quel point les nouvelles recrues sont-elles bien préparées et formées pour travailler à votre ministère?",
+      "Qu'est-ce qui pourrait être fait pour améliorer la formation des nouveaux employés à la fonction publique ou à votre ministère?",
+      "Si vous aviez l'occasion d'aller en formation, quel(s) cours aimeriez-vous suivre? Pourquoi?",
+      "Pensez-vous que votre ministère en fait assez pour encourager ses employés à développer leurs compétences et à suivre de la formation?",
+      "Quels sont les avantages et les inconvénients des cours offerts en ligne?",
+      "Pensez-vous avoir suivi une formation initiale adaptée à votre poste actuel?",
+      "Dans quelle mesure est-ce important pour un employé de suivre des formations régulièrement?",
+      "Que gagnent les employeurs à permettre à leurs employés d'aller en formation?"
+    ]
+  },
+  {
+    "id": "mentoring",
+    "title": "Le mentorat",
+    "description": "Discussion sur les programmes de mentorat en milieu de travail",
+    "questions": [
+      "Programme de mentorat formel ou informel? Quelle est, selon vous, la meilleure approche?",
+      "Jusqu'à quel point croyez-vous au bénéfice d'instaurer un programme de mentorat dans une organisation?",
+      "D'après vous, quels sont les avantages et les inconvénients du mentorat du point de vue de l'employeur? De l'employé?",
+      "Selon vous, qui devrait faire le choix du mentor des nouveaux employés?",
+      "Si vous aviez pu choisir un mentor au sein de votre organisation au début de votre emploi, qui auriez-vous choisi et pourquoi?"
+    ]
+  },
+  {
+    "id": "projects",
+    "title": "Les projets",
+    "description": "Discussion sur l'attribution et la gestion de projets",
+    "questions": [
+      "Selon vous, quelle est la façon la plus équitable d'attribuer des projets au sein des membres d'une équipe?",
+      "Est-il juste qu'un gestionnaire attribue toujours les projets les plus complexes aux employés avec le plus d'expérience?",
+      "Dans quelle mesure est-ce que les gestionnaires devraient encourager leurs employés à devenir plus polyvalents / experts en leur attribuant certains projets?",
+      "Est-ce que les gestionnaires devraient toujours prendre l'intérêt de leurs employés en ligne de compte lorsqu'ils attribuent des projets?",
+      "Dans quelle mesure peut-on attribuer des projets de manière aléatoire parmi les membres d'une équipe?",
+      "Jusqu'à quel point croyez-vous qu'il est important de tenir compte des résultats d'un test de personnalité quand on attribue un projet à quelqu'un?",
+      "À votre avis, quel est le facteur le plus important afin de mener à terme un projet? Le chef d'équipe ou les membres de l'équipe?"
+    ]
+  },
+  {
+    "id": "burnout",
+    "title": "L'épuisement professionnel",
+    "description": "Discussion sur l'épuisement professionnel et la gestion des heures supplémentaires",
+    "questions": [
+      "Croyez-vous que les fonctionnaires se font bien rémunérer pour les heures supplémentaires effectuées?",
+      "Que feriez-vous si vous deviez faire des heures supplémentaires cette fin de semaine, mais que vous aviez déjà planifié quelque chose d'autre?",
+      "Préférez-vous être payé en retour de vos heures supplémentaires effectuées ou préférez-vous recevoir des jours de congé? Pourquoi?",
+      "Comment peut-on éviter l'épuisement professionnel? En tant qu'employeur? En tant qu'employé?",
+      "Quelles sont les conséquences de l'épuisement professionnel pour l'employeur?"
+    ]
+  },
+  {
+    "id": "work-life-balance",
+    "title": "La conciliation travail/famille",
+    "description": "Discussion sur l'équilibre entre vie professionnelle et vie personnelle",
+    "questions": [
+      "Quels conseils donneriez-vous à un ou une collègue qui éprouve des difficultés à concilier travail et famille?",
+      "À votre avis, qu'est-ce qui est le plus important, le travail ou la famille? Expliquez pourquoi.",
+      "Croyez-vous que la conciliation travail/famille est un mythe?",
+      "Quelles ressources pourraient être mises en place pour permettre la conciliation travail/famille?",
+      "Comment le télétravail pourrait-il améliorer ou non vos conditions de travail actuelles?",
+      "Quelle est l'incidence d'un déséquilibre entre la vie personnelle et la vie professionnelle sur le bien-être d'un individu?",
+      "Dans quelle mesure les avancées technologiques ont-elles modifié notre façon de vivre et de travailler dans le monde occidental?",
+      "Selon vous, quel a été l'impact des avancées sociales dans l'amélioration des conditions de vie dans les sociétés modernes?"
+    ]
+  },
+  {
+    "id": "stress-management",
+    "title": "La gestion du stress",
+    "description": "Discussion sur les techniques de gestion du stress au travail",
+    "questions": [
+      "Quelles sont les techniques que vous utilisez pour gérer votre niveau de stress?",
+      "Est-ce qu'il y a des programmes de soutien à votre bureau pour aider les employés qui souffrent de stress et de problèmes personnels?",
+      "Jusqu'à quel point le stress a-t-il un impact sur le roulement de personnel au bureau?",
+      "Jusqu'à quel point la population canadienne est-elle trop dépendante des médicaments de nos jours?",
+      "À votre avis, est-ce que le stress a un impact sur le rendement des employés?",
+      "Les patrons ou les cadres supérieurs sont-ils qualifiés pour conseiller les employés qui auraient des problèmes personnels?",
+      "Selon vous, pourquoi est-ce important de préserver l'anonymat des employés lorsque ceux-ci consultent des programmes de soutien?",
+      "Jusqu'à quel point un travail prenant peut-il avoir des effets néfastes sur le rythme de vie?",
+      "D'après vous, quelles techniques pourrait-on développer pour devenir imperméable au stress?"
+    ]
+  },
+  {
+    "id": "time-management",
+    "title": "La gestion du temps",
+    "description": "Discussion sur l'organisation et la gestion efficace du temps",
+    "questions": [
+      "Croyez-vous que la haute gestion tient compte des facteurs humains et des réalités opérationnelles lorsqu'elle établit des dates d'échéance?",
+      "Seriez-vous à l'aise de demander un délai si on vous donnait une date d'échéance que vous saviez trop courte?",
+      "Quelles qualités essentielles doit-on posséder pour effectuer un excellent travail dans un court délai?",
+      "Quels conseils donneriez-vous à un employé qui se sent stressé par le montant de travail à faire au bureau?",
+      "Jusqu'à quel point est-ce que l'organisation est importante au travail?",
+      "À votre avis, est-il possible d'apprendre à devenir organisé?",
+      "Jusqu'à quel point le recours excessif aux heures supplémentaires est-il un signe d'une mauvaise organisation?"
+    ]
+  },
+  {
+    "id": "outsourcing",
+    "title": "La sous-traitance",
+    "description": "Discussion sur l'externalisation et le recours aux contractuels",
+    "questions": [
+      "Que pensez-vous du fait d'embaucher des sous-traitants ou des contractuels au lieu d'augmenter le nombre d'employés réguliers?",
+      "Quels sont les défis lorsqu'on travaille avec des employés contractuels?",
+      "Dans quelle mesure l'établissement d'un cahier des charges très précis peut éviter bien des déboires lors de l'exécution d'un contrat avec un sous-traitant?",
+      "Comment prévenir un dépassement des coûts lorsqu'on fait appel à la sous-traitance?",
+      "Les besoins en spécialistes devraient-ils toujours être comblés par des sous-traitants?",
+      "Jusqu'à quel point le recours à l'externalisation des services devrait être limité?"
+    ]
+  },
+  {
+    "id": "leadership",
+    "title": "Le leadership",
+    "description": "Discussion sur les qualités et compétences en leadership",
+    "questions": [
+      "Quelles qualités indispensables font un bon leader?",
+      "Croyez-vous que votre patron détient toutes les qualités pour être un bon leader?",
+      "Peut-on être formé pour devenir un bon leader?",
+      "Selon vous, êtes-vous un bon leader? (Seriez-vous un bon leader?)",
+      "Est-ce qu'un patron peut imposer ses choix concernant, entre autres, l'attribution des vacances et les horaires de travail?",
+      "D'après vous, le patron idéal existe-t-il?",
+      "Collaboration ou contribution : quel est selon vous le meilleur style de gestion pour créer un milieu de travail efficace et positif?",
+      "« Pas besoin d'un titre pour être un bon leader ». Jusqu'à quel point êtes-vous d'accord avec cet énoncé?"
+    ]
+  },
+  {
+    "id": "motivation",
+    "title": "La motivation",
+    "description": "Discussion sur la motivation au travail et ses facteurs",
+    "questions": [
+      "À votre avis, pourquoi les employés d'un bureau perdent-ils souvent leur motivation malgré le fait qu'ils soient parfois très bien rémunérés?",
+      "Est-ce que la motivation devrait être externe ou devrait-elle plutôt venir de l'intérieur de soi?",
+      "Qui doit être responsable de la motivation des employés au bureau?",
+      "Quelle incidence un manque de motivation peut-il avoir sur le rendement au bureau?",
+      "À votre avis, quelle est la pire conséquence de travailler avec un ou plusieurs employés qui manquent de motivation?",
+      "Que feriez-vous pour conseiller quelqu'un qui est déprimé et qui a perdu sa motivation au travail?",
+      "De quelle manière un manque ou un excès de responsabilités peut-il décourager un individu au travail?"
+    ]
+  },
+  {
+    "id": "recognition",
+    "title": "La reconnaissance",
+    "description": "Discussion sur l'importance de la reconnaissance au travail",
+    "questions": [
+      "Êtes-vous pour ou contre les marques de reconnaissance au bureau?",
+      "En tant que (si vous étiez) directeur/gestionnaire, comment est-ce que vous choisiriez de reconnaître une personne qui a fait du bon travail au bureau?",
+      "Jusqu'à quel point est-ce juste de dire que la reconnaissance améliore le rendement des employés?",
+      "Comment est-ce que votre direction pourrait améliorer la façon dont elle reconnaît ses employés?",
+      "Seriez-vous d'accord d'éliminer des prix monétaires en vue de réduire les dépenses à la fonction publique?",
+      "Croyez-vous qu'un manque de reconnaissance mène à de l'insatisfaction au travail?",
+      "Selon vous, la reconnaissance est-elle une nécessité ou un privilège?",
+      "Comment le fait de recevoir de la reconnaissance peut être un antidote efficace à l'effet néfaste du stress?",
+      "Quelles sont, selon vous, les marques de reconnaissance les plus touchantes pour un employé?",
+      "L'adage dit: « on ne fait pas d'omelette sans casser d'œufs ». D'après vous, le prix à payer pour les erreurs est-il toujours négatif?"
+    ]
+  },
+  {
+    "id": "negotiation",
+    "title": "La négociation",
+    "description": "Discussion sur les compétences et stratégies de négociation",
+    "questions": [
+      "Pourquoi est-il important de savoir négocier?",
+      "À votre avis, quels sont les meilleurs résultats d'une bonne négociation?",
+      "Quelles sont quelques erreurs à éviter dans une négociation?",
+      "Avec du recul, qu'auriez-vous fait différemment lors d'une négociation?",
+      "Quels conseils donneriez-vous à un jeune qui doit négocier quelque chose avec un nouvel employeur?",
+      "Jusqu'à quel point croyez-vous qu'on peut négocier sans avoir confiance en soi?",
+      "Croyez-vous qu'on peut être bon négociateur sans savoir bien écouter?",
+      "Dans quelle mesure croyez-vous avoir les compétences nécessaires pour négocier avec votre directeur / directrice?"
+    ]
+  },
+  {
+    "id": "conflict-management",
+    "title": "La gestion des conflits",
+    "description": "Discussion sur la résolution et la prévention des conflits",
+    "questions": [
+      "Quels conseils donneriez-vous à un ou une collègue qui vit un conflit avec un autre collègue pour l'aider à régler ce conflit?",
+      "Si vous étiez gestionnaire/directeur, quelles mesures mettriez-vous en place pour éviter les conflits entre employés?",
+      "Selon vous, quel est le facteur le plus important pour éviter les conflits au travail?",
+      "Jusqu'à quel point est-ce que les conflits au travail peuvent avoir une incidence sur le rendement des employés?",
+      "Dans quelle mesure diriez-vous que les relations interpersonnelles sont toujours à l'origine des conflits en milieu de travail?",
+      "Avoir une politique de porte ouverte est-il suffisant pour régler les conflits au bureau?",
+      "Dans quelle mesure le gestionnaire doit-il prendre en compte l'historique de l'employé pour régler un conflit de travail?",
+      "Selon vous, à quelle étape de la gestion de conflit doit-on recourir à des services externes?",
+      "À votre avis, l'ampleur d'un conflit est-elle toujours liée au niveau de mécontentement des employés?"
+    ]
+  },
+  {
+    "id": "change-management",
+    "title": "Le changement",
+    "description": "Discussion sur l'adaptation et la gestion du changement",
+    "questions": [
+      "Quel changement aimeriez-vous voir se réaliser actuellement à votre bureau? Serait-il possible de le réaliser?",
+      "À votre avis, comment un changement affecte-t-il le niveau de stress d'un employé à la fonction publique?",
+      "Jusqu'à quel point est-ce primordial qu'un fonctionnaire puisse faire face aux changements?",
+      "Comment pourrait-on aider les fonctionnaires à faire face aux changements au travail?",
+      "Quels conseils donneriez-vous à un collègue qui accepte mal un changement au travail?",
+      "Selon vous, le niveau d'adaptabilité d'un employé est-il proportionnel à sa productivité?",
+      "Jusqu'à quel point un patron peut-il faire passer en force un changement au travail?"
+    ]
+  },
+  {
+    "id": "bullying",
+    "title": "L'intimidation",
+    "description": "Discussion sur le harcèlement et l'intimidation en milieu de travail",
+    "questions": [
+      "Selon vous, comment un employé pourrait-il régler une situation d'intimidation / de harcèlement au travail?",
+      "Selon vous, quelles sont les origines d'une situation de harcèlement au travail?",
+      "Avez-vous déjà été témoin d'une situation de harcèlement ou d'intimidation au travail?",
+      "Qui est le mieux placé pour éliminer l'intimidation dans le milieu de travail?",
+      "Comme victime ou témoin, faut-il en parler ou se taire?",
+      "Quelles sont, d'après vous, les meilleures mesures à prendre pour prévenir l'intimidation?",
+      "Quelle est la meilleure approche pour régler ce problème?",
+      "Quels conseils donneriez-vous à une victime ou un témoin de l'intimidation?",
+      "Comment peut-on briser le tabou de l'intimidation - la violence en milieu de travail?"
+    ]
+  },
+  {
+    "id": "business-travel",
+    "title": "Les voyages d'affaires",
+    "description": "Discussion sur les déplacements professionnels et leurs alternatives",
+    "questions": [
+      "Existe-t-il des alternatives aux voyages d'affaires?",
+      "Jusqu'à quel point les résultats et les retombées d'un voyage d'affaires typique justifient-ils le grand montant d'argent dépensé par le gouvernement pour envoyer des fonctionnaires dans d'autres régions?",
+      "Dans quelles situations les voyages d'affaires sont-ils essentiels?",
+      "D'après vous, dans quelles circonstances peut-on considérer que les voyages d'affaires sont rentables?",
+      "Devrait-on toujours privilégier les facteurs financiers pour justifier le choix des déplacements professionnels?",
+      "Dans quelle mesure doit-on prendre en compte les facteurs environnementaux avant d'organiser un déplacement?"
+    ]
+  },
+  {
+    "id": "leave",
+    "title": "Les congés",
+    "description": "Discussion sur la gestion et l'attribution des congés",
+    "questions": [
+      "Comment les demandes de congés annuels doivent-elles être attribuées?",
+      "Certains disent que les employés du service public ont trop de congés. Êtes-vous d'accord?",
+      "Les employés ont un nombre limité de jours de congé de maladie. Comment devrait répondre un gestionnaire face à un employé malade qui n'aurait plus de jours de maladie disponibles?",
+      "Selon vous, quelle est la meilleure méthode pour assurer la relève dans le cadre d'un congé de longue durée?",
+      "Les Canadiens ont très peu de congés payés par rapport aux autres pays occidentaux. Pensez-vous que c'est une situation préoccupante?"
+    ]
+  },
+  {
+    "id": "remote-work",
+    "title": "Le télétravail",
+    "description": "Discussion sur le travail à distance et ses impacts",
+    "questions": [
+      "Jusqu'à quel point croyez-vous que le télétravail permet un meilleur rendement des employés?",
+      "Dans quelle mesure est-ce possible de concilier responsabilités professionnelles et familiales?",
+      "Si cela était possible pour votre type de travail, quelles raisons vous inciteraient le plus à faire du télétravail?",
+      "Pour quelles raisons croyez-vous que le télétravail n'est pas davantage pratiqué de nos jours?",
+      "D'après vous, est-ce nécessaire que les employés soient au bureau pour effectuer un meilleur travail?"
+    ]
+  },
+  {
+    "id": "financial-management",
+    "title": "La gestion financière",
+    "description": "Discussion sur la gestion budgétaire et l'efficacité financière",
+    "questions": [
+      "Est-ce que les fusions d'organismes fédéraux ont réellement permis d'améliorer l'efficacité de la fonction publique et, de plus, d'économiser de l'argent public?",
+      "Selon vous, l'aspect financier constitue-t-il un élément incontournable dans la réalisation d'un projet?",
+      "Jusqu'à quel point un spécialiste des finances doit-il être rigoureux?",
+      "Quelle est l'incidence d'une gestion financière chaotique dans une organisation?",
+      "Dans quelle mesure un sous-financement chronique peut miner les services rendus à la clientèle?",
+      "L'efficacité financière est-elle toujours synonyme de performance?",
+      "D'après vous, comment pourrait-on améliorer les connaissances financières de tous les fonctionnaires?"
+    ]
+  },
+  {
+    "id": "technology",
+    "title": "La technologie",
+    "description": "Discussion sur l'impact de la technologie au travail",
+    "questions": [
+      "Dans quelle mesure la technologie peut-elle être une source de stress au travail?",
+      "De nos jours, pourrait-on se passer des outils informatiques?",
+      "Selon vous, sommes-nous devenus accros aux derniers gadgets électroniques?",
+      "Est-ce un mythe de penser que la nouvelle génération maîtrise mieux les technologies?",
+      "Dans un monde idéal, quelle est l'avancée technologique que vous aimeriez voir au bureau?",
+      "Dans quelles circonstances la technologie peut-elle constituer un frein dans l'avancée des tâches?"
+    ]
+  },
+  {
+    "id": "environment",
+    "title": "L'environnement",
+    "description": "Discussion sur les pratiques environnementales au travail",
+    "questions": [
+      "Comment le gouvernement pourrait-il convaincre les Canadiens à changer leurs habitudes afin de réduire leur empreinte écologique?",
+      "Jusqu'à quel point les programmes de recyclage au travail affectent-ils le milieu de travail?",
+      "Les programmes de recyclage devraient-ils être obligatoire et sanctionner les personnes réfractaires?",
+      "En quoi les changements environnementaux devraient être la préoccupation de tous?",
+      "Selon vous, quels gestes concrets ont un réel impact sur la préservation de notre environnement?"
     ]
   }
 ]
