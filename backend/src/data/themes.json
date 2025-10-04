@@ -339,5 +339,66 @@
       "En quoi les changements environnementaux devraient être la préoccupation de tous?",
       "Selon vous, quels gestes concrets ont un réel impact sur la préservation de notre environnement?"
     ]
+  },
+  {
+    "id": "volunteerism",
+    "title": "Le volontarisme",
+    "description": "Discussion sur le bénévolat et l'engagement volontaire",
+    "questions": [
+      "Selon vous, quelle est l'importance du bénévolat dans notre société?",
+      "Avez-vous déjà participé à des activités de bénévolat? Quelle a été votre expérience?",
+      "Comment le bénévolat peut-il enrichir le développement professionnel d'un individu?",
+      "Pensez-vous que les employeurs devraient encourager leurs employés à faire du bénévolat pendant les heures de travail?",
+      "Quels sont les avantages pour une organisation de soutenir les initiatives de bénévolat de ses employés?",
+      "Dans quelle mesure le bénévolat peut-il contribuer à améliorer l'image d'une organisation?",
+      "Comment pourrait-on encourager davantage les fonctionnaires à s'engager dans des activités bénévoles?",
+      "Selon vous, quelles compétences acquises par le bénévolat peuvent être transférables au milieu de travail?",
+      "Croyez-vous que le bénévolat devrait être reconnu formellement dans l'évaluation du rendement des employés?",
+      "Jusqu'à quel point les programmes de bénévolat en entreprise peuvent-ils améliorer la cohésion d'équipe?",
+      "Quels types d'activités bénévoles seraient les plus appropriés pour les fonctionnaires?",
+      "Dans quelle mesure un employeur devrait-il faciliter la participation de ses employés à des activités bénévoles?"
+    ]
+  },
+  {
+    "id": "diversity-inclusion",
+    "title": "La diversité et l'inclusion",
+    "description": "Discussion sur la diversité, l'équité et l'inclusion en milieu de travail",
+    "questions": [
+      "Selon vous, quelle est l'importance de la diversité en milieu de travail?",
+      "Comment peut-on créer un environnement de travail véritablement inclusif?",
+      "Quels sont les avantages d'avoir une équipe diversifiée au sein d'une organisation?",
+      "Comment assurez-vous que toutes les voix sont entendues lors des réunions d'équipe?",
+      "Jusqu'à quel point la compétence culturelle est-elle importante dans la fonction publique?",
+      "Quels obstacles empêchent certaines personnes d'accéder à des postes de leadership?",
+      "Comment peut-on identifier et combattre les préjugés inconscients en milieu de travail?",
+      "Dans quelle mesure les programmes de diversité et d'inclusion sont-ils efficaces dans votre organisation?",
+      "Que feriez-vous si vous étiez témoin d'un comportement discriminatoire au travail?",
+      "Comment le gouvernement peut-il mieux refléter la diversité de la population canadienne?",
+      "Quelles mesures concrètes peuvent être mises en place pour favoriser l'équité en matière d'avancement professionnel?",
+      "Selon vous, comment peut-on concilier l'embauche basée sur le mérite et les objectifs de diversité?",
+      "Dans quelle mesure l'accessibilité pour les personnes en situation de handicap est-elle une priorité dans votre milieu de travail?",
+      "Comment peut-on s'assurer que les politiques organisationnelles ne désavantagent aucun groupe particulier?"
+    ]
+  },
+  {
+    "id": "professional-ethics",
+    "title": "L'éthique professionnelle",
+    "description": "Discussion sur l'intégrité, les valeurs et la conduite éthique au travail",
+    "questions": [
+      "Selon vous, quelles sont les valeurs fondamentales qui devraient guider un fonctionnaire?",
+      "Comment réagiriez-vous si on vous demandait de faire quelque chose qui va à l'encontre de vos valeurs personnelles?",
+      "Quel rôle joue la transparence dans le maintien de la confiance du public envers le gouvernement?",
+      "Que feriez-vous si vous étiez témoin d'un comportement contraire à l'éthique de la part d'un collègue?",
+      "Comment gérez-vous une situation où la loyauté envers votre organisation entre en conflit avec l'intérêt public?",
+      "Dans quelle mesure les fonctionnaires doivent-ils éviter les conflits d'intérêts, même perçus?",
+      "Quelles sont les conséquences d'un manquement à l'éthique dans la fonction publique?",
+      "Comment peut-on favoriser une culture d'intégrité au sein d'une organisation?",
+      "Jusqu'à quel point un employé devrait-il dénoncer des pratiques qu'il juge contraires à l'éthique?",
+      "Selon vous, comment devrait-on former les fonctionnaires aux questions d'éthique professionnelle?",
+      "Dans quelle mesure la confidentialité est-elle importante dans votre travail quotidien?",
+      "Comment peut-on maintenir son intégrité professionnelle face aux pressions politiques ou hiérarchiques?",
+      "Quels mécanismes de protection devraient exister pour les dénonciateurs dans la fonction publique?",
+      "Selon vous, l'éthique professionnelle est-elle une responsabilité individuelle ou organisationnelle?"
+    ]
   }
 ]
