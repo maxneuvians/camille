@@ -299,8 +299,6 @@ npm run test:coverage --workspace=frontend
 - **Frontend**: 15 tests using Vitest (components, API client)
 - **Total**: 44 automated tests
 
-See [TESTING.md](TESTING.md) for detailed testing documentation.
-
 ## Continuous Integration
 
 This project uses GitHub Actions for CI/CD:
@@ -312,13 +310,10 @@ This project uses GitHub Actions for CI/CD:
 - ✅ **Build Verification**: Ensures both backend and frontend build successfully
 
 Workflows are located in `.github/workflows/`:
+
 - `ci.yml` - Main CI pipeline (build, test, lint)
 - `codeql.yml` - Security code scanning
 - `dependency-review.yml` - Dependency vulnerability scanning
-
-See [CI.md](CI.md) for detailed CI/CD documentation.
-
-## Troubleshooting
 
 ### Audio Not Playing
 
