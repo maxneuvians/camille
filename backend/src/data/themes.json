@@ -1,5 +1,11 @@
 [
   {
+    "id": "warmup",
+    "title": "Échauffement",
+    "description": "Conversation informelle pour se détendre",
+    "questions": []
+  },
+  {
     "id": "teamwork",
     "title": "Le travail en équipe",
     "description": "Discussion sur les compétences et expériences de travail en équipe",

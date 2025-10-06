@@ -19,6 +19,7 @@ export interface Conversation {
   endTime?: number;
   messages: ConversationMessage[];
   evaluation?: ConversationEvaluation;
+  isWarmup?: boolean;
 }
 
 export interface ConversationEvaluation {

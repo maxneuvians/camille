@@ -20,7 +20,8 @@ export function ThemeSelector({ onSelect }: ThemeSelectorProps) {
     try {
       setLoading(true);
       const data = await api.getThemes();
-      setThemes(data);
+      // Filter out the warmup theme from the interview theme selector
+      setThemes(data.filter(theme => theme.id !== 'warmup'));
     } catch (err) {
       setError("Erreur lors du chargement des thèmes");
       console.error(err);

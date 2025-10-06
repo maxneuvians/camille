@@ -5,10 +5,12 @@ export class AudioClient {
   private audioChunks: Blob[] = [];
   private conversationId: string;
   private apiKey: string;
+  private isWarmup: boolean;
 
-  constructor(conversationId: string, apiKey: string) {
+  constructor(conversationId: string, apiKey: string, isWarmup: boolean = false) {
     this.conversationId = conversationId;
     this.apiKey = apiKey;
+    this.isWarmup = isWarmup;
   }
 
   async startRecording(): Promise<void> {
@@ -76,6 +78,7 @@ export class AudioClient {
     formData.append("audio", audioBlob);
     formData.append("conversationId", this.conversationId);
     formData.append("apiKey", this.apiKey);
+    formData.append("isWarmup", this.isWarmup.toString());
 
     const response = await fetch(`${API_BASE}/api/audio/process`, {
       method: "POST",

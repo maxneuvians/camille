@@ -21,7 +21,7 @@ router.post(
   upload.single("audio"),
   async (req: Request, res: Response) => {
     try {
-      const { conversationId, apiKey } = req.body;
+      const { conversationId, apiKey, isWarmup } = req.body;
 
       if (!conversationId || !apiKey) {
         return res
@@ -36,10 +36,14 @@ router.post(
       // Initialize OpenAI with the provided API key
       AudioService.initialize(apiKey);
 
-      // Process the audio
+      // Convert isWarmup to boolean - form data comes as string
+      const isWarmupBoolean = isWarmup === 'true' || isWarmup === true;
+
+      // Process the audio with warmup flag
       const result = await AudioService.processAudioInteraction(
         conversationId,
-        req.file.buffer
+        req.file.buffer,
+        isWarmupBoolean
       );
 
       const audioBase64 = result.audioBuffer.toString("base64");

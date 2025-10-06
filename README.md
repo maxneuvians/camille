@@ -13,6 +13,7 @@ Interactive French voice agent## Prerequisites
 ## Features
 
 - 🎤 **Voice Conversations**: Speak naturally with an AI agent in French
+- 🌟 **Warmup Mode**: Optional casual conversation before interviews (not recorded)
 - 🔄 **Speech-to-Text-to-Speech**: Reliable audio processing pipeline using OpenAI APIs
 - 💬 **Live Transcription**: See conversation transcripts in real-time
 - 🎯 **Themed Interviews**: Pre-defined themes with professional interview questions
@@ -140,17 +141,21 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
 
 ## Usage
 
-1. **Select a Theme**: Choose from pre-defined interview themes like "Le travail en équipe"
-2. **Enter API Key**: Provide your OpenAI API key (stored locally in browser)
-3. **Connect**: Click "Se connecter" to initialize the audio system
-4. **Push to Talk**: Hold down the microphone button to speak, release to process
-5. **Wait for Response**: The system will:
+1. **Warmup (Optional)**: Choose to start with a casual warmup conversation
+   - Light-hearted questions to relax before the interview
+   - Topics include: name, workplace, weather, weekend activities
+   - **Not recorded** - purely for practice and relaxation
+2. **Select a Theme**: Choose from pre-defined interview themes like "Le travail en équipe"
+3. **Enter API Key**: Provide your OpenAI API key (stored locally in browser)
+4. **Connect**: Click "Se connecter" to initialize the audio system
+5. **Push to Talk**: Hold down the microphone button to speak, release to process
+6. **Wait for Response**: The system will:
    - Transcribe your speech using Whisper
    - Generate a response using GPT-4
    - Convert the response to speech using TTS
    - Play the audio automatically
-6. **View Transcripts**: See the conversation transcript in real-time
-7. **End Conversation**: Click "Terminer" to save and exit
+7. **View Transcripts**: See the conversation transcript in real-time
+8. **End Conversation**: Click "Terminer" to save and exit
 
 ## How It Works
 
