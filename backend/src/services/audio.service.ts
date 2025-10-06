@@ -40,13 +40,23 @@ export class AudioService {
     isWarmup: boolean = false
   ): Promise<string> {
     try {
-      const conversation = DataService.getConversationById(conversationId);
-      if (!conversation && !isWarmup) {
-        throw new Error("Conversation not found");
+      let conversation = DataService.getConversationById(conversationId);
+      
+      if (!conversation) {
+        if (!isWarmup) {
+          throw new Error("Conversation not found");
+        }
+        // In warmup mode, create a temporary conversation object to ensure consistent state
+        conversation = {
+          id: conversationId,
+          themeId: 'warmup',
+          startTime: Date.now(),
+          messages: [],
+          isWarmup: true
+        };
       }
 
       let systemPrompt: string;
-      let conversationHistory: ConversationMessage[] = [];
 
       if (isWarmup) {
         // Warmup mode: casual conversation with simple questions
@@ -68,15 +78,8 @@ Questions à poser (pas nécessairement dans cet ordre, adapte-toi à la convers
 5. Qu'est-ce que tu prévois pour le prochain week-end?
 
 Ne pose qu'une seule question à la fois. Après 4-5 échanges, remercie la personne et indique que vous allez passer à l'entretien principal.`;
-        
-        // For warmup, use in-memory messages if available
-        conversationHistory = conversation?.messages || [];
       } else {
         // Regular interview mode
-        if (!conversation) {
-          throw new Error("Conversation not found");
-        }
-
         const theme = DataService.getThemeById(conversation.themeId);
         if (!theme) {
           throw new Error("Theme not found");
@@ -98,8 +101,6 @@ Instructions:
 - Pose des questions de suivi si nécessaire pour approfondir
 - Encourage la personne à donner des exemples concrets
 - À la fin, remercie la personne pour son temps`;
-
-        conversationHistory = conversation.messages;
       }
 
       // Build conversation history
@@ -108,7 +109,7 @@ Instructions:
           role: "system" as const,
           content: systemPrompt,
         },
-        ...conversationHistory.map((msg) => ({
+        ...conversation.messages.map((msg) => ({
           role: msg.role as "user" | "assistant",
           content: msg.content,
         })),
@@ -128,7 +129,7 @@ Instructions:
       const response = completion.choices[0]?.message?.content || "";
 
       // Save messages to conversation only if not warmup
-      if (!isWarmup && conversation) {
+      if (!isWarmup) {
         const userMsg: ConversationMessage = {
           role: "user",
           content: userMessage,
