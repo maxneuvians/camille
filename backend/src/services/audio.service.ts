@@ -36,24 +36,53 @@ export class AudioService {
    */
   static async generateResponse(
     conversationId: string,
-    userMessage: string
+    userMessage: string,
+    isWarmup: boolean = false
   ): Promise<string> {
     try {
       const conversation = DataService.getConversationById(conversationId);
-      if (!conversation) {
+      if (!conversation && !isWarmup) {
         throw new Error("Conversation not found");
       }
 
-      const theme = DataService.getThemeById(conversation.themeId);
-      if (!theme) {
-        throw new Error("Theme not found");
-      }
+      let systemPrompt: string;
+      let conversationHistory: ConversationMessage[] = [];
 
-      // Build conversation history
-      const messages = [
-        {
-          role: "system" as const,
-          content: `Tu es un agent vocal français qui conduit des entretiens professionnels.
+      if (isWarmup) {
+        // Warmup mode: casual conversation with simple questions
+        systemPrompt = `Tu es un agent vocal français chaleureux qui engage une conversation informelle pour détendre l'atmosphère.
+
+Instructions:
+- Parle uniquement en français
+- Sois très chaleureux, amical et décontracté
+- Pose des questions simples et légères, une par une
+- Écoute attentivement les réponses
+- Fais des commentaires encourageants
+- Garde les échanges courts et naturels
+
+Questions à poser (pas nécessairement dans cet ordre, adapte-toi à la conversation):
+1. Comment t'appelles-tu?
+2. Où travailles-tu?
+3. Comment a été la météo récemment?
+4. Qu'as-tu fait ce week-end?
+5. Qu'est-ce que tu prévois pour le prochain week-end?
+
+Ne pose qu'une seule question à la fois. Après 4-5 échanges, remercie la personne et indique que vous allez passer à l'entretien principal.`;
+        
+        // For warmup, use in-memory messages if available
+        conversationHistory = conversation?.messages || [];
+      } else {
+        // Regular interview mode
+        if (!conversation) {
+          throw new Error("Conversation not found");
+        }
+
+        const theme = DataService.getThemeById(conversation.themeId);
+        if (!theme) {
+          throw new Error("Theme not found");
+        }
+
+        systemPrompt = `Tu es un agent vocal français qui conduit des entretiens professionnels.
 
 Thème de l'entretien: ${theme.title}
 Description: ${theme.description}
@@ -68,9 +97,18 @@ Instructions:
 - Écoute attentivement les réponses
 - Pose des questions de suivi si nécessaire pour approfondir
 - Encourage la personne à donner des exemples concrets
-- À la fin, remercie la personne pour son temps`,
+- À la fin, remercie la personne pour son temps`;
+
+        conversationHistory = conversation.messages;
+      }
+
+      // Build conversation history
+      const messages = [
+        {
+          role: "system" as const,
+          content: systemPrompt,
         },
-        ...conversation.messages.map((msg) => ({
+        ...conversationHistory.map((msg) => ({
           role: msg.role as "user" | "assistant",
           content: msg.content,
         })),
@@ -89,23 +127,25 @@ Instructions:
 
       const response = completion.choices[0]?.message?.content || "";
 
-      // Save messages to conversation
-      const userMsg: ConversationMessage = {
-        role: "user",
-        content: userMessage,
-        timestamp: Date.now(),
-        audio: true,
-      };
+      // Save messages to conversation only if not warmup
+      if (!isWarmup && conversation) {
+        const userMsg: ConversationMessage = {
+          role: "user",
+          content: userMessage,
+          timestamp: Date.now(),
+          audio: true,
+        };
 
-      const assistantMsg: ConversationMessage = {
-        role: "assistant",
-        content: response,
-        timestamp: Date.now(),
-        audio: true,
-      };
+        const assistantMsg: ConversationMessage = {
+          role: "assistant",
+          content: response,
+          timestamp: Date.now(),
+          audio: true,
+        };
 
-      conversation.messages.push(userMsg, assistantMsg);
-      DataService.saveConversation(conversation);
+        conversation.messages.push(userMsg, assistantMsg);
+        DataService.saveConversation(conversation);
+      }
 
       return response;
     } catch (error) {
@@ -139,14 +179,15 @@ Instructions:
    */
   static async processAudioInteraction(
     conversationId: string,
-    audioBuffer: Buffer
+    audioBuffer: Buffer,
+    isWarmup: boolean = false
   ): Promise<{ text: string; response: string; audioBuffer: Buffer }> {
     // Step 1: Transcribe audio
     const text = await this.transcribeAudio(audioBuffer);
     console.log("Transcribed:", text);
 
     // Step 2: Generate response
-    const response = await this.generateResponse(conversationId, text);
+    const response = await this.generateResponse(conversationId, text, isWarmup);
     console.log("Generated response:", response);
 
     // Step 3: Convert to speech

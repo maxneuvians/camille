@@ -27,11 +27,11 @@ export const api = {
     return response.json();
   },
 
-  async createConversation(themeId: string): Promise<Conversation> {
+  async createConversation(themeId: string, isWarmup: boolean = false): Promise<Conversation> {
     const response = await fetch(`${API_BASE}/conversations`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ themeId })
+      body: JSON.stringify({ themeId, isWarmup })
     });
     if (!response.ok) throw new Error('Failed to create conversation');
     return response.json();
