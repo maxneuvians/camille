@@ -1,8 +1,16 @@
+export type Level = 'A' | 'B' | 'C';
+
+export interface Question {
+  text: string;
+  followUps?: string[];
+}
+
 export interface Theme {
   id: string;
   title: string;
   description: string;
-  questions: string[];
+  level: Level;
+  questions: Question[];
 }
 
 export interface ConversationMessage {
@@ -19,7 +27,6 @@ export interface Conversation {
   endTime?: number;
   messages: ConversationMessage[];
   evaluation?: ConversationEvaluation;
-  isWarmup?: boolean;
 }
 
 export interface ConversationEvaluation {

@@ -1,410 +1,1562 @@
 [
   {
-    "id": "warmup",
-    "title": "Échauffement",
-    "description": "Conversation informelle pour se détendre",
-    "questions": []
+    "id": "warmup-a",
+    "title": "Échauffement - Niveau A",
+    "description": "Questions simples pour se familiariser avec le format",
+    "level": "A",
+    "questions": [
+      {
+        "text": "Où travaillez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "À quel ministère, direction et division travaillez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "Décrivez-moi votre trajet de la maison jusqu’au travail.",
+        "followUps": []
+      },
+      {
+        "text": "Qu’est-ce que vous aimez de votre poste de travail ?",
+        "followUps": []
+      },
+      {
+        "text": "Qu’est-ce que n’aimez pas de votre poste de travail ?",
+        "followUps": []
+      },
+      {
+        "text": "Laquelle de vos tâches délégueriez-vous volontiers à votre patron ? Pourquoi ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les étapes à suivre pour que vous obteniez un congé d’étude payé ?",
+        "followUps": []
+      },
+      {
+        "text": "Parlez des étapes d’une réunion productive.",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce que vous aimez faire du télétravail ?",
+        "followUps": []
+      },
+      {
+        "text": "Pour quelle agence ou ministère travaillez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est votre poste et comment l’avez-vous obtenus ?",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce qu’il y a un service d’autobus dans votre ville ?",
+        "followUps": []
+      },
+      {
+        "text": "Parlez-moi d’un ou d’une collègue avec qui vous aimez travailler.",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce que vous faites du télétravail chaque jours ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les démarches à entreprendre pour déposer un grief ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est la procédure à suivre pour qu’un gestionnaire se fasse remplacer ?",
+        "followUps": []
+      },
+      {
+        "text": "De quelles natures sont les réunions auxquelles vous assistez ?",
+        "followUps": []
+      },
+      {
+        "text": "Quels est votre poste et depuis combien de temps l’occupez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quel ministère travaillez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "Comment vous rendez-vous de votre bureau à la salle de conférence au travail ?",
+        "followUps": []
+      }
+    ]
   },
   {
-    "id": "teamwork",
-    "title": "Le travail en équipe",
+    "id": "work-context-a",
+    "title": "Contexte de travail - Niveau A",
+    "description": "Questions sur votre environnement et routine de travail",
+    "level": "A",
+    "questions": [
+      {
+        "text": "Parmi toutes vos tâches, lesquelles demandent une connaissance spécialisée ?",
+        "followUps": []
+      },
+      {
+        "text": "Quels objets se trouvent sur votre bureau ?",
+        "followUps": []
+      },
+      {
+        "text": "Laquelle de vos tâches élimineriez-vous parce qu’elles sont inutiles selon vous ?",
+        "followUps": []
+      },
+      {
+        "text": "Comment vous y prendriez-vous pour faire muter un bon ou une bonne employée dans votre équipe ?",
+        "followUps": []
+      },
+      {
+        "text": "De quel ministère venez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "Comment vous rendez-vous au travail le matin ?",
+        "followUps": []
+      },
+      {
+        "text": "Devez-vous superviser d’autres employés ?",
+        "followUps": []
+      },
+      {
+        "text": "Quel est le problème qui revient le plus souvent dans votre travail ?",
+        "followUps": []
+      },
+      {
+        "text": "Que devez-vous faire avant de partir pour une affectation ?",
+        "followUps": []
+      },
+      {
+        "text": "Que devez-vous faire pour obtenir votre niveau linguistique ?",
+        "followUps": []
+      },
+      {
+        "text": "Y a-t-il un autre ministère ou agence où vous aimeriez travailler ?",
+        "followUps": []
+      },
+      {
+        "text": "Quel est le mandat de votre division ?",
+        "followUps": []
+      },
+      {
+        "text": "Pouvez-vous me décrire votre poste de travail.",
+        "followUps": []
+      },
+      {
+        "text": "Décrivez-moi la dernière formation que vous avez suivie.",
+        "followUps": []
+      },
+      {
+        "text": "Aimez-vous votre bureau ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les démarches à suivre en vue de faire reclassifier un poste ?",
+        "followUps": []
+      },
+      {
+        "text": "D’où venez-vous ?",
+        "followUps": []
+      },
+      {
+        "text": "De quoi parlait votre dernière réunion de travail ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont vos 2 tâches principales ?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les étapes pour réaliser un projet ?",
+        "followUps": []
+      },
+      {
+        "text": "Par où passez-vous pour vous rendre au bureau chaque matin ?",
+        "followUps": []
+      },
+      {
+        "text": "Parlez-moi de votre routine de travail ou d’une journée typique.",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les étapes à suivre pour devenir bilingue ?",
+        "followUps": []
+      }
+    ]
+  },
+  {
+    "id": "meetings-b",
+    "title": "Réunions et décisions - Niveau B",
+    "description": "Discussion sur les réunions et processus décisionnels",
+    "level": "B",
+    "questions": [
+      {
+        "text": "Parlez d’une réunion à laquelle vous avez participé.",
+        "followUps": [
+          "Est-ce que vous trouvez qu’il y a trop de réunions dans votre équipe?",
+          "Selon vous, qu’est-ce qui pourrait nuire à une réunion et la rendre moins efficace?",
+          "Quelles sont les répercussions d’un nombre trop élevés de réunions?",
+          "Avez-vous déjà participé à une réunion que vous jugiez inutile? Expliquez votre réponse."
+        ],
+        "theme": null
+      }
+    ]
+  },
+  {
+    "id": "projects-b",
+    "title": "Projets et travail - Niveau B",
+    "description": "Discussion sur la gestion de projets et du travail",
+    "level": "B",
+    "questions": [
+      {
+        "text": "Parlez d’une expérience dans laquelle vous avez dû refaire un travail.",
+        "followUps": [
+          "Vous est-il déjà arrivé de : devoir refaire le travail d’un collègue ou de devoir demander à un employé de refaire son travail ? Racontez cette expérience.",
+          "Quelle est selon vous, la meilleure manière de motiver un employé à faire un travail qui peut ne pas être plaisant ?",
+          "Si un de vos employés refusaient de faire son travail de a manière demandée, que feriez-vous ?",
+          "Si votre patron vous avait demandé de refaire au complet un projet qui vous avait pris plusieurs semaine et que vous n’aviez pas aimé, comment qu’auriez-vous fait et pourquoi ?"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Que ferez-vous si vous voyez que vous ne pourrez pas respecter l'échéance d'un projet ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi d’une expérience de travail que vous aimeriez vivre.",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi d’un projet que vous aimeriez entreprendre dans le futur.",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Décrivez un projet auquel vous avez contribué et dont vous êtes fier.",
+        "followUps": [
+          "Est-ce que vous changeriez quoi que ce soit dans la réalisation de ce projet?",
+          "Quelle a été la partie la plus importante dans la réalisation de ce projet?",
+          "Si on vous donnait la chance de refaire un tel projet, accepteriez-vous?",
+          "Est-ce que vous préférez créer un plan fixe que vous suivez tout au long du projet ou préférez-vous être plus flexible en vous adaptant selon les besoins?>"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi de la meilleure collaboration de travail que vous n'ayez jamais eue.",
+        "followUps": [
+          "Selon vous, pourquoi est-il important que le gouvernement travaille en partenariat avec des organismes du privé?",
+          "Certains partenariats peuvent couter cher au gouvernement, croyez-vous qu’il serait moins couteux de créer des agences ou des unités capables de fournir les mêmes services à des prix plus raisonnables ?",
+          "Si vous pouviez éliminer un partenariat que vous trouvez inutile, lequel choisirez-vous et donner la raison?",
+          "Si vous aviez pu travailler en partenariat avec n’importe quel ministère, agence, ou organisme privé, lequel auriez-vous choisi et expliquer pourquoi ?"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Quelles mesures pensez-vous que votre bureau devrait prendre pour rendre le milieu de travail plus ergonomique ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Décrivez un projet auquel vous avez contribué et dont vous êtes fier.",
+        "followUps": [
+          "Est-ce que vous changeriez quoi que ce soit dans la réalisation de ce projet?",
+          "Quelle a été la partie la plus importante dans la réalisation de ce projet?",
+          "Si on vous donnait la chance de refaire un tel projet, accepteriez-vous?",
+          "Est-ce que vous préférez créer un plan fixe que vous suivez tout au long du projet ou préférez-vous être plus flexible en vous adaptant selon les besoins?>"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Sur quoi travaillerez-vous demain ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Décrivez un projet auquel vous avez contribué et dont vous êtes fier.",
+        "followUps": [
+          "Est-ce que vous changeriez quoi que ce soit dans la réalisation de ce projet?",
+          "Quelle a été la partie la plus importante dans la réalisation de ce projet?",
+          "Si on vous donnait la chance de refaire un tel projet, accepteriez-vous?",
+          "Est-ce que vous préférez créer un plan fixe que vous suivez tout au long du projet ou préférez-vous être plus flexible en vous adaptant selon les besoins?>"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Parlez d’une expérience dans laquelle vous avez dû refaire un travail.",
+        "followUps": [
+          "Vous est-il déjà arrivé de : devoir refaire le travail d’un collègue ou de devoir demander à un employé de refaire son travail ? Racontez cette expérience.",
+          "Quelle est selon vous, la meilleure manière de motiver un employé à faire un travail qui peut ne pas être plaisant ?",
+          "Si un de vos employés refusaient de faire son travail de a manière demandée, que feriez-vous ?",
+          "Si votre patron vous avait demandé de refaire au complet un projet qui vous avait pris plusieurs semaine et que vous n’aviez pas aimé, comment qu’auriez-vous fait et pourquoi ?"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi de la meilleure collaboration de travail que vous n'ayez jamais eue.",
+        "followUps": [
+          "Selon vous, pourquoi est-il important que le gouvernement travaille en partenariat avec des organismes du privé?",
+          "Certains partenariats peuvent couter cher au gouvernement, croyez-vous qu’il serait moins couteux de créer des agences ou des unités capables de fournir les mêmes services à des prix plus raisonnables ?",
+          "Si vous pouviez éliminer un partenariat que vous trouvez inutile, lequel choisirez-vous et donner la raison?",
+          "Si vous aviez pu travailler en partenariat avec n’importe quel ministère, agence, ou organisme privé, lequel auriez-vous choisi et expliquer pourquoi ?"
+        ],
+        "theme": null
+      }
+    ]
+  },
+  {
+    "id": "collaboration-b",
+    "title": "Collaboration et partenariats - Niveau B",
+    "description": "Discussion sur le travail en collaboration",
+    "level": "B",
+    "questions": [
+      {
+        "text": "Parlez de l’importance de la collaboration ou tout partenariat entre les différents ministères ou agence du gouvernement fédéral.",
+        "followUps": [
+          "La collaboration entre les ministères permet-elle une meilleure harmonie entre ceux-ci?",
+          "Quelle a été la pire expérience de partenariat à laquelle vous avez participé et pourquoi?",
+          "Y a-t-il des collaborations que vous avez vus ou auxquelles vous avez participé qui aurait pu être évitées?",
+          "Qu’est-ce qui constitue une collaboration ou partenariat réussi? Justifiez."
+        ],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi de la meilleure collaboration de travail que vous n'ayez jamais eue.",
+        "followUps": [
+          "Selon vous, pourquoi est-il important que le gouvernement travaille en partenariat avec des organismes du privé?",
+          "Certains partenariats peuvent couter cher au gouvernement, croyez-vous qu’il serait moins couteux de créer des agences ou des unités capables de fournir les mêmes services à des prix plus raisonnables ?",
+          "Si vous pouviez éliminer un partenariat que vous trouvez inutile, lequel choisirez-vous et donner la raison?",
+          "Si vous aviez pu travailler en partenariat avec n’importe quel ministère, agence, ou organisme privé, lequel auriez-vous choisi et expliquer pourquoi ?"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Parlez de l’importance de la collaboration ou tout partenariat entre les différents ministères ou agence du gouvernement fédéral.",
+        "followUps": [
+          "La collaboration entre les ministères permet-elle une meilleure harmonie entre ceux-ci?",
+          "Quelle a été la pire expérience de partenariat à laquelle vous avez participé et pourquoi?",
+          "Y a-t-il des collaborations que vous avez vus ou auxquelles vous avez participé qui aurait pu être évitées?",
+          "Qu’est-ce qui constitue une collaboration ou partenariat réussi? Justifiez."
+        ],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi de la meilleure collaboration de travail que vous n'ayez jamais eue.",
+        "followUps": [
+          "Selon vous, pourquoi est-il important que le gouvernement travaille en partenariat avec des organismes du privé?",
+          "Certains partenariats peuvent couter cher au gouvernement, croyez-vous qu’il serait moins couteux de créer des agences ou des unités capables de fournir les mêmes services à des prix plus raisonnables ?",
+          "Si vous pouviez éliminer un partenariat que vous trouvez inutile, lequel choisirez-vous et donner la raison?",
+          "Si vous aviez pu travailler en partenariat avec n’importe quel ministère, agence, ou organisme privé, lequel auriez-vous choisi et expliquer pourquoi ?"
+        ],
+        "theme": null
+      }
+    ]
+  },
+  {
+    "id": "training-b",
+    "title": "Formation professionnelle - Niveau B",
+    "description": "Discussion sur la formation et le développement",
+    "level": "B",
+    "questions": [
+      {
+        "text": "Parlez d’une formation que vous avez suivi au cours de votre carrière et qui vous a été utile.",
+        "followUps": [
+          "Selon vous, l’expérience de travail est-elle plus importante que la formation académique ?",
+          "Quel serait une formation qui, d’après vous, devrait être obligatoire à tous les fonctionnaires et pourquoi ?",
+          "Si vous pouviez suivre une formation qui vous aiderait à gravir les échelons de votre organisation, laquelle choisiriez-vous ?",
+          "Si vous aviez le choix entre une formation à temps plein donnée par un professeur, et une formation à temps partielle que vous pourriez suivre à votre propre rythme, que choisiriez-vous et pourquoi ?"
+        ],
+        "theme": null
+      }
+    ]
+  },
+  {
+    "id": "professional-life-b",
+    "title": "Vie professionnelle - Niveau B",
+    "description": "Questions variées sur la vie professionnelle",
+    "level": "B",
+    "questions": [
+      {
+        "text": "Parlez d’une situation où vous vous êtes opposé à une décision prise et comment vous avez fait valoir votre point de vu.",
+        "followUps": [
+          "Y a-t-il des décisions prises qui peuvent être changées à la demande des employés et si oui, donnez un exemple.",
+          "Le processus décisionnel devrait-il toujours inclure les employés concernés ?",
+          "Si les décision importante n’étaient prises que par la gestion, comment cela affecterait-il les employés ?",
+          "Si votre patron ou patronne avait pris une décision qui affectait vous et votre équipe négativement, lui en auriez-vous parlé ?"
+        ],
+        "theme": null
+      },
+      {
+        "text": "Quelle est l’importance du renforcement positif dans le processus d’apprentissage ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Comment percevez-vous les perspectives des fonctionnaires au sein de la fonction publique ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Quels seront les impacts sur votre équipe si votre gestionnaire change d’emploi ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Quels commentaires feriez-vous à un étudiant qui voudrait faire carrière à la fonction publique ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Quel serait le facteur qui compte le plus dans l’apprentissage d’une langue : le professeur, la méthode, le groupe, la motivation, etc., ?",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Parlez-moi d’un concours en vue de l’obtention d’un poste que vous avez trouvé très intéressant ou très décevant.",
+        "followUps": [],
+        "theme": null
+      },
+      {
+        "text": "Quels seront les impacts sur votre équipe si votre gestionnaire change d’emploi ?",
+        "followUps": [],
+        "theme": null
+      }
+    ]
+  },
+  {
+    "id": "remote-work-c",
+    "title": "Télétravail - Niveau C",
+    "description": "Discussion approfondie sur télétravail",
+    "level": "C",
+    "questions": [
+      {
+        "text": "Jusqu’à quel point la fonction publique est-elle à jour pour bien servir les Canadiens aujourd’hui ?",
+        "followUps": [
+          "Jusqu’à quel point votre ministère fait-il des efforts en ce sens ?",
+          "Croyez-vous que l’image de la fonction publique se soit améliorée depuis le début de la pandémie ?",
+          "Si vous pouviez améliorer les programmes offerts aux Canadiens par votre ministère, comment vous y prendriez-vous ?",
+          "Est-ce meilleur ou pire pour l’environnement de faire du télétravail ? D’un côté l’utilisation réduite de la voiture aide, mais l’utilisation de logiciels de communication tels que MS Teams et Zoom produisent également beaucoup de C.O.2.",
+          "Quels seraient les désavantages du télétravail à long terme chez les employés et l’employeur ?",
+          "Quel serait un outil essentiel qu’il faudrait rajouter dans votre vie en télétravail pour faciliter le travail quotidien des fonctionnaires et pourquoi ?",
+          "Si vous aviez dû gérer une équipe en télétravail il y a dix ans, comment vous y auriez pris, et quels auraient été les principaux défis de cette gestion ?"
+        ],
+        "theme": "Télétravail"
+      }
+    ]
+  },
+  {
+    "id": "mental-health-c",
+    "title": "Santé Mentale - Niveau C",
+    "description": "Discussion approfondie sur santé mentale",
+    "level": "C",
+    "questions": [
+      {
+        "text": "Considérez-vous que la fonction publique a de bonnes conditions de travail ?",
+        "followUps": [
+          "Les conditions de travail à la fonction publique sont-elles les mêmes à travers tous les ministères et toutes les agences ?",
+          "Si vous pouviez changer quelque chose à vos conditions, que changeriez-vous ?",
+          "Êtes-vous d’avis que le gouvernement fait tout en son pouvoir pour assurer que ses employés se plaisent dans leur travail ?",
+          "Est-ce meilleur ou pire pour l’environnement de faire du télétravail ? D’un côté l’utilisation réduite de la voiture aide, mais l’utilisation de logiciels de communication tels que MS Teams et Zoom produisent également beaucoup de C.O.2.",
+          "Quels seraient les désavantages du télétravail à long terme chez les employés et l’employeur ?",
+          "Quel serait un outil essentiel qu’il faudrait rajouter dans votre vie en télétravail pour faciliter le travail quotidien des fonctionnaires et pourquoi ?",
+          "Si vous aviez dû gérer une équipe en télétravail il y a dix ans, comment vous y auriez pris, et quels auraient été les principaux défis de cette gestion ?"
+        ],
+        "theme": "Santé mentale"
+      }
+    ]
+  },
+  {
+    "id": "médias-sociaux-c",
+    "title": "Médias Sociaux - Niveau C",
+    "description": "Discussion approfondie sur médias sociaux",
+    "level": "C",
+    "questions": [
+      {
+        "text": "Que pensez-vous du processus d’évaluation de rendement des employés ?",
+        "followUps": [
+          "Certains gestionnaires ont plus d’une dizaine, voir jusqu’à une cinquantaine d’employés. Croyez-vous que cette charge de travail immense soit juste pour ces gestionnaires qui doivent passer plusieurs semaines à rédiger toutes ses évaluations si on compare à un gestionnaire supervisant une petite équipe de 5 à 9 personnes ?",
+          "Que suggéreriez-vous pour améliorer l’évaluation de rendement ?",
+          "Pensez-vous qu’il serait temps d’abolir les évaluations de rendement ? Si oui, par quoi pourrait-on les remplacer ?",
+          "Pensez-vous que la productivité des fonctionnaires diminuerait si on éliminait l’évaluation de rendement ? Expliquez.",
+          "Croyez-vous que l’utilisation des médias sociaux baisse la productivité des utilisateurs ?",
+          "Le gouvernement devrait-il instaurer des programmes d’aide aux gens qui développent une dépendance envers les médias sociaux ?",
+          "Si vous deviez créer un programme de sensibilisation de médias sociaux pour les jeunes, comment vous y vous prendriez-vous ?",
+          "Le gouvernement aurait-il dû bannir les médias sociaux dès leur création où était-ce une bonne idée d’accorder leur utilisation ?"
+        ],
+        "theme": "Médias sociaux"
+      }
+    ]
+  },
+  {
+    "id": "teamwork-c",
+    "title": "Le travail en équipe - Niveau C",
     "description": "Discussion sur les compétences et expériences de travail en équipe",
+    "level": "C",
     "questions": [
-      "Pouvez-vous décrire une situation où vous avez dû travailler en équipe pour accomplir un objectif commun?",
-      "Comment gérez-vous les conflits au sein d'une équipe?",
-      "Qu'est-ce qui fait, selon vous, une équipe efficace?",
-      "Pouvez-vous donner un exemple d'un rôle que vous avez joué dans une équipe et comment cela a contribué au succès du projet?",
-      "Dans quelle mesure dépend-on de ses coéquipiers pour atteindre ses objectifs?",
-      "Quelle est la meilleure façon d'émettre son point de vue quand on travaille au sein d'une équipe?",
-      "Quels sont les critères essentiels à considérer afin de former une équipe interdisciplinaire?",
-      "Selon vous, quel est le mode de communication idéal au sein d'une équipe de travail?",
-      "D'après vous, constituer de manière aléatoire une équipe de travail est-elle la meilleure approche?",
-      "À quelle fréquence une équipe doit-elle se réunir afin d'assurer la réussite d'un projet?",
-      "Comment prendre en considération l'imputabilité du travail d'équipe, de manière individuelle ou collective?",
-      "Quels sont les inconvénients de la constitution d'une équipe transversale à la fonction publique?"
+      {
+        "text": "Pouvez-vous décrire une situation où vous avez dû travailler en équipe pour accomplir un objectif commun?",
+        "followUps": []
+      },
+      {
+        "text": "Comment gérez-vous les conflits au sein d'une équipe?",
+        "followUps": []
+      },
+      {
+        "text": "Qu'est-ce qui fait, selon vous, une équipe efficace?",
+        "followUps": []
+      },
+      {
+        "text": "Pouvez-vous donner un exemple d'un rôle que vous avez joué dans une équipe et comment cela a contribué au succès du projet?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure dépend-on de ses coéquipiers pour atteindre ses objectifs?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est la meilleure façon d'émettre son point de vue quand on travaille au sein d'une équipe?",
+        "followUps": []
+      },
+      {
+        "text": "Quels sont les critères essentiels à considérer afin de former une équipe interdisciplinaire?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quel est le mode de communication idéal au sein d'une équipe de travail?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, constituer de manière aléatoire une équipe de travail est-elle la meilleure approche?",
+        "followUps": []
+      },
+      {
+        "text": "À quelle fréquence une équipe doit-elle se réunir afin d'assurer la réussite d'un projet?",
+        "followUps": []
+      },
+      {
+        "text": "Comment prendre en considération l'imputabilité du travail d'équipe, de manière individuelle ou collective?",
+        "followUps": []
+      },
+      {
+        "text": "Quels sont les inconvénients de la constitution d'une équipe transversale à la fonction publique?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "communication",
-    "title": "La communication au travail",
+    "id": "communication-c",
+    "title": "La communication au travail - Niveau C",
     "description": "Exploration des compétences en communication professionnelle",
+    "level": "C",
     "questions": [
-      "Comment adaptez-vous votre style de communication selon votre interlocuteur?",
-      "Pouvez-vous décrire une fois où vous avez dû communiquer une information difficile?",
-      "Comment assurez-vous que votre message est bien compris?",
-      "Quel est votre canal de communication préféré et pourquoi?",
-      "Selon vous, quelle est la valeur de la communication au travail?",
-      "Est-ce que la communication est toujours absolument nécessaire au bon fonctionnement d'une entreprise?",
-      "En quoi une politique de porte ouverte est préférable pour avoir une bonne communication?",
-      "Quelle est l'incidence d'un manque de communication sur la productivité au bureau?",
-      "D'après vous, quelles sont les meilleures techniques de communication que l'on peut appliquer de manière efficace au bureau?",
-      "La communication non verbale joue-t-elle un rôle majeur au travail?"
+      {
+        "text": "Comment adaptez-vous votre style de communication selon votre interlocuteur?",
+        "followUps": []
+      },
+      {
+        "text": "Pouvez-vous décrire une fois où vous avez dû communiquer une information difficile?",
+        "followUps": []
+      },
+      {
+        "text": "Comment assurez-vous que votre message est bien compris?",
+        "followUps": []
+      },
+      {
+        "text": "Quel est votre canal de communication préféré et pourquoi?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quelle est la valeur de la communication au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce que la communication est toujours absolument nécessaire au bon fonctionnement d'une entreprise?",
+        "followUps": []
+      },
+      {
+        "text": "En quoi une politique de porte ouverte est préférable pour avoir une bonne communication?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est l'incidence d'un manque de communication sur la productivité au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, quelles sont les meilleures techniques de communication que l'on peut appliquer de manière efficace au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "La communication non verbale joue-t-elle un rôle majeur au travail?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "problem-solving",
-    "title": "La résolution de problèmes",
+    "id": "problem-solving-c",
+    "title": "La résolution de problèmes - Niveau C",
     "description": "Discussion sur les approches de résolution de problèmes",
+    "level": "C",
     "questions": [
-      "Décrivez votre processus pour résoudre un problème complexe au travail.",
-      "Pouvez-vous partager un exemple d'un problème difficile que vous avez résolu?",
-      "Comment priorisez-vous plusieurs problèmes qui nécessitent votre attention?",
-      "Qu'avez-vous appris d'une situation où votre solution n'a pas fonctionné comme prévu?"
+      {
+        "text": "Décrivez votre processus pour résoudre un problème complexe au travail.",
+        "followUps": []
+      },
+      {
+        "text": "Pouvez-vous partager un exemple d'un problème difficile que vous avez résolu?",
+        "followUps": []
+      },
+      {
+        "text": "Comment priorisez-vous plusieurs problèmes qui nécessitent votre attention?",
+        "followUps": []
+      },
+      {
+        "text": "Qu'avez-vous appris d'une situation où votre solution n'a pas fonctionné comme prévu?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "training",
-    "title": "La formation",
+    "id": "training-c",
+    "title": "La formation - Niveau C",
     "description": "Discussion sur la formation et le développement professionnel",
+    "level": "C",
     "questions": [
-      "Jusqu'à quel point les nouvelles recrues sont-elles bien préparées et formées pour travailler à votre ministère?",
-      "Qu'est-ce qui pourrait être fait pour améliorer la formation des nouveaux employés à la fonction publique ou à votre ministère?",
-      "Si vous aviez l'occasion d'aller en formation, quel(s) cours aimeriez-vous suivre? Pourquoi?",
-      "Pensez-vous que votre ministère en fait assez pour encourager ses employés à développer leurs compétences et à suivre de la formation?",
-      "Quels sont les avantages et les inconvénients des cours offerts en ligne?",
-      "Pensez-vous avoir suivi une formation initiale adaptée à votre poste actuel?",
-      "Dans quelle mesure est-ce important pour un employé de suivre des formations régulièrement?",
-      "Que gagnent les employeurs à permettre à leurs employés d'aller en formation?"
+      {
+        "text": "Jusqu'à quel point les nouvelles recrues sont-elles bien préparées et formées pour travailler à votre ministère?",
+        "followUps": []
+      },
+      {
+        "text": "Qu'est-ce qui pourrait être fait pour améliorer la formation des nouveaux employés à la fonction publique ou à votre ministère?",
+        "followUps": []
+      },
+      {
+        "text": "Si vous aviez l'occasion d'aller en formation, quel(s) cours aimeriez-vous suivre? Pourquoi?",
+        "followUps": []
+      },
+      {
+        "text": "Pensez-vous que votre ministère en fait assez pour encourager ses employés à développer leurs compétences et à suivre de la formation?",
+        "followUps": []
+      },
+      {
+        "text": "Quels sont les avantages et les inconvénients des cours offerts en ligne?",
+        "followUps": []
+      },
+      {
+        "text": "Pensez-vous avoir suivi une formation initiale adaptée à votre poste actuel?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure est-ce important pour un employé de suivre des formations régulièrement?",
+        "followUps": []
+      },
+      {
+        "text": "Que gagnent les employeurs à permettre à leurs employés d'aller en formation?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "mentoring",
-    "title": "Le mentorat",
+    "id": "mentoring-c",
+    "title": "Le mentorat - Niveau C",
     "description": "Discussion sur les programmes de mentorat en milieu de travail",
+    "level": "C",
     "questions": [
-      "Programme de mentorat formel ou informel? Quelle est, selon vous, la meilleure approche?",
-      "Jusqu'à quel point croyez-vous au bénéfice d'instaurer un programme de mentorat dans une organisation?",
-      "D'après vous, quels sont les avantages et les inconvénients du mentorat du point de vue de l'employeur? De l'employé?",
-      "Selon vous, qui devrait faire le choix du mentor des nouveaux employés?",
-      "Si vous aviez pu choisir un mentor au sein de votre organisation au début de votre emploi, qui auriez-vous choisi et pourquoi?"
+      {
+        "text": "Programme de mentorat formel ou informel? Quelle est, selon vous, la meilleure approche?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point croyez-vous au bénéfice d'instaurer un programme de mentorat dans une organisation?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, quels sont les avantages et les inconvénients du mentorat du point de vue de l'employeur? De l'employé?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, qui devrait faire le choix du mentor des nouveaux employés?",
+        "followUps": []
+      },
+      {
+        "text": "Si vous aviez pu choisir un mentor au sein de votre organisation au début de votre emploi, qui auriez-vous choisi et pourquoi?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "projects",
-    "title": "Les projets",
+    "id": "projects-c",
+    "title": "Les projets - Niveau C",
     "description": "Discussion sur l'attribution et la gestion de projets",
+    "level": "C",
     "questions": [
-      "Selon vous, quelle est la façon la plus équitable d'attribuer des projets au sein des membres d'une équipe?",
-      "Est-il juste qu'un gestionnaire attribue toujours les projets les plus complexes aux employés avec le plus d'expérience?",
-      "Dans quelle mesure est-ce que les gestionnaires devraient encourager leurs employés à devenir plus polyvalents / experts en leur attribuant certains projets?",
-      "Est-ce que les gestionnaires devraient toujours prendre l'intérêt de leurs employés en ligne de compte lorsqu'ils attribuent des projets?",
-      "Dans quelle mesure peut-on attribuer des projets de manière aléatoire parmi les membres d'une équipe?",
-      "Jusqu'à quel point croyez-vous qu'il est important de tenir compte des résultats d'un test de personnalité quand on attribue un projet à quelqu'un?",
-      "À votre avis, quel est le facteur le plus important afin de mener à terme un projet? Le chef d'équipe ou les membres de l'équipe?"
+      {
+        "text": "Selon vous, quelle est la façon la plus équitable d'attribuer des projets au sein des membres d'une équipe?",
+        "followUps": []
+      },
+      {
+        "text": "Est-il juste qu'un gestionnaire attribue toujours les projets les plus complexes aux employés avec le plus d'expérience?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure est-ce que les gestionnaires devraient encourager leurs employés à devenir plus polyvalents / experts en leur attribuant certains projets?",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce que les gestionnaires devraient toujours prendre l'intérêt de leurs employés en ligne de compte lorsqu'ils attribuent des projets?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure peut-on attribuer des projets de manière aléatoire parmi les membres d'une équipe?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point croyez-vous qu'il est important de tenir compte des résultats d'un test de personnalité quand on attribue un projet à quelqu'un?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, quel est le facteur le plus important afin de mener à terme un projet? Le chef d'équipe ou les membres de l'équipe?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "burnout",
-    "title": "L'épuisement professionnel",
+    "id": "burnout-c",
+    "title": "L'épuisement professionnel - Niveau C",
     "description": "Discussion sur l'épuisement professionnel et la gestion des heures supplémentaires",
+    "level": "C",
     "questions": [
-      "Croyez-vous que les fonctionnaires se font bien rémunérer pour les heures supplémentaires effectuées?",
-      "Que feriez-vous si vous deviez faire des heures supplémentaires cette fin de semaine, mais que vous aviez déjà planifié quelque chose d'autre?",
-      "Préférez-vous être payé en retour de vos heures supplémentaires effectuées ou préférez-vous recevoir des jours de congé? Pourquoi?",
-      "Comment peut-on éviter l'épuisement professionnel? En tant qu'employeur? En tant qu'employé?",
-      "Quelles sont les conséquences de l'épuisement professionnel pour l'employeur?"
+      {
+        "text": "Croyez-vous que les fonctionnaires se font bien rémunérer pour les heures supplémentaires effectuées?",
+        "followUps": []
+      },
+      {
+        "text": "Que feriez-vous si vous deviez faire des heures supplémentaires cette fin de semaine, mais que vous aviez déjà planifié quelque chose d'autre?",
+        "followUps": []
+      },
+      {
+        "text": "Préférez-vous être payé en retour de vos heures supplémentaires effectuées ou préférez-vous recevoir des jours de congé? Pourquoi?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on éviter l'épuisement professionnel? En tant qu'employeur? En tant qu'employé?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les conséquences de l'épuisement professionnel pour l'employeur?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "work-life-balance",
-    "title": "La conciliation travail/famille",
+    "id": "work-life-balance-c",
+    "title": "La conciliation travail/famille - Niveau C",
     "description": "Discussion sur l'équilibre entre vie professionnelle et vie personnelle",
+    "level": "C",
     "questions": [
-      "Quels conseils donneriez-vous à un ou une collègue qui éprouve des difficultés à concilier travail et famille?",
-      "À votre avis, qu'est-ce qui est le plus important, le travail ou la famille? Expliquez pourquoi.",
-      "Croyez-vous que la conciliation travail/famille est un mythe?",
-      "Quelles ressources pourraient être mises en place pour permettre la conciliation travail/famille?",
-      "Comment le télétravail pourrait-il améliorer ou non vos conditions de travail actuelles?",
-      "Quelle est l'incidence d'un déséquilibre entre la vie personnelle et la vie professionnelle sur le bien-être d'un individu?",
-      "Dans quelle mesure les avancées technologiques ont-elles modifié notre façon de vivre et de travailler dans le monde occidental?",
-      "Selon vous, quel a été l'impact des avancées sociales dans l'amélioration des conditions de vie dans les sociétés modernes?"
+      {
+        "text": "Quels conseils donneriez-vous à un ou une collègue qui éprouve des difficultés à concilier travail et famille?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, qu'est-ce qui est le plus important, le travail ou la famille? Expliquez pourquoi.",
+        "followUps": []
+      },
+      {
+        "text": "Croyez-vous que la conciliation travail/famille est un mythe?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles ressources pourraient être mises en place pour permettre la conciliation travail/famille?",
+        "followUps": []
+      },
+      {
+        "text": "Comment le télétravail pourrait-il améliorer ou non vos conditions de travail actuelles?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est l'incidence d'un déséquilibre entre la vie personnelle et la vie professionnelle sur le bien-être d'un individu?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure les avancées technologiques ont-elles modifié notre façon de vivre et de travailler dans le monde occidental?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quel a été l'impact des avancées sociales dans l'amélioration des conditions de vie dans les sociétés modernes?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "stress-management",
-    "title": "La gestion du stress",
+    "id": "stress-management-c",
+    "title": "La gestion du stress - Niveau C",
     "description": "Discussion sur les techniques de gestion du stress au travail",
+    "level": "C",
     "questions": [
-      "Quelles sont les techniques que vous utilisez pour gérer votre niveau de stress?",
-      "Est-ce qu'il y a des programmes de soutien à votre bureau pour aider les employés qui souffrent de stress et de problèmes personnels?",
-      "Jusqu'à quel point le stress a-t-il un impact sur le roulement de personnel au bureau?",
-      "Jusqu'à quel point la population canadienne est-elle trop dépendante des médicaments de nos jours?",
-      "À votre avis, est-ce que le stress a un impact sur le rendement des employés?",
-      "Les patrons ou les cadres supérieurs sont-ils qualifiés pour conseiller les employés qui auraient des problèmes personnels?",
-      "Selon vous, pourquoi est-ce important de préserver l'anonymat des employés lorsque ceux-ci consultent des programmes de soutien?",
-      "Jusqu'à quel point un travail prenant peut-il avoir des effets néfastes sur le rythme de vie?",
-      "D'après vous, quelles techniques pourrait-on développer pour devenir imperméable au stress?"
+      {
+        "text": "Quelles sont les techniques que vous utilisez pour gérer votre niveau de stress?",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce qu'il y a des programmes de soutien à votre bureau pour aider les employés qui souffrent de stress et de problèmes personnels?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point le stress a-t-il un impact sur le roulement de personnel au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point la population canadienne est-elle trop dépendante des médicaments de nos jours?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, est-ce que le stress a un impact sur le rendement des employés?",
+        "followUps": []
+      },
+      {
+        "text": "Les patrons ou les cadres supérieurs sont-ils qualifiés pour conseiller les employés qui auraient des problèmes personnels?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, pourquoi est-ce important de préserver l'anonymat des employés lorsque ceux-ci consultent des programmes de soutien?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point un travail prenant peut-il avoir des effets néfastes sur le rythme de vie?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, quelles techniques pourrait-on développer pour devenir imperméable au stress?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "time-management",
-    "title": "La gestion du temps",
+    "id": "time-management-c",
+    "title": "La gestion du temps - Niveau C",
     "description": "Discussion sur l'organisation et la gestion efficace du temps",
+    "level": "C",
     "questions": [
-      "Croyez-vous que la haute gestion tient compte des facteurs humains et des réalités opérationnelles lorsqu'elle établit des dates d'échéance?",
-      "Seriez-vous à l'aise de demander un délai si on vous donnait une date d'échéance que vous saviez trop courte?",
-      "Quelles qualités essentielles doit-on posséder pour effectuer un excellent travail dans un court délai?",
-      "Quels conseils donneriez-vous à un employé qui se sent stressé par le montant de travail à faire au bureau?",
-      "Jusqu'à quel point est-ce que l'organisation est importante au travail?",
-      "À votre avis, est-il possible d'apprendre à devenir organisé?",
-      "Jusqu'à quel point le recours excessif aux heures supplémentaires est-il un signe d'une mauvaise organisation?"
+      {
+        "text": "Croyez-vous que la haute gestion tient compte des facteurs humains et des réalités opérationnelles lorsqu'elle établit des dates d'échéance?",
+        "followUps": []
+      },
+      {
+        "text": "Seriez-vous à l'aise de demander un délai si on vous donnait une date d'échéance que vous saviez trop courte?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles qualités essentielles doit-on posséder pour effectuer un excellent travail dans un court délai?",
+        "followUps": []
+      },
+      {
+        "text": "Quels conseils donneriez-vous à un employé qui se sent stressé par le montant de travail à faire au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point est-ce que l'organisation est importante au travail?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, est-il possible d'apprendre à devenir organisé?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point le recours excessif aux heures supplémentaires est-il un signe d'une mauvaise organisation?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "outsourcing",
-    "title": "La sous-traitance",
+    "id": "outsourcing-c",
+    "title": "La sous-traitance - Niveau C",
     "description": "Discussion sur l'externalisation et le recours aux contractuels",
+    "level": "C",
     "questions": [
-      "Que pensez-vous du fait d'embaucher des sous-traitants ou des contractuels au lieu d'augmenter le nombre d'employés réguliers?",
-      "Quels sont les défis lorsqu'on travaille avec des employés contractuels?",
-      "Dans quelle mesure l'établissement d'un cahier des charges très précis peut éviter bien des déboires lors de l'exécution d'un contrat avec un sous-traitant?",
-      "Comment prévenir un dépassement des coûts lorsqu'on fait appel à la sous-traitance?",
-      "Les besoins en spécialistes devraient-ils toujours être comblés par des sous-traitants?",
-      "Jusqu'à quel point le recours à l'externalisation des services devrait être limité?"
+      {
+        "text": "Que pensez-vous du fait d'embaucher des sous-traitants ou des contractuels au lieu d'augmenter le nombre d'employés réguliers?",
+        "followUps": []
+      },
+      {
+        "text": "Quels sont les défis lorsqu'on travaille avec des employés contractuels?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure l'établissement d'un cahier des charges très précis peut éviter bien des déboires lors de l'exécution d'un contrat avec un sous-traitant?",
+        "followUps": []
+      },
+      {
+        "text": "Comment prévenir un dépassement des coûts lorsqu'on fait appel à la sous-traitance?",
+        "followUps": []
+      },
+      {
+        "text": "Les besoins en spécialistes devraient-ils toujours être comblés par des sous-traitants?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point le recours à l'externalisation des services devrait être limité?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "leadership",
-    "title": "Le leadership",
+    "id": "leadership-c",
+    "title": "Le leadership - Niveau C",
     "description": "Discussion sur les qualités et compétences en leadership",
+    "level": "C",
     "questions": [
-      "Quelles qualités indispensables font un bon leader?",
-      "Croyez-vous que votre patron détient toutes les qualités pour être un bon leader?",
-      "Peut-on être formé pour devenir un bon leader?",
-      "Selon vous, êtes-vous un bon leader? (Seriez-vous un bon leader?)",
-      "Est-ce qu'un patron peut imposer ses choix concernant, entre autres, l'attribution des vacances et les horaires de travail?",
-      "D'après vous, le patron idéal existe-t-il?",
-      "Collaboration ou contribution : quel est selon vous le meilleur style de gestion pour créer un milieu de travail efficace et positif?",
-      "« Pas besoin d'un titre pour être un bon leader ». Jusqu'à quel point êtes-vous d'accord avec cet énoncé?"
+      {
+        "text": "Quelles qualités indispensables font un bon leader?",
+        "followUps": []
+      },
+      {
+        "text": "Croyez-vous que votre patron détient toutes les qualités pour être un bon leader?",
+        "followUps": []
+      },
+      {
+        "text": "Peut-on être formé pour devenir un bon leader?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, êtes-vous un bon leader? (Seriez-vous un bon leader?)",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce qu'un patron peut imposer ses choix concernant, entre autres, l'attribution des vacances et les horaires de travail?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, le patron idéal existe-t-il?",
+        "followUps": []
+      },
+      {
+        "text": "Collaboration ou contribution : quel est selon vous le meilleur style de gestion pour créer un milieu de travail efficace et positif?",
+        "followUps": []
+      },
+      {
+        "text": "« Pas besoin d'un titre pour être un bon leader ». Jusqu'à quel point êtes-vous d'accord avec cet énoncé?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "motivation",
-    "title": "La motivation",
+    "id": "motivation-c",
+    "title": "La motivation - Niveau C",
     "description": "Discussion sur la motivation au travail et ses facteurs",
+    "level": "C",
     "questions": [
-      "À votre avis, pourquoi les employés d'un bureau perdent-ils souvent leur motivation malgré le fait qu'ils soient parfois très bien rémunérés?",
-      "Est-ce que la motivation devrait être externe ou devrait-elle plutôt venir de l'intérieur de soi?",
-      "Qui doit être responsable de la motivation des employés au bureau?",
-      "Quelle incidence un manque de motivation peut-il avoir sur le rendement au bureau?",
-      "À votre avis, quelle est la pire conséquence de travailler avec un ou plusieurs employés qui manquent de motivation?",
-      "Que feriez-vous pour conseiller quelqu'un qui est déprimé et qui a perdu sa motivation au travail?",
-      "De quelle manière un manque ou un excès de responsabilités peut-il décourager un individu au travail?"
+      {
+        "text": "À votre avis, pourquoi les employés d'un bureau perdent-ils souvent leur motivation malgré le fait qu'ils soient parfois très bien rémunérés?",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce que la motivation devrait être externe ou devrait-elle plutôt venir de l'intérieur de soi?",
+        "followUps": []
+      },
+      {
+        "text": "Qui doit être responsable de la motivation des employés au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle incidence un manque de motivation peut-il avoir sur le rendement au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, quelle est la pire conséquence de travailler avec un ou plusieurs employés qui manquent de motivation?",
+        "followUps": []
+      },
+      {
+        "text": "Que feriez-vous pour conseiller quelqu'un qui est déprimé et qui a perdu sa motivation au travail?",
+        "followUps": []
+      },
+      {
+        "text": "De quelle manière un manque ou un excès de responsabilités peut-il décourager un individu au travail?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "recognition",
-    "title": "La reconnaissance",
+    "id": "recognition-c",
+    "title": "La reconnaissance - Niveau C",
     "description": "Discussion sur l'importance de la reconnaissance au travail",
+    "level": "C",
     "questions": [
-      "Êtes-vous pour ou contre les marques de reconnaissance au bureau?",
-      "En tant que (si vous étiez) directeur/gestionnaire, comment est-ce que vous choisiriez de reconnaître une personne qui a fait du bon travail au bureau?",
-      "Jusqu'à quel point est-ce juste de dire que la reconnaissance améliore le rendement des employés?",
-      "Comment est-ce que votre direction pourrait améliorer la façon dont elle reconnaît ses employés?",
-      "Seriez-vous d'accord d'éliminer des prix monétaires en vue de réduire les dépenses à la fonction publique?",
-      "Croyez-vous qu'un manque de reconnaissance mène à de l'insatisfaction au travail?",
-      "Selon vous, la reconnaissance est-elle une nécessité ou un privilège?",
-      "Comment le fait de recevoir de la reconnaissance peut être un antidote efficace à l'effet néfaste du stress?",
-      "Quelles sont, selon vous, les marques de reconnaissance les plus touchantes pour un employé?",
-      "L'adage dit: « on ne fait pas d'omelette sans casser d'œufs ». D'après vous, le prix à payer pour les erreurs est-il toujours négatif?"
+      {
+        "text": "Êtes-vous pour ou contre les marques de reconnaissance au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "En tant que (si vous étiez) directeur/gestionnaire, comment est-ce que vous choisiriez de reconnaître une personne qui a fait du bon travail au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point est-ce juste de dire que la reconnaissance améliore le rendement des employés?",
+        "followUps": []
+      },
+      {
+        "text": "Comment est-ce que votre direction pourrait améliorer la façon dont elle reconnaît ses employés?",
+        "followUps": []
+      },
+      {
+        "text": "Seriez-vous d'accord d'éliminer des prix monétaires en vue de réduire les dépenses à la fonction publique?",
+        "followUps": []
+      },
+      {
+        "text": "Croyez-vous qu'un manque de reconnaissance mène à de l'insatisfaction au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, la reconnaissance est-elle une nécessité ou un privilège?",
+        "followUps": []
+      },
+      {
+        "text": "Comment le fait de recevoir de la reconnaissance peut être un antidote efficace à l'effet néfaste du stress?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont, selon vous, les marques de reconnaissance les plus touchantes pour un employé?",
+        "followUps": []
+      },
+      {
+        "text": "L'adage dit: « on ne fait pas d'omelette sans casser d'œufs ». D'après vous, le prix à payer pour les erreurs est-il toujours négatif?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "negotiation",
-    "title": "La négociation",
+    "id": "negotiation-c",
+    "title": "La négociation - Niveau C",
     "description": "Discussion sur les compétences et stratégies de négociation",
+    "level": "C",
     "questions": [
-      "Pourquoi est-il important de savoir négocier?",
-      "À votre avis, quels sont les meilleurs résultats d'une bonne négociation?",
-      "Quelles sont quelques erreurs à éviter dans une négociation?",
-      "Avec du recul, qu'auriez-vous fait différemment lors d'une négociation?",
-      "Quels conseils donneriez-vous à un jeune qui doit négocier quelque chose avec un nouvel employeur?",
-      "Jusqu'à quel point croyez-vous qu'on peut négocier sans avoir confiance en soi?",
-      "Croyez-vous qu'on peut être bon négociateur sans savoir bien écouter?",
-      "Dans quelle mesure croyez-vous avoir les compétences nécessaires pour négocier avec votre directeur / directrice?"
+      {
+        "text": "Pourquoi est-il important de savoir négocier?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, quels sont les meilleurs résultats d'une bonne négociation?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont quelques erreurs à éviter dans une négociation?",
+        "followUps": []
+      },
+      {
+        "text": "Avec du recul, qu'auriez-vous fait différemment lors d'une négociation?",
+        "followUps": []
+      },
+      {
+        "text": "Quels conseils donneriez-vous à un jeune qui doit négocier quelque chose avec un nouvel employeur?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point croyez-vous qu'on peut négocier sans avoir confiance en soi?",
+        "followUps": []
+      },
+      {
+        "text": "Croyez-vous qu'on peut être bon négociateur sans savoir bien écouter?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure croyez-vous avoir les compétences nécessaires pour négocier avec votre directeur / directrice?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "conflict-management",
-    "title": "La gestion des conflits",
+    "id": "conflict-management-c",
+    "title": "La gestion des conflits - Niveau C",
     "description": "Discussion sur la résolution et la prévention des conflits",
+    "level": "C",
     "questions": [
-      "Quels conseils donneriez-vous à un ou une collègue qui vit un conflit avec un autre collègue pour l'aider à régler ce conflit?",
-      "Si vous étiez gestionnaire/directeur, quelles mesures mettriez-vous en place pour éviter les conflits entre employés?",
-      "Selon vous, quel est le facteur le plus important pour éviter les conflits au travail?",
-      "Jusqu'à quel point est-ce que les conflits au travail peuvent avoir une incidence sur le rendement des employés?",
-      "Dans quelle mesure diriez-vous que les relations interpersonnelles sont toujours à l'origine des conflits en milieu de travail?",
-      "Avoir une politique de porte ouverte est-il suffisant pour régler les conflits au bureau?",
-      "Dans quelle mesure le gestionnaire doit-il prendre en compte l'historique de l'employé pour régler un conflit de travail?",
-      "Selon vous, à quelle étape de la gestion de conflit doit-on recourir à des services externes?",
-      "À votre avis, l'ampleur d'un conflit est-elle toujours liée au niveau de mécontentement des employés?"
+      {
+        "text": "Quels conseils donneriez-vous à un ou une collègue qui vit un conflit avec un autre collègue pour l'aider à régler ce conflit?",
+        "followUps": []
+      },
+      {
+        "text": "Si vous étiez gestionnaire/directeur, quelles mesures mettriez-vous en place pour éviter les conflits entre employés?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quel est le facteur le plus important pour éviter les conflits au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point est-ce que les conflits au travail peuvent avoir une incidence sur le rendement des employés?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure diriez-vous que les relations interpersonnelles sont toujours à l'origine des conflits en milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Avoir une politique de porte ouverte est-il suffisant pour régler les conflits au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure le gestionnaire doit-il prendre en compte l'historique de l'employé pour régler un conflit de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, à quelle étape de la gestion de conflit doit-on recourir à des services externes?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, l'ampleur d'un conflit est-elle toujours liée au niveau de mécontentement des employés?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "change-management",
-    "title": "Le changement",
+    "id": "change-management-c",
+    "title": "Le changement - Niveau C",
     "description": "Discussion sur l'adaptation et la gestion du changement",
+    "level": "C",
     "questions": [
-      "Quel changement aimeriez-vous voir se réaliser actuellement à votre bureau? Serait-il possible de le réaliser?",
-      "À votre avis, comment un changement affecte-t-il le niveau de stress d'un employé à la fonction publique?",
-      "Jusqu'à quel point est-ce primordial qu'un fonctionnaire puisse faire face aux changements?",
-      "Comment pourrait-on aider les fonctionnaires à faire face aux changements au travail?",
-      "Quels conseils donneriez-vous à un collègue qui accepte mal un changement au travail?",
-      "Selon vous, le niveau d'adaptabilité d'un employé est-il proportionnel à sa productivité?",
-      "Jusqu'à quel point un patron peut-il faire passer en force un changement au travail?"
+      {
+        "text": "Quel changement aimeriez-vous voir se réaliser actuellement à votre bureau? Serait-il possible de le réaliser?",
+        "followUps": []
+      },
+      {
+        "text": "À votre avis, comment un changement affecte-t-il le niveau de stress d'un employé à la fonction publique?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point est-ce primordial qu'un fonctionnaire puisse faire face aux changements?",
+        "followUps": []
+      },
+      {
+        "text": "Comment pourrait-on aider les fonctionnaires à faire face aux changements au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Quels conseils donneriez-vous à un collègue qui accepte mal un changement au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, le niveau d'adaptabilité d'un employé est-il proportionnel à sa productivité?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point un patron peut-il faire passer en force un changement au travail?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "bullying",
-    "title": "L'intimidation",
+    "id": "bullying-c",
+    "title": "L'intimidation - Niveau C",
     "description": "Discussion sur le harcèlement et l'intimidation en milieu de travail",
+    "level": "C",
     "questions": [
-      "Selon vous, comment un employé pourrait-il régler une situation d'intimidation / de harcèlement au travail?",
-      "Selon vous, quelles sont les origines d'une situation de harcèlement au travail?",
-      "Avez-vous déjà été témoin d'une situation de harcèlement ou d'intimidation au travail?",
-      "Qui est le mieux placé pour éliminer l'intimidation dans le milieu de travail?",
-      "Comme victime ou témoin, faut-il en parler ou se taire?",
-      "Quelles sont, d'après vous, les meilleures mesures à prendre pour prévenir l'intimidation?",
-      "Quelle est la meilleure approche pour régler ce problème?",
-      "Quels conseils donneriez-vous à une victime ou un témoin de l'intimidation?",
-      "Comment peut-on briser le tabou de l'intimidation - la violence en milieu de travail?"
+      {
+        "text": "Selon vous, comment un employé pourrait-il régler une situation d'intimidation / de harcèlement au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quelles sont les origines d'une situation de harcèlement au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Avez-vous déjà été témoin d'une situation de harcèlement ou d'intimidation au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Qui est le mieux placé pour éliminer l'intimidation dans le milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Comme victime ou témoin, faut-il en parler ou se taire?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont, d'après vous, les meilleures mesures à prendre pour prévenir l'intimidation?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est la meilleure approche pour régler ce problème?",
+        "followUps": []
+      },
+      {
+        "text": "Quels conseils donneriez-vous à une victime ou un témoin de l'intimidation?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on briser le tabou de l'intimidation - la violence en milieu de travail?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "business-travel",
-    "title": "Les voyages d'affaires",
+    "id": "business-travel-c",
+    "title": "Les voyages d'affaires - Niveau C",
     "description": "Discussion sur les déplacements professionnels et leurs alternatives",
+    "level": "C",
     "questions": [
-      "Existe-t-il des alternatives aux voyages d'affaires?",
-      "Jusqu'à quel point les résultats et les retombées d'un voyage d'affaires typique justifient-ils le grand montant d'argent dépensé par le gouvernement pour envoyer des fonctionnaires dans d'autres régions?",
-      "Dans quelles situations les voyages d'affaires sont-ils essentiels?",
-      "D'après vous, dans quelles circonstances peut-on considérer que les voyages d'affaires sont rentables?",
-      "Devrait-on toujours privilégier les facteurs financiers pour justifier le choix des déplacements professionnels?",
-      "Dans quelle mesure doit-on prendre en compte les facteurs environnementaux avant d'organiser un déplacement?"
+      {
+        "text": "Existe-t-il des alternatives aux voyages d'affaires?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point les résultats et les retombées d'un voyage d'affaires typique justifient-ils le grand montant d'argent dépensé par le gouvernement pour envoyer des fonctionnaires dans d'autres régions?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelles situations les voyages d'affaires sont-ils essentiels?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, dans quelles circonstances peut-on considérer que les voyages d'affaires sont rentables?",
+        "followUps": []
+      },
+      {
+        "text": "Devrait-on toujours privilégier les facteurs financiers pour justifier le choix des déplacements professionnels?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure doit-on prendre en compte les facteurs environnementaux avant d'organiser un déplacement?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "leave",
-    "title": "Les congés",
+    "id": "leave-c",
+    "title": "Les congés - Niveau C",
     "description": "Discussion sur la gestion et l'attribution des congés",
+    "level": "C",
     "questions": [
-      "Comment les demandes de congés annuels doivent-elles être attribuées?",
-      "Certains disent que les employés du service public ont trop de congés. Êtes-vous d'accord?",
-      "Les employés ont un nombre limité de jours de congé de maladie. Comment devrait répondre un gestionnaire face à un employé malade qui n'aurait plus de jours de maladie disponibles?",
-      "Selon vous, quelle est la meilleure méthode pour assurer la relève dans le cadre d'un congé de longue durée?",
-      "Les Canadiens ont très peu de congés payés par rapport aux autres pays occidentaux. Pensez-vous que c'est une situation préoccupante?"
+      {
+        "text": "Comment les demandes de congés annuels doivent-elles être attribuées?",
+        "followUps": []
+      },
+      {
+        "text": "Certains disent que les employés du service public ont trop de congés. Êtes-vous d'accord?",
+        "followUps": []
+      },
+      {
+        "text": "Les employés ont un nombre limité de jours de congé de maladie. Comment devrait répondre un gestionnaire face à un employé malade qui n'aurait plus de jours de maladie disponibles?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quelle est la meilleure méthode pour assurer la relève dans le cadre d'un congé de longue durée?",
+        "followUps": []
+      },
+      {
+        "text": "Les Canadiens ont très peu de congés payés par rapport aux autres pays occidentaux. Pensez-vous que c'est une situation préoccupante?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "remote-work",
-    "title": "Le télétravail",
+    "id": "remote-work-c",
+    "title": "Le télétravail - Niveau C",
     "description": "Discussion sur le travail à distance et ses impacts",
+    "level": "C",
     "questions": [
-      "Jusqu'à quel point croyez-vous que le télétravail permet un meilleur rendement des employés?",
-      "Dans quelle mesure est-ce possible de concilier responsabilités professionnelles et familiales?",
-      "Si cela était possible pour votre type de travail, quelles raisons vous inciteraient le plus à faire du télétravail?",
-      "Pour quelles raisons croyez-vous que le télétravail n'est pas davantage pratiqué de nos jours?",
-      "D'après vous, est-ce nécessaire que les employés soient au bureau pour effectuer un meilleur travail?"
+      {
+        "text": "Jusqu'à quel point croyez-vous que le télétravail permet un meilleur rendement des employés?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure est-ce possible de concilier responsabilités professionnelles et familiales?",
+        "followUps": []
+      },
+      {
+        "text": "Si cela était possible pour votre type de travail, quelles raisons vous inciteraient le plus à faire du télétravail?",
+        "followUps": []
+      },
+      {
+        "text": "Pour quelles raisons croyez-vous que le télétravail n'est pas davantage pratiqué de nos jours?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, est-ce nécessaire que les employés soient au bureau pour effectuer un meilleur travail?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "financial-management",
-    "title": "La gestion financière",
+    "id": "financial-management-c",
+    "title": "La gestion financière - Niveau C",
     "description": "Discussion sur la gestion budgétaire et l'efficacité financière",
+    "level": "C",
     "questions": [
-      "Est-ce que les fusions d'organismes fédéraux ont réellement permis d'améliorer l'efficacité de la fonction publique et, de plus, d'économiser de l'argent public?",
-      "Selon vous, l'aspect financier constitue-t-il un élément incontournable dans la réalisation d'un projet?",
-      "Jusqu'à quel point un spécialiste des finances doit-il être rigoureux?",
-      "Quelle est l'incidence d'une gestion financière chaotique dans une organisation?",
-      "Dans quelle mesure un sous-financement chronique peut miner les services rendus à la clientèle?",
-      "L'efficacité financière est-elle toujours synonyme de performance?",
-      "D'après vous, comment pourrait-on améliorer les connaissances financières de tous les fonctionnaires?"
+      {
+        "text": "Est-ce que les fusions d'organismes fédéraux ont réellement permis d'améliorer l'efficacité de la fonction publique et, de plus, d'économiser de l'argent public?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, l'aspect financier constitue-t-il un élément incontournable dans la réalisation d'un projet?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point un spécialiste des finances doit-il être rigoureux?",
+        "followUps": []
+      },
+      {
+        "text": "Quelle est l'incidence d'une gestion financière chaotique dans une organisation?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure un sous-financement chronique peut miner les services rendus à la clientèle?",
+        "followUps": []
+      },
+      {
+        "text": "L'efficacité financière est-elle toujours synonyme de performance?",
+        "followUps": []
+      },
+      {
+        "text": "D'après vous, comment pourrait-on améliorer les connaissances financières de tous les fonctionnaires?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "technology",
-    "title": "La technologie",
+    "id": "technology-c",
+    "title": "La technologie - Niveau C",
     "description": "Discussion sur l'impact de la technologie au travail",
+    "level": "C",
     "questions": [
-      "Dans quelle mesure la technologie peut-elle être une source de stress au travail?",
-      "De nos jours, pourrait-on se passer des outils informatiques?",
-      "Selon vous, sommes-nous devenus accros aux derniers gadgets électroniques?",
-      "Est-ce un mythe de penser que la nouvelle génération maîtrise mieux les technologies?",
-      "Dans un monde idéal, quelle est l'avancée technologique que vous aimeriez voir au bureau?",
-      "Dans quelles circonstances la technologie peut-elle constituer un frein dans l'avancée des tâches?"
+      {
+        "text": "Dans quelle mesure la technologie peut-elle être une source de stress au travail?",
+        "followUps": []
+      },
+      {
+        "text": "De nos jours, pourrait-on se passer des outils informatiques?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, sommes-nous devenus accros aux derniers gadgets électroniques?",
+        "followUps": []
+      },
+      {
+        "text": "Est-ce un mythe de penser que la nouvelle génération maîtrise mieux les technologies?",
+        "followUps": []
+      },
+      {
+        "text": "Dans un monde idéal, quelle est l'avancée technologique que vous aimeriez voir au bureau?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelles circonstances la technologie peut-elle constituer un frein dans l'avancée des tâches?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "environment",
-    "title": "L'environnement",
+    "id": "environment-c",
+    "title": "L'environnement - Niveau C",
     "description": "Discussion sur les pratiques environnementales au travail",
+    "level": "C",
     "questions": [
-      "Comment le gouvernement pourrait-il convaincre les Canadiens à changer leurs habitudes afin de réduire leur empreinte écologique?",
-      "Jusqu'à quel point les programmes de recyclage au travail affectent-ils le milieu de travail?",
-      "Les programmes de recyclage devraient-ils être obligatoire et sanctionner les personnes réfractaires?",
-      "En quoi les changements environnementaux devraient être la préoccupation de tous?",
-      "Selon vous, quels gestes concrets ont un réel impact sur la préservation de notre environnement?"
+      {
+        "text": "Comment le gouvernement pourrait-il convaincre les Canadiens à changer leurs habitudes afin de réduire leur empreinte écologique?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point les programmes de recyclage au travail affectent-ils le milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Les programmes de recyclage devraient-ils être obligatoire et sanctionner les personnes réfractaires?",
+        "followUps": []
+      },
+      {
+        "text": "En quoi les changements environnementaux devraient être la préoccupation de tous?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quels gestes concrets ont un réel impact sur la préservation de notre environnement?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "volunteerism",
-    "title": "Le volontarisme",
+    "id": "volunteerism-c",
+    "title": "Le volontarisme - Niveau C",
     "description": "Discussion sur le bénévolat et l'engagement volontaire",
+    "level": "C",
     "questions": [
-      "Selon vous, quelle est l'importance du bénévolat dans notre société?",
-      "Avez-vous déjà participé à des activités de bénévolat? Quelle a été votre expérience?",
-      "Comment le bénévolat peut-il enrichir le développement professionnel d'un individu?",
-      "Pensez-vous que les employeurs devraient encourager leurs employés à faire du bénévolat pendant les heures de travail?",
-      "Quels sont les avantages pour une organisation de soutenir les initiatives de bénévolat de ses employés?",
-      "Dans quelle mesure le bénévolat peut-il contribuer à améliorer l'image d'une organisation?",
-      "Comment pourrait-on encourager davantage les fonctionnaires à s'engager dans des activités bénévoles?",
-      "Selon vous, quelles compétences acquises par le bénévolat peuvent être transférables au milieu de travail?",
-      "Croyez-vous que le bénévolat devrait être reconnu formellement dans l'évaluation du rendement des employés?",
-      "Jusqu'à quel point les programmes de bénévolat en entreprise peuvent-ils améliorer la cohésion d'équipe?",
-      "Quels types d'activités bénévoles seraient les plus appropriés pour les fonctionnaires?",
-      "Dans quelle mesure un employeur devrait-il faciliter la participation de ses employés à des activités bénévoles?"
+      {
+        "text": "Selon vous, quelle est l'importance du bénévolat dans notre société?",
+        "followUps": []
+      },
+      {
+        "text": "Avez-vous déjà participé à des activités de bénévolat? Quelle a été votre expérience?",
+        "followUps": []
+      },
+      {
+        "text": "Comment le bénévolat peut-il enrichir le développement professionnel d'un individu?",
+        "followUps": []
+      },
+      {
+        "text": "Pensez-vous que les employeurs devraient encourager leurs employés à faire du bénévolat pendant les heures de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Quels sont les avantages pour une organisation de soutenir les initiatives de bénévolat de ses employés?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure le bénévolat peut-il contribuer à améliorer l'image d'une organisation?",
+        "followUps": []
+      },
+      {
+        "text": "Comment pourrait-on encourager davantage les fonctionnaires à s'engager dans des activités bénévoles?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, quelles compétences acquises par le bénévolat peuvent être transférables au milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Croyez-vous que le bénévolat devrait être reconnu formellement dans l'évaluation du rendement des employés?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point les programmes de bénévolat en entreprise peuvent-ils améliorer la cohésion d'équipe?",
+        "followUps": []
+      },
+      {
+        "text": "Quels types d'activités bénévoles seraient les plus appropriés pour les fonctionnaires?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure un employeur devrait-il faciliter la participation de ses employés à des activités bénévoles?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "diversity-inclusion",
-    "title": "La diversité et l'inclusion",
+    "id": "diversity-inclusion-c",
+    "title": "La diversité et l'inclusion - Niveau C",
     "description": "Discussion sur la diversité, l'équité et l'inclusion en milieu de travail",
+    "level": "C",
     "questions": [
-      "Selon vous, quelle est l'importance de la diversité en milieu de travail?",
-      "Comment peut-on créer un environnement de travail véritablement inclusif?",
-      "Quels sont les avantages d'avoir une équipe diversifiée au sein d'une organisation?",
-      "Comment assurez-vous que toutes les voix sont entendues lors des réunions d'équipe?",
-      "Jusqu'à quel point la compétence culturelle est-elle importante dans la fonction publique?",
-      "Quels obstacles empêchent certaines personnes d'accéder à des postes de leadership?",
-      "Comment peut-on identifier et combattre les préjugés inconscients en milieu de travail?",
-      "Dans quelle mesure les programmes de diversité et d'inclusion sont-ils efficaces dans votre organisation?",
-      "Que feriez-vous si vous étiez témoin d'un comportement discriminatoire au travail?",
-      "Comment le gouvernement peut-il mieux refléter la diversité de la population canadienne?",
-      "Quelles mesures concrètes peuvent être mises en place pour favoriser l'équité en matière d'avancement professionnel?",
-      "Selon vous, comment peut-on concilier l'embauche basée sur le mérite et les objectifs de diversité?",
-      "Dans quelle mesure l'accessibilité pour les personnes en situation de handicap est-elle une priorité dans votre milieu de travail?",
-      "Comment peut-on s'assurer que les politiques organisationnelles ne désavantagent aucun groupe particulier?"
+      {
+        "text": "Selon vous, quelle est l'importance de la diversité en milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on créer un environnement de travail véritablement inclusif?",
+        "followUps": []
+      },
+      {
+        "text": "Quels sont les avantages d'avoir une équipe diversifiée au sein d'une organisation?",
+        "followUps": []
+      },
+      {
+        "text": "Comment assurez-vous que toutes les voix sont entendues lors des réunions d'équipe?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point la compétence culturelle est-elle importante dans la fonction publique?",
+        "followUps": []
+      },
+      {
+        "text": "Quels obstacles empêchent certaines personnes d'accéder à des postes de leadership?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on identifier et combattre les préjugés inconscients en milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure les programmes de diversité et d'inclusion sont-ils efficaces dans votre organisation?",
+        "followUps": []
+      },
+      {
+        "text": "Que feriez-vous si vous étiez témoin d'un comportement discriminatoire au travail?",
+        "followUps": []
+      },
+      {
+        "text": "Comment le gouvernement peut-il mieux refléter la diversité de la population canadienne?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles mesures concrètes peuvent être mises en place pour favoriser l'équité en matière d'avancement professionnel?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, comment peut-on concilier l'embauche basée sur le mérite et les objectifs de diversité?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure l'accessibilité pour les personnes en situation de handicap est-elle une priorité dans votre milieu de travail?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on s'assurer que les politiques organisationnelles ne désavantagent aucun groupe particulier?",
+        "followUps": []
+      }
     ]
   },
   {
-    "id": "professional-ethics",
-    "title": "L'éthique professionnelle",
+    "id": "professional-ethics-c",
+    "title": "L'éthique professionnelle - Niveau C",
     "description": "Discussion sur l'intégrité, les valeurs et la conduite éthique au travail",
+    "level": "C",
     "questions": [
-      "Selon vous, quelles sont les valeurs fondamentales qui devraient guider un fonctionnaire?",
-      "Comment réagiriez-vous si on vous demandait de faire quelque chose qui va à l'encontre de vos valeurs personnelles?",
-      "Quel rôle joue la transparence dans le maintien de la confiance du public envers le gouvernement?",
-      "Que feriez-vous si vous étiez témoin d'un comportement contraire à l'éthique de la part d'un collègue?",
-      "Comment gérez-vous une situation où la loyauté envers votre organisation entre en conflit avec l'intérêt public?",
-      "Dans quelle mesure les fonctionnaires doivent-ils éviter les conflits d'intérêts, même perçus?",
-      "Quelles sont les conséquences d'un manquement à l'éthique dans la fonction publique?",
-      "Comment peut-on favoriser une culture d'intégrité au sein d'une organisation?",
-      "Jusqu'à quel point un employé devrait-il dénoncer des pratiques qu'il juge contraires à l'éthique?",
-      "Selon vous, comment devrait-on former les fonctionnaires aux questions d'éthique professionnelle?",
-      "Dans quelle mesure la confidentialité est-elle importante dans votre travail quotidien?",
-      "Comment peut-on maintenir son intégrité professionnelle face aux pressions politiques ou hiérarchiques?",
-      "Quels mécanismes de protection devraient exister pour les dénonciateurs dans la fonction publique?",
-      "Selon vous, l'éthique professionnelle est-elle une responsabilité individuelle ou organisationnelle?"
+      {
+        "text": "Selon vous, quelles sont les valeurs fondamentales qui devraient guider un fonctionnaire?",
+        "followUps": []
+      },
+      {
+        "text": "Comment réagiriez-vous si on vous demandait de faire quelque chose qui va à l'encontre de vos valeurs personnelles?",
+        "followUps": []
+      },
+      {
+        "text": "Quel rôle joue la transparence dans le maintien de la confiance du public envers le gouvernement?",
+        "followUps": []
+      },
+      {
+        "text": "Que feriez-vous si vous étiez témoin d'un comportement contraire à l'éthique de la part d'un collègue?",
+        "followUps": []
+      },
+      {
+        "text": "Comment gérez-vous une situation où la loyauté envers votre organisation entre en conflit avec l'intérêt public?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure les fonctionnaires doivent-ils éviter les conflits d'intérêts, même perçus?",
+        "followUps": []
+      },
+      {
+        "text": "Quelles sont les conséquences d'un manquement à l'éthique dans la fonction publique?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on favoriser une culture d'intégrité au sein d'une organisation?",
+        "followUps": []
+      },
+      {
+        "text": "Jusqu'à quel point un employé devrait-il dénoncer des pratiques qu'il juge contraires à l'éthique?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, comment devrait-on former les fonctionnaires aux questions d'éthique professionnelle?",
+        "followUps": []
+      },
+      {
+        "text": "Dans quelle mesure la confidentialité est-elle importante dans votre travail quotidien?",
+        "followUps": []
+      },
+      {
+        "text": "Comment peut-on maintenir son intégrité professionnelle face aux pressions politiques ou hiérarchiques?",
+        "followUps": []
+      },
+      {
+        "text": "Quels mécanismes de protection devraient exister pour les dénonciateurs dans la fonction publique?",
+        "followUps": []
+      },
+      {
+        "text": "Selon vous, l'éthique professionnelle est-elle une responsabilité individuelle ou organisationnelle?",
+        "followUps": []
+      }
     ]
   }
 ]

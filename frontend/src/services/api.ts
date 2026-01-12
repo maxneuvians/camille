@@ -1,10 +1,11 @@
-import type { Theme, Conversation } from '../types';
+import type { Theme, Conversation, Level } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api';
 
 export const api = {
-  async getThemes(): Promise<Theme[]> {
-    const response = await fetch(`${API_BASE}/themes`);
+  async getThemes(level?: Level): Promise<Theme[]> {
+    const url = level ? `${API_BASE}/themes?level=${level}` : `${API_BASE}/themes`;
+    const response = await fetch(url);
     if (!response.ok) throw new Error('Failed to fetch themes');
     return response.json();
   },
@@ -13,6 +14,10 @@ export const api = {
     const response = await fetch(`${API_BASE}/themes/${id}`);
     if (!response.ok) throw new Error('Failed to fetch theme');
     return response.json();
+  },
+
+  async getThemesByLevel(level: Level): Promise<Theme[]> {
+    return this.getThemes(level);
   },
 
   async getConversations(): Promise<Conversation[]> {
@@ -27,11 +32,11 @@ export const api = {
     return response.json();
   },
 
-  async createConversation(themeId: string, isWarmup: boolean = false): Promise<Conversation> {
+  async createConversation(themeId: string): Promise<Conversation> {
     const response = await fetch(`${API_BASE}/conversations`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ themeId, isWarmup })
+      body: JSON.stringify({ themeId })
     });
     if (!response.ok) throw new Error('Failed to create conversation');
     return response.json();

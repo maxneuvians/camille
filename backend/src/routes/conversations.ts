@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    const { themeId, isWarmup } = req.body;
+    const { themeId } = req.body;
     
     if (!themeId) {
       return res.status(400).json({ error: 'Theme ID is required' });
@@ -43,14 +43,10 @@ router.post('/', (req, res) => {
       id: crypto.randomUUID(),
       themeId,
       startTime: Date.now(),
-      messages: [],
-      isWarmup: isWarmup || false
+      messages: []
     };
 
-    // Only save non-warmup conversations
-    if (!isWarmup) {
-      DataService.saveConversation(conversation);
-    }
+    DataService.saveConversation(conversation);
     res.status(201).json(conversation);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create conversation' });

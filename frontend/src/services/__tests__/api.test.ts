@@ -147,7 +147,7 @@ describe('API Service', () => {
         expect.objectContaining({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ themeId: 'theme-1', isWarmup: false }),
+          body: JSON.stringify({ themeId: 'theme-1' }),
         })
       );
     });

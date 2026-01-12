@@ -78,7 +78,6 @@ export class AudioClient {
     formData.append("audio", audioBlob);
     formData.append("conversationId", this.conversationId);
     formData.append("apiKey", this.apiKey);
-    formData.append("isWarmup", this.isWarmup.toString());
 
     const response = await fetch(`${API_BASE}/api/audio/process`, {
       method: "POST",

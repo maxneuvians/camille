@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Theme, Conversation } from '../types';
+import { Theme, Conversation, Level } from '../types';
 
 const DATA_DIR = path.join(__dirname, '../data');
 const THEMES_FILE = path.join(DATA_DIR, 'themes.json');
@@ -13,10 +13,16 @@ export class DataService {
     }
   }
 
-  static getThemes(): Theme[] {
+  static getThemes(level?: Level): Theme[] {
     try {
       const data = fs.readFileSync(THEMES_FILE, 'utf-8');
-      return JSON.parse(data);
+      const themes: Theme[] = JSON.parse(data);
+      
+      if (level) {
+        return themes.filter(theme => theme.level === level);
+      }
+      
+      return themes;
     } catch (error) {
       console.error('Error reading themes:', error);
       return [];
@@ -26,6 +32,10 @@ export class DataService {
   static getThemeById(id: string): Theme | undefined {
     const themes = this.getThemes();
     return themes.find(theme => theme.id === id);
+  }
+
+  static getThemesByLevel(level: Level): Theme[] {
+    return this.getThemes(level);
   }
 
   static getConversations(): Conversation[] {

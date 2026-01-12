@@ -7,10 +7,9 @@ import "./VoiceAgent.css";
 interface VoiceAgentProps {
   theme: Theme;
   onBack: () => void;
-  isWarmup?: boolean;
 }
 
-export function VoiceAgent({ theme, onBack, isWarmup = false }: VoiceAgentProps) {
+export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [apiKey, setApiKey] = useState(
     localStorage.getItem("openai_api_key") || ""
@@ -27,7 +26,7 @@ export function VoiceAgent({ theme, onBack, isWarmup = false }: VoiceAgentProps)
   useEffect(() => {
     const initConversation = async () => {
       try {
-        const conv = await api.createConversation(theme.id, isWarmup);
+        const conv = await api.createConversation(theme.id);
         setConversation(conv);
         setMessages(conv.messages);
         setStatus("Prêt à commencer - Entrez votre clé API");
@@ -44,7 +43,7 @@ export function VoiceAgent({ theme, onBack, isWarmup = false }: VoiceAgentProps)
         audioClient.current.cleanup();
       }
     };
-  }, [theme.id, isWarmup]);
+  }, [theme.id]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -62,7 +61,7 @@ export function VoiceAgent({ theme, onBack, isWarmup = false }: VoiceAgentProps)
     }
 
     localStorage.setItem("openai_api_key", apiKey);
-    audioClient.current = new AudioClient(conversation.id, apiKey, isWarmup);
+    audioClient.current = new AudioClient(conversation.id, apiKey);
     setStatus('Prêt - Appuyez sur "Parler" pour commencer');
   };
 
@@ -140,16 +139,11 @@ export function VoiceAgent({ theme, onBack, isWarmup = false }: VoiceAgentProps)
     if (!conversation) return;
 
     try {
-      // Only save non-warmup conversations
-      if (!isWarmup) {
-        await api.updateConversation(conversation.id, {
-          endTime: Date.now(),
-          messages,
-        });
-        alert("Conversation terminée et sauvegardée!");
-      } else {
-        alert("Échauffement terminé!");
-      }
+      await api.updateConversation(conversation.id, {
+        endTime: Date.now(),
+        messages,
+      });
+      alert("Conversation terminée et sauvegardée!");
 
       if (audioClient.current) {
         audioClient.current.cleanup();
@@ -176,7 +170,7 @@ export function VoiceAgent({ theme, onBack, isWarmup = false }: VoiceAgentProps)
         <button onClick={onBack} className="back-button">
           ← Retour
         </button>
-        <h2>{isWarmup ? "🌟 Échauffement" : theme.title}</h2>
+        <h2>{theme.title}</h2>
         <button
           onClick={handleEndConversation}
           className="end-button"

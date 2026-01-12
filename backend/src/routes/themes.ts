@@ -1,11 +1,19 @@
 import { Router } from 'express';
 import { DataService } from '../services/data.service';
+import { Level } from '../types';
 
 const router = Router();
 
 router.get('/', (req, res) => {
   try {
-    const themes = DataService.getThemes();
+    const level = req.query.level as Level | undefined;
+    
+    // Validate level if provided
+    if (level && !['A', 'B', 'C'].includes(level)) {
+      return res.status(400).json({ error: 'Invalid level. Must be A, B, or C' });
+    }
+    
+    const themes = DataService.getThemes(level);
     res.json(themes);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch themes' });
