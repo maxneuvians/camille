@@ -27,7 +27,40 @@ export interface Conversation {
   endTime?: number;
   messages: ConversationMessage[];
   evaluation?: ConversationEvaluation;
+  analysis?: ConversationAnalysis;
   voice?: string;
+}
+
+export type AnalysisSeverity = 'low' | 'medium' | 'high';
+
+export type AnalysisCategory =
+  | 'grammar'
+  | 'spelling'
+  | 'wording'
+  | 'clarity'
+  | 'tone'
+  | 'structure'
+  | 'consistency'
+  | 'other';
+
+export interface AnalysisIssue {
+  category: AnalysisCategory;
+  severity: AnalysisSeverity;
+  description: string;
+  suggestion: string;
+}
+
+export interface MessageAnalysis {
+  messageTimestamp: number;
+  summary: string;
+  issues: AnalysisIssue[];
+  improvedExample?: string;
+  analyzedAt: number;
+}
+
+export interface ConversationAnalysis {
+  messageAnalyses: MessageAnalysis[];
+  lastAnalyzedAt?: number;
 }
 
 export interface ConversationEvaluation {

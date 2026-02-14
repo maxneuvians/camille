@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { DataService } from '../services/data.service';
 import { Conversation } from '../types';
 import crypto from 'crypto';
+import { AnalysisService } from '../services/analysis.service';
 
 const router = Router();
 
@@ -29,7 +30,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   try {
     const { themeId } = req.body;
-    
+
     if (!themeId) {
       return res.status(400).json({ error: 'Theme ID is required' });
     }
@@ -70,6 +71,57 @@ router.put('/:id', (req, res) => {
     res.json(updatedConversation);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update conversation' });
+  }
+});
+
+router.post('/:id/analyze', async (req, res) => {
+  try {
+    const { messageTimestamp, apiKey } = req.body;
+
+    if (!messageTimestamp || !apiKey) {
+      return res.status(400).json({ error: 'messageTimestamp and apiKey are required' });
+    }
+
+    const timestamp = Number(messageTimestamp);
+    if (Number.isNaN(timestamp)) {
+      return res.status(400).json({ error: 'messageTimestamp must be a number' });
+    }
+
+    const analysis = await AnalysisService.analyzeUserMessage(
+      req.params.id,
+      timestamp,
+      apiKey
+    );
+
+    res.json(analysis);
+  } catch (error) {
+    console.error('Conversation analysis error:', error);
+    res.status(500).json({ error: 'Failed to analyze message' });
+  }
+});
+
+router.delete('/empty', (req, res) => {
+  try {
+    const removed = DataService.deleteEmptyConversations();
+    res.json({ removed });
+  } catch (error) {
+    console.error('Failed to delete empty conversations:', error);
+    res.status(500).json({ error: 'Failed to delete empty conversations' });
+  }
+});
+
+router.delete('/:id', (req, res) => {
+  try {
+    const conversation = DataService.getConversationById(req.params.id);
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+
+    DataService.deleteConversation(req.params.id);
+    res.json({ deleted: true });
+  } catch (error) {
+    console.error('Failed to delete conversation:', error);
+    res.status(500).json({ error: 'Failed to delete conversation' });
   }
 });
 

@@ -17,11 +17,11 @@ export class DataService {
     try {
       const data = fs.readFileSync(THEMES_FILE, 'utf-8');
       const themes: Theme[] = JSON.parse(data);
-      
+
       if (level) {
         return themes.filter(theme => theme.level === level);
       }
-      
+
       return themes;
     } catch (error) {
       console.error('Error reading themes:', error);
@@ -32,14 +32,14 @@ export class DataService {
   static getThemeById(id: string): Theme | undefined {
     const themes = this.getThemes();
     const theme = themes.find(theme => theme.id === id);
-    
+
     // Randomize question order for level C themes
     if (theme && theme.level === 'C') {
       const shuffledTheme = { ...theme };
       shuffledTheme.questions = this.shuffleArray([...theme.questions]);
       return shuffledTheme;
     }
-    
+
     return theme;
   }
 
@@ -74,7 +74,7 @@ export class DataService {
     this.ensureDataDir();
     const conversations = this.getConversations();
     const index = conversations.findIndex(c => c.id === conversation.id);
-    
+
     if (index >= 0) {
       conversations[index] = conversation;
     } else {
@@ -82,6 +82,22 @@ export class DataService {
     }
 
     fs.writeFileSync(CONVERSATIONS_FILE, JSON.stringify(conversations, null, 2));
+  }
+
+  static deleteConversation(id: string): void {
+    this.ensureDataDir();
+    const conversations = this.getConversations();
+    const filtered = conversations.filter(c => c.id !== id);
+    fs.writeFileSync(CONVERSATIONS_FILE, JSON.stringify(filtered, null, 2));
+  }
+
+  static deleteEmptyConversations(): number {
+    this.ensureDataDir();
+    const conversations = this.getConversations();
+    const filtered = conversations.filter(c => (c.messages?.length || 0) > 0);
+    const removed = conversations.length - filtered.length;
+    fs.writeFileSync(CONVERSATIONS_FILE, JSON.stringify(filtered, null, 2));
+    return removed;
   }
 
   static getConversationById(id: string): Conversation | undefined {

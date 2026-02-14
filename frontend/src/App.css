@@ -1,27 +1,62 @@
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #0ea5e9 100%);
 }
 
 .app-header {
-  padding: 2rem;
-  text-align: center;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
   color: white;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(6px);
 }
 
-.app-header h1 {
-  margin: 0 0 0.5rem 0;
-  font-size: 2.5rem;
-  font-weight: 700;
+.brand h1 {
+  margin: 0 0 0.35rem 0;
+  font-size: 2rem;
+  font-weight: 800;
 }
 
-.app-header p {
+.brand p {
   margin: 0;
-  font-size: 1.1rem;
-  opacity: 0.9;
+  font-size: 1rem;
+  opacity: 0.85;
 }
 
 .app-main {
   min-height: calc(100vh - 140px);
+  background: #f5f7fb;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.12);
+  margin: 0 1rem 1rem;
+}
+
+.mode-switcher {
+  display: inline-flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.35rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.mode-switcher button {
+  border: none;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  background: transparent;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-switcher button.active {
+  background: white;
+  color: #0f172a;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.35);
 }

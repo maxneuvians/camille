@@ -1,4 +1,4 @@
-import type { Theme, Conversation, Level } from '../types';
+import type { Theme, Conversation, Level, MessageAnalysis } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api';
 
@@ -49,6 +49,39 @@ export const api = {
       body: JSON.stringify(data)
     });
     if (!response.ok) throw new Error('Failed to update conversation');
+    return response.json();
+  },
+
+  async analyzeMessage(
+    conversationId: string,
+    messageTimestamp: number,
+    apiKey: string
+  ): Promise<MessageAnalysis> {
+    const response = await fetch(`${API_BASE}/conversations/${conversationId}/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messageTimestamp, apiKey })
+    });
+
+    if (!response.ok) throw new Error('Failed to analyze message');
+    return response.json();
+  },
+
+  async deleteEmptyConversations(): Promise<{ removed: number }> {
+    const response = await fetch(`${API_BASE}/conversations/empty`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) throw new Error('Failed to delete empty conversations');
+    return response.json();
+  },
+
+  async deleteConversation(id: string): Promise<{ deleted: boolean }> {
+    const response = await fetch(`${API_BASE}/conversations/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) throw new Error('Failed to delete conversation');
     return response.json();
   }
 };
