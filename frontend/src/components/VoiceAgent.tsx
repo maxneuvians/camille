@@ -19,9 +19,14 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [status, setStatus] = useState<string>("Initialisation...");
   const [error, setError] = useState<string | null>(null);
+  const [revealedMessages, setRevealedMessages] = useState<Set<number>>(new Set());
+  const [timerStartTime, setTimerStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [timerActive, setTimerActive] = useState(false);
 
   const audioClient = useRef<AudioClient | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const timerInterval = useRef<number | null>(null);
 
   useEffect(() => {
     const initConversation = async () => {
@@ -49,6 +54,52 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Timer effect
+  useEffect(() => {
+    if (timerActive && timerStartTime) {
+      timerInterval.current = window.setInterval(() => {
+        setElapsedTime(Date.now() - timerStartTime);
+      }, 100);
+    } else {
+      if (timerInterval.current) {
+        clearInterval(timerInterval.current);
+        timerInterval.current = null;
+      }
+    }
+
+    return () => {
+      if (timerInterval.current) {
+        clearInterval(timerInterval.current);
+      }
+    };
+  }, [timerActive, timerStartTime]);
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Only handle spacebar if audio client is set up and not processing
+      if (e.code === "Space" && audioClient.current && !processing) {
+        // Don't trigger if user is typing in an input field
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+          return;
+        }
+        
+        e.preventDefault();
+        
+        if (recording) {
+          stopRecordingAndProcess();
+        } else {
+          startRecording();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [recording, processing]);
+
   const handleSetupClient = () => {
     if (!apiKey) {
       setError("Veuillez entrer votre clé API OpenAI");
@@ -72,6 +123,13 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
     }
 
     try {
+      // Start timer on first recording
+      if (!timerActive && !timerStartTime) {
+        const now = Date.now();
+        setTimerStartTime(now);
+        setTimerActive(true);
+      }
+
       await audioClient.current.startRecording();
       setRecording(true);
       setStatus("Enregistrement en cours... Relâchez pour envoyer");
@@ -139,6 +197,9 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
     if (!conversation) return;
 
     try {
+      // Stop the timer
+      setTimerActive(false);
+
       await api.updateConversation(conversation.id, {
         endTime: Date.now(),
         messages,
@@ -164,13 +225,37 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
     });
   };
 
+  const handleRevealMessage = (idx: number) => {
+    setRevealedMessages((prev) => new Set(prev).add(idx));
+  };
+
+  const formatElapsedTime = (milliseconds: number) => {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="voice-agent">
       <div className="voice-agent-header">
         <button onClick={onBack} className="back-button">
           ← Retour
         </button>
-        <h2>{theme.title}</h2>
+        <div className="header-center">
+          <h2>{theme.title}</h2>
+          {timerStartTime && (
+            <div className="conversation-timer">
+              <span className={`timer-icon ${timerActive ? 'active' : ''}`}>⏱️</span>
+              <span className="timer-text">{formatElapsedTime(elapsedTime)}</span>
+            </div>
+          )}
+        </div>
         <button
           onClick={handleEndConversation}
           className="end-button"
@@ -200,19 +285,35 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
         <>
           <div className="conversation-panel">
             <div className="messages-container">
-              {messages.map((msg, idx) => (
-                <div key={idx} className={`message message-${msg.role}`}>
-                  <div className="message-header">
-                    <span className="message-role">
-                      {msg.role === "user" ? "Vous" : "Agent"}
-                    </span>
-                    <span className="message-time">
-                      {formatTime(msg.timestamp)}
-                    </span>
+              {messages.map((msg, idx) => {
+                const isRevealed = revealedMessages.has(idx);
+                const isAssistant = msg.role === "assistant";
+                return (
+                  <div
+                    key={idx}
+                    className={`message message-${msg.role} ${
+                      isAssistant && !isRevealed ? "message-blurred" : ""
+                    }`}
+                    onClick={() => isAssistant && !isRevealed && handleRevealMessage(idx)}
+                    style={{ cursor: isAssistant && !isRevealed ? "pointer" : "default" }}
+                  >
+                    <div className="message-header">
+                      <span className="message-role">
+                        {msg.role === "user" ? "Vous" : "Agent"}
+                      </span>
+                      <span className="message-time">
+                        {formatTime(msg.timestamp)}
+                      </span>
+                    </div>
+                    <div className="message-content">
+                      {isAssistant && !isRevealed && (
+                        <div className="reveal-hint">Cliquez pour révéler</div>
+                      )}
+                      {msg.content}
+                    </div>
                   </div>
-                  <div className="message-content">{msg.content}</div>
-                </div>
-              ))}
+                );
+              })}
               <div ref={messagesEndRef} />
             </div>
           </div>
@@ -249,6 +350,8 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
               </button>
               <p className="push-to-talk-hint">
                 Maintenez le bouton enfoncé pour parler, relâchez pour envoyer
+                <br />
+                Ou appuyez sur <kbd>Espace</kbd> pour basculer l'enregistrement
               </p>
             </div>
           </div>

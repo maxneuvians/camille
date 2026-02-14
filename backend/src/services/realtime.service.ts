@@ -65,6 +65,11 @@ export class RealtimeService {
     openaiWs.on("open", () => {
       console.log("Connected to OpenAI Realtime API");
 
+      // Select a random voice from available options
+      const voices = ["alloy", "ash", "ballad", "coral", "echo", "sage", "shimmer", "verse"];
+      const randomVoice = voices[Math.floor(Math.random() * voices.length)];
+      console.log(`Selected voice: ${randomVoice}`);
+
       // Use a more complete configuration
       const instructions = `You are a helpful voice assistant conducting professional interviews in French.
 
@@ -90,7 +95,7 @@ Instructions:
             session: {
               modalities: ["text", "audio"],
               instructions: instructions,
-              voice: "alloy",
+              voice: randomVoice,
               input_audio_format: "pcm16",
               output_audio_format: "pcm16",
               turn_detection: {

@@ -4,9 +4,38 @@ import { ConversationMessage } from "../types";
 
 export class AudioService {
   private static openai: OpenAI;
+  private static readonly AVAILABLE_VOICES = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'] as const;
 
   static initialize(apiKey: string) {
     this.openai = new OpenAI({ apiKey });
+  }
+
+  /**
+   * Select a random voice for a conversation
+   */
+  private static selectRandomVoice(): string {
+    const randomIndex = Math.floor(Math.random() * this.AVAILABLE_VOICES.length);
+    return this.AVAILABLE_VOICES[randomIndex];
+  }
+
+  /**
+   * Get the voice for a conversation, selecting a random one if not already set
+   */
+  private static getVoiceForConversation(conversationId: string): string {
+    const conversation = DataService.getConversationById(conversationId);
+    
+    if (!conversation) {
+      throw new Error("Conversation not found");
+    }
+
+    // If voice is not set, select a random one and save it
+    if (!conversation.voice) {
+      conversation.voice = this.selectRandomVoice();
+      DataService.saveConversation(conversation);
+      console.log(`Selected voice for conversation ${conversationId}:`, conversation.voice);
+    }
+
+    return conversation.voice;
   }
 
   /**
@@ -65,6 +94,7 @@ Instructions:
 - Pose les questions une par une
 - Écoute attentivement les réponses
 - Pose des questions de suivi si nécessaire pour approfondir
+- Utilise les questions de type hypothèse ou situationnelles dans les questions de suivi 
 - Encourage la personne à donner des exemples concrets
 - À la fin, remercie la personne pour son temps`;
 
@@ -121,11 +151,14 @@ Instructions:
   /**
    * Convert text to speech using OpenAI TTS
    */
-  static async textToSpeech(text: string): Promise<Buffer> {
+  static async textToSpeech(text: string, conversationId?: string): Promise<Buffer> {
     try {
+      // Get the voice for the conversation, or default to 'alloy'
+      const voice = conversationId ? this.getVoiceForConversation(conversationId) : 'alloy';
+
       const mp3Response = await this.openai.audio.speech.create({
         model: "tts-1",
-        voice: "alloy",
+        voice: voice as any,
         input: text,
         response_format: "mp3",
       });
@@ -153,8 +186,8 @@ Instructions:
     const response = await this.generateResponse(conversationId, text);
     console.log("Generated response:", response);
 
-    // Step 3: Convert to speech
-    const responseAudio = await this.textToSpeech(response);
+    // Step 3: Convert to speech with the conversation's voice
+    const responseAudio = await this.textToSpeech(response, conversationId);
     console.log("Generated TTS audio");
 
     return {
