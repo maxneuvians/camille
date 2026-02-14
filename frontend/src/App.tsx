@@ -19,7 +19,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Camille - Agent Vocal Français</h1>
-        <p>Entretiens professionnels interactifs en temps réel</p>
+        <p>Entretiens professionnels interactifs avec réponse vocale</p>
       </header>
 
       <main className="app-main">
@@ -28,8 +28,8 @@ function App() {
         )}
 
         {selectedTheme && (
-          <VoiceAgent 
-            theme={selectedTheme} 
+          <VoiceAgent
+            theme={selectedTheme}
             onBack={handleBackToThemeSelector}
           />
         )}

@@ -27,6 +27,7 @@ export interface Conversation {
   endTime?: number;
   messages: ConversationMessage[];
   evaluation?: ConversationEvaluation;
+  voice?: string;
 }
 
 export interface ConversationEvaluation {

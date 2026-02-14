@@ -1,26 +1,23 @@
 # Camille
 
-Interactive French voice agent## Prerequisites
+Interactive French voice agent that records a turn, transcribes it, generates a reply, then plays the response.
+
+## Prerequisites
 
 - Node.js 18+ and npm
 - OpenAI API key with access to:
-  - **Whisper API** (for speech-to-text)
-  - **GPT-4** (`gpt-4o` model)
-  - **TTS API** (`tts-1` model)
-
-> **Note**: This project previously used the Realtime API but migrated to the more stable STT→GPT→TTS pipeline. If you need WebSocket/Realtime functionality, it's still available but deprecated. conducting professional interviews using AI-powered speech recognition and generation.
+   - **Whisper API** (speech-to-text)
+   - **GPT-4o** (conversation)
+   - **TTS API** (`tts-1` model)
 
 ## Features
 
 - 🎤 **Voice Conversations**: Speak naturally with an AI agent in French
-- 🌟 **Warmup Mode**: Optional casual conversation before interviews (not recorded)
-- 🔄 **Speech-to-Text-to-Speech**: Reliable audio processing pipeline using OpenAI APIs
-- 💬 **Live Transcription**: See conversation transcripts in real-time
+- 🔄 **Record → Transcribe → Reply**: Reliable STT → GPT-4o → TTS pipeline
 - 🎯 **Themed Interviews**: Pre-defined themes with professional interview questions
-- 📝 **Push-to-Talk**: Simple push-to-talk interface for controlled conversations
+- 📝 **Push-to-Talk**: Hold to record, release to process
 - 💾 **Conversation Storage**: Save and review past conversations
-- � **Natural Voice**: High-quality text-to-speech responses
-- �📊 **Evaluation Framework**: Extensible evaluation system for assessing conversations
+- 🔊 **Natural Voice**: High-quality text-to-speech responses
 
 ## Architecture
 
@@ -50,11 +47,6 @@ The previous implementation used OpenAI's Realtime API, but we migrated to a mor
 - ✅ **Easier Debugging**: Each step is logged and traceable
 - ✅ **Cost Effective**: Pay only for what you use
 - ✅ **Higher Quality**: Uses proven, stable APIs
-
-## Prerequisites
-
-- Node.js 18+ and npm
-- OpenAI API key with access to Realtime API
 
 ## Setup
 
@@ -141,21 +133,13 @@ See [.devcontainer/README.md](.devcontainer/README.md) for more details.
 
 ## Usage
 
-1. **Warmup (Optional)**: Choose to start with a casual warmup conversation
-   - Light-hearted questions to relax before the interview
-   - Topics include: name, workplace, weather, weekend activities
-   - **Not recorded** - purely for practice and relaxation
-2. **Select a Theme**: Choose from pre-defined interview themes like "Le travail en équipe"
-3. **Enter API Key**: Provide your OpenAI API key (stored locally in browser)
-4. **Connect**: Click "Se connecter" to initialize the audio system
-5. **Push to Talk**: Hold down the microphone button to speak, release to process
-6. **Wait for Response**: The system will:
-   - Transcribe your speech using Whisper
-   - Generate a response using GPT-4
-   - Convert the response to speech using TTS
-   - Play the audio automatically
-7. **View Transcripts**: See the conversation transcript in real-time
-8. **End Conversation**: Click "Terminer" to save and exit
+1. **Select a Theme**: Choose from pre-defined interview themes like "Le travail en équipe".
+2. **Enter API Key**: Provide your OpenAI API key (stored locally in the browser).
+3. **Configure Audio**: Click "Configurer" to enable recording for the session.
+4. **Push to Talk**: Hold the microphone button (or press space) to record; release to send.
+5. **Processing**: Backend transcribes, generates the reply, converts it to speech, and sends back base64 audio.
+6. **Playback**: Audio is played automatically; transcript is added to the conversation history.
+7. **End Conversation**: Click "Terminer" to save and exit.
 
 ## How It Works
 
@@ -177,16 +161,14 @@ camille/
 │   ├── src/
 │   │   ├── data/           # Themes and conversation storage
 │   │   ├── routes/         # API endpoints (audio, conversations, themes)
-│   │   ├── services/       # Business logic (audio pipeline, realtime-legacy)
+│   │   ├── services/       # Business logic (audio pipeline)
 │   │   ├── types/          # TypeScript types
 │   │   └── index.ts        # Server entry point
 │   └── package.json
 ├── frontend/
-│   ├── public/
-│   │   └── audio-processor.js  # AudioWorklet for modern audio processing
 │   ├── src/
 │   │   ├── components/     # React components (VoiceAgent, ThemeSelector)
-│   │   ├── services/       # API clients (audio, realtime-legacy)
+│   │   ├── services/       # API clients (audio)
 │   │   ├── types/          # TypeScript types
 │   │   └── App.tsx         # Main app component
 │   └── package.json
@@ -258,14 +240,6 @@ Conversations can be evaluated after completion. The evaluation framework is ext
 - `POST /api/conversations` - Create new conversation
 - `PUT /api/conversations/:id` - Update conversation
 
-### Legacy Endpoints (Deprecated)
-
-**WebSocket /realtime** ⚠️
-
-- Real-time voice using OpenAI Realtime API
-- Query: `?conversationId=<id>&apiKey=<key>`
-- **Deprecated**: Use HTTP audio endpoints instead for better stability
-
 ## Building for Production
 
 ```bash
@@ -333,14 +307,6 @@ Common issues:
 - **HTTPS requirement**: Audio APIs may require secure context (HTTPS)
 - **API key permissions**: Ensure your OpenAI key has Whisper, GPT-4, and TTS access
 - **Network issues**: Check browser console and network tab for errors
-
-### Connection Issues
-
-If using the legacy WebSocket endpoint:
-
-- Check that your OpenAI API key has Realtime API access
-- Verify WebSocket connection in browser DevTools
-- Consider migrating to the HTTP audio endpoints for better stability
 
 ### Development
 

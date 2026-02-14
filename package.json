@@ -1,7 +1,7 @@
 {
   "name": "camille",
   "version": "1.0.0",
-  "description": "Interactive real-time french voice agent",
+  "description": "Interactive French voice agent (record → transcribe → respond)",
   "private": true,
   "workspaces": [
     "frontend",
@@ -25,7 +25,8 @@
     "openai",
     "french",
     "interview",
-    "realtime"
+    "speech-to-text",
+    "text-to-speech"
   ],
   "author": "Max Neuvians",
   "license": "MIT",
