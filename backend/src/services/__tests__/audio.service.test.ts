@@ -167,4 +167,26 @@ describe('AudioService', () => {
       audioBuffer: Buffer.from('audio'),
     });
   });
+
+  it('should return retry prompt and skip GPT generation when transcription looks invalid', async () => {
+    const transcribeSpy = jest
+      .spyOn(AudioService, 'transcribeAudio')
+      .mockResolvedValue("Sous-titres réalisés para la communauté d'Amara.org");
+    const generateSpy = jest.spyOn(AudioService, 'generateResponse').mockResolvedValue('Ne devrait pas être appelé');
+    const ttsSpy = jest.spyOn(AudioService, 'textToSpeech').mockResolvedValue(Buffer.from('retry-audio'));
+
+    const result = await AudioService.processAudioInteraction('conv-orch', Buffer.from('input'));
+
+    expect(transcribeSpy).toHaveBeenCalled();
+    expect(generateSpy).not.toHaveBeenCalled();
+    expect(ttsSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Je n'ai pas bien capté votre réponse audio"),
+      'conv-orch'
+    );
+    expect(result).toEqual({
+      text: "Sous-titres réalisés para la communauté d'Amara.org",
+      response: expect.stringContaining("Je n'ai pas bien capté votre réponse audio"),
+      audioBuffer: Buffer.from('retry-audio'),
+    });
+  });
 });

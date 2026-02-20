@@ -6,6 +6,8 @@ import { ExamService } from "./exam.service";
 export class AudioService {
   private static openai: OpenAI;
   private static readonly AVAILABLE_VOICES = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'] as const;
+  private static readonly UNCLEAR_TRANSCRIPTION_REPLY =
+    "Je n'ai pas bien capté votre réponse audio. Pourriez-vous répéter plus lentement, dans un endroit plus calme, s'il vous plaît ?";
 
   static initialize(apiKey: string) {
     this.openai = new OpenAI({ apiKey });
@@ -48,10 +50,15 @@ export class AudioService {
         type: "audio/webm",
       });
 
+      console.log("Starting transcription, audio size:", audioBuffer.length);
+
       const transcription = await this.openai.audio.transcriptions.create({
         file: file,
         model: "whisper-1",
         language: "fr", // French
+        temperature: 0,
+        prompt:
+          "Entretien professionnel en français (Canada). Ignore les artefacts de sous-titrage et privilégie une transcription fidèle de la parole.",
       });
 
       return transcription.text;
@@ -59,6 +66,26 @@ export class AudioService {
       console.error("Transcription error:", error);
       throw new Error("Failed to transcribe audio");
     }
+  }
+
+  private static isLikelyBadTranscription(text: string): boolean {
+    const normalized = text.trim();
+    if (!normalized) {
+      return true;
+    }
+
+    if (normalized.length < 3) {
+      return true;
+    }
+
+    const suspiciousPatterns = [
+      /sous[-\s]?titres\s+r[ée]alis[ée]s/i,
+      /amara\.org/i,
+      /^!+$/,
+      /^\.+$/,
+    ];
+
+    return suspiciousPatterns.some((pattern) => pattern.test(normalized));
   }
 
   /**
@@ -211,6 +238,15 @@ Instructions:
     // Step 1: Transcribe audio
     const text = await this.transcribeAudio(audioBuffer);
     console.log("Transcribed:", text);
+
+    if (this.isLikelyBadTranscription(text)) {
+      const responseAudio = await this.textToSpeech(this.UNCLEAR_TRANSCRIPTION_REPLY, conversationId);
+      return {
+        text,
+        response: this.UNCLEAR_TRANSCRIPTION_REPLY,
+        audioBuffer: responseAudio,
+      };
+    }
 
     // Step 2: Generate response
     const response = await this.generateResponse(conversationId, text);
