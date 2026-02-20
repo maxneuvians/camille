@@ -110,6 +110,13 @@ describe('AudioService', () => {
         ]),
       })
     );
+
+    const requestPayload = completionCreateMock.mock.calls[0][0];
+    const systemPrompt = requestPayload.messages[0].content as string;
+    expect(systemPrompt).toContain('Instructions:');
+    expect(systemPrompt).toContain('- Parle uniquement en français');
+    expect(systemPrompt).toContain('- Pose les questions une par une');
+    expect(systemPrompt).toContain('- À la fin, remercie la personne pour son temps');
     expect(conversation.messages).toHaveLength(3);
     expect(conversation.messages[1]).toMatchObject({ role: 'user', content: 'Ma réponse pratique', audio: true });
     expect(conversation.messages[2]).toMatchObject({ role: 'assistant', content: 'Réponse agent pratique', audio: true });

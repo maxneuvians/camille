@@ -112,7 +112,10 @@ describe('AnalysisService', () => {
         model: 'gpt-4o-mini',
         response_format: { type: 'json_object' },
         messages: expect.arrayContaining([
-          expect.objectContaining({ role: 'system' }),
+          expect.objectContaining({
+            role: 'system',
+            content: expect.stringContaining('Retourne uniquement du JSON'),
+          }),
           expect.objectContaining({
             role: 'user',
             content: expect.stringContaining('Réponse à analyser: "Ma réponse"'),
@@ -120,6 +123,10 @@ describe('AnalysisService', () => {
         ]),
       })
     );
+
+    const requestPayload = mockCreate.mock.calls[0][0];
+    const userPrompt = requestPayload.messages.find((message: { role: string }) => message.role === 'user')?.content;
+    expect(userPrompt).toContain('Schema attendu: {"summary": string');
   });
 
   it('should fallback to empty analysis when model response is invalid JSON', async () => {

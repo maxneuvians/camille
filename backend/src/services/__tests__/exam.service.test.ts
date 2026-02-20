@@ -94,6 +94,77 @@ describe('ExamService', () => {
     randomSpy.mockRestore();
   });
 
+  it('should send a stable exam-generation prompt contract to OpenAI', async () => {
+    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
+
+    const conversation: Conversation = {
+      id: 'conv-contract',
+      themeId: 'exam-mode',
+      startTime: Date.now(),
+      messages: [],
+      mode: 'exam',
+    };
+
+    const createMock = jest.fn().mockResolvedValue({
+      choices: [
+        {
+          message: {
+            content: JSON.stringify({ A: ['A1'], B: ['B1'], C: ['C1'] }),
+          },
+        },
+      ],
+    });
+
+    const openai = {
+      chat: {
+        completions: {
+          create: createMock,
+        },
+      },
+    } as any;
+
+    await ExamService.ensureExamSession(conversation, openai);
+
+    const requestPayload = createMock.mock.calls[0][0];
+    expect(requestPayload).toEqual(
+      expect.objectContaining({
+        model: 'gpt-4o-mini',
+        response_format: { type: 'json_object' },
+        messages: expect.arrayContaining([
+          expect.objectContaining({ role: 'system' }),
+          expect.objectContaining({ role: 'user' }),
+        ]),
+      })
+    );
+
+    const userContent = requestPayload.messages.find((message: { role: string }) => message.role === 'user')
+      ?.content as string;
+    const serializedPrompt = userContent.split('\n')[0];
+    const parsedPrompt = JSON.parse(serializedPrompt);
+
+    expect(parsedPrompt).toEqual(
+      expect.objectContaining({
+        criteria: 'Critères test A/B/C',
+        constraints: expect.objectContaining({
+          language: 'fr',
+          progression: 'A_to_B_to_C',
+          questionsPerLevel: '4-6',
+          targetQuestionCountByDifficulty: { A: 4, B: 4, C: 4 },
+        }),
+        focusTheme: expect.objectContaining({
+          title: 'Leadership stratégique',
+        }),
+        examples: expect.objectContaining({
+          A: expect.any(Array),
+          B: expect.any(Array),
+          C: expect.any(Array),
+        }),
+      })
+    );
+
+    randomSpy.mockRestore();
+  });
+
   it('should keep active question and mark follow-up asked when model requests follow_up', async () => {
     const activeQuestionId = 'q-a-1';
     const conversation: Conversation = {

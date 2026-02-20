@@ -410,6 +410,25 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
                       {examEvaluation.overallLevel ? ` · Niveau estimé: ${examEvaluation.overallLevel}` : ""}
                     </p>
                     {examEvaluation.notes && <p>{examEvaluation.notes}</p>}
+                    {examEvaluation.levelRationale && (
+                      <>
+                        <p><strong>Pourquoi ce niveau :</strong></p>
+                        <ul className="level-rationale-list">
+                          <li>
+                            <span className="level-badge">A</span>
+                            <span>{examEvaluation.levelRationale.A}</span>
+                          </li>
+                          <li>
+                            <span className="level-badge">B</span>
+                            <span>{examEvaluation.levelRationale.B}</span>
+                          </li>
+                          <li>
+                            <span className="level-badge">C</span>
+                            <span>{examEvaluation.levelRationale.C}</span>
+                          </li>
+                        </ul>
+                      </>
+                    )}
                     {examEvaluation.recommendations && examEvaluation.recommendations.length > 0 && (
                       <>
                         <p><strong>Recommandations :</strong></p>

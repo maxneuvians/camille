@@ -543,7 +543,8 @@ export class ExamService {
           content:
             `${JSON.stringify(payload)}\n` +
             'Retourne exactement: ' +
-            '{"score": number, "overallLevel": "A"|"B"|"C", "notes": string, "recommendations": string[], "criteria": {"niveauA": {"score": number, "notes": string}, "niveauB": {"score": number, "notes": string}, "niveauC": {"score": number, "notes": string}, "comprehensibilite": {"score": number, "notes": string}, "aisance": {"score": number, "notes": string}}}.',
+            '{"score": number, "overallLevel": "A"|"B"|"C", "notes": string, "levelRationale": {"A": string, "B": string, "C": string}, "recommendations": string[], "criteria": {"niveauA": {"score": number, "notes": string}, "niveauB": {"score": number, "notes": string}, "niveauC": {"score": number, "notes": string}, "comprehensibilite": {"score": number, "notes": string}, "aisance": {"score": number, "notes": string}}}. ' +
+            'Les champs levelRationale.A/B/C doivent être courts, concrets et expliquer pourquoi la performance atteint (ou non) chaque niveau.',
         },
       ],
     });
@@ -568,12 +569,33 @@ export class ExamService {
     const criteriaEntries =
       parsed.criteria && typeof parsed.criteria === 'object' ? parsed.criteria : {};
 
+    const rawLevelRationale =
+      parsed.levelRationale && typeof parsed.levelRationale === 'object'
+        ? parsed.levelRationale
+        : {};
+
+    const levelRationale: Record<Level, string> = {
+      A:
+        typeof rawLevelRationale.A === 'string' && rawLevelRationale.A.trim().length > 0
+          ? rawLevelRationale.A.trim()
+          : 'Le niveau A est globalement démontré sur les échanges simples et routiniers.',
+      B:
+        typeof rawLevelRationale.B === 'string' && rawLevelRationale.B.trim().length > 0
+          ? rawLevelRationale.B.trim()
+          : 'Le niveau B est partiellement démontré sur les explications factuelles et les situations moins routinières.',
+      C:
+        typeof rawLevelRationale.C === 'string' && rawLevelRationale.C.trim().length > 0
+          ? rawLevelRationale.C.trim()
+          : 'Le niveau C dépend de la capacité à traiter des idées complexes, hypothétiques et délicates avec nuance.',
+    };
+
     const evaluation: ConversationEvaluation = {
       score: typeof parsed.score === 'number' ? Math.max(0, Math.min(100, parsed.score)) : undefined,
       overallLevel:
         parsed.overallLevel === 'A' || parsed.overallLevel === 'B' || parsed.overallLevel === 'C'
           ? parsed.overallLevel
           : undefined,
+      levelRationale,
       notes: typeof parsed.notes === 'string' ? parsed.notes : '',
       recommendations,
       criteria: Object.entries(criteriaEntries).reduce((acc, [key, value]) => {

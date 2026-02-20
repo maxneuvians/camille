@@ -101,6 +101,7 @@ export interface ConversationAnalysis {
 export interface ConversationEvaluation {
   score?: number;
   overallLevel?: Level;
+  levelRationale?: Record<Level, string>;
   criteria: {
     [key: string]: {
       score?: number;
