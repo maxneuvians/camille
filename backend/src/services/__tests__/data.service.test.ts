@@ -28,7 +28,15 @@ describe('DataService', () => {
 
       const themes = DataService.getThemes();
 
-      expect(themes).toEqual(mockThemes);
+      expect(themes).toEqual(
+        expect.arrayContaining([
+          mockThemes[0],
+          expect.objectContaining({
+            id: 'exam-mode',
+            title: 'Mode examen oral (A → C)',
+          }),
+        ])
+      );
       expect(mockFs.readFileSync).toHaveBeenCalledWith(
         expect.stringContaining('themes.json'),
         'utf-8'

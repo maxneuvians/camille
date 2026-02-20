@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { DataService } from "./data.service";
 import { ConversationMessage } from "../types";
+import { ExamService } from "./exam.service";
 
 export class AudioService {
   private static openai: OpenAI;
@@ -72,6 +73,35 @@ export class AudioService {
       
       if (!conversation) {
         throw new Error("Conversation not found");
+      }
+
+      if (ExamService.isExamConversation(conversation)) {
+        const examTurn = await ExamService.generateExamTurn(
+          conversation,
+          userMessage,
+          this.openai
+        );
+
+        const userMsg: ConversationMessage = {
+          role: "user",
+          content: userMessage,
+          timestamp: Date.now(),
+          audio: true,
+        };
+
+        const assistantMsg: ConversationMessage = {
+          role: "assistant",
+          content: examTurn.assistantReply,
+          timestamp: Date.now(),
+          audio: true,
+        };
+
+        conversation.messages.push(userMsg, assistantMsg);
+        conversation.mode = "exam";
+        conversation.examSession = examTurn.updatedSession;
+        DataService.saveConversation(conversation);
+
+        return examTurn.assistantReply;
       }
 
       // Regular interview mode

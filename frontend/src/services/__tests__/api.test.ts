@@ -202,4 +202,40 @@ describe('API Service', () => {
       ).rejects.toThrow('Failed to update conversation');
     });
   });
+
+  describe('evaluateConversation', () => {
+    it('should evaluate conversation successfully', async () => {
+      const mockEvaluation = {
+        score: 82,
+        overallLevel: 'B',
+        criteria: {},
+        recommendations: ['Structurer davantage les réponses'],
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockEvaluation,
+      } as Response);
+
+      const result = await api.evaluateConversation('conv-1', 'sk-test');
+
+      expect(result).toEqual(mockEvaluation);
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/conversations/conv-1/evaluate'),
+        expect.objectContaining({
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ apiKey: 'sk-test' }),
+        })
+      );
+    });
+
+    it('should throw error when evaluation fails', async () => {
+      mockFetch.mockResolvedValue({ ok: false } as Response);
+
+      await expect(api.evaluateConversation('conv-1', 'sk-test')).rejects.toThrow(
+        'Failed to evaluate conversation'
+      );
+    });
+  });
 });

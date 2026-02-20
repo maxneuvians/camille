@@ -1,4 +1,4 @@
-import type { Theme, Conversation, Level, MessageAnalysis } from '../types';
+import type { Theme, Conversation, ConversationEvaluation, Level, MessageAnalysis } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api';
 
@@ -64,6 +64,17 @@ export const api = {
     });
 
     if (!response.ok) throw new Error('Failed to analyze message');
+    return response.json();
+  },
+
+  async evaluateConversation(conversationId: string, apiKey: string): Promise<ConversationEvaluation> {
+    const response = await fetch(`${API_BASE}/conversations/${conversationId}/evaluate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ apiKey })
+    });
+
+    if (!response.ok) throw new Error('Failed to evaluate conversation');
     return response.json();
   },
 

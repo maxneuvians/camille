@@ -1,3 +1,5 @@
+import type { ExamSession } from "../types";
+
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3001";
 
 export class AudioClient {
@@ -5,12 +7,10 @@ export class AudioClient {
   private audioChunks: Blob[] = [];
   private conversationId: string;
   private apiKey: string;
-  private isWarmup: boolean;
 
-  constructor(conversationId: string, apiKey: string, isWarmup: boolean = false) {
+  constructor(conversationId: string, apiKey: string) {
     this.conversationId = conversationId;
     this.apiKey = apiKey;
-    this.isWarmup = isWarmup;
   }
 
   async startRecording(): Promise<void> {
@@ -73,7 +73,12 @@ export class AudioClient {
 
   async processAudio(
     audioBlob: Blob
-  ): Promise<{ userText: string; assistantText: string; audioBase64: string }> {
+  ): Promise<{
+    userText: string;
+    assistantText: string;
+    audioBase64: string;
+    examSession?: ExamSession;
+  }> {
     const formData = new FormData();
     formData.append("audio", audioBlob);
     formData.append("conversationId", this.conversationId);
@@ -96,6 +101,7 @@ export class AudioClient {
     userText: string;
     assistantText: string;
     audioBase64: string;
+    examSession?: ExamSession;
   }> {
     const audioBlob = await this.stopRecording();
     return this.processAudio(audioBlob);

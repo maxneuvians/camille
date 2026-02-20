@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import type { Theme, Conversation, ConversationMessage } from "../types";
+import type {
+  Theme,
+  Conversation,
+  ConversationEvaluation,
+  ExamSession,
+  ConversationMessage,
+} from "../types";
 import { api } from "../services/api";
 import { AudioClient } from "../services/audio";
 import "./VoiceAgent.css";
@@ -19,6 +25,9 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [status, setStatus] = useState<string>("Initialisation...");
   const [error, setError] = useState<string | null>(null);
+  const [examEvaluation, setExamEvaluation] =
+    useState<ConversationEvaluation | null>(null);
+  const [examSession, setExamSession] = useState<ExamSession | null>(null);
   const [revealedMessages, setRevealedMessages] = useState<Set<number>>(new Set());
   const [timerStartTime, setTimerStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -27,6 +36,7 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const audioClient = useRef<AudioClient | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const timerInterval = useRef<number | null>(null);
+  const isExamMode = theme.id === "exam-mode";
 
   useEffect(() => {
     const initConversation = async () => {
@@ -34,7 +44,12 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
         const conv = await api.createConversation(theme.id);
         setConversation(conv);
         setMessages(conv.messages);
-        setStatus("Prêt à commencer - Entrez votre clé API");
+        setExamSession(conv.examSession || null);
+        setStatus(
+          isExamMode
+            ? "Prêt à commencer l'examen - Entrez votre clé API"
+            : "Prêt à commencer - Entrez votre clé API"
+        );
       } catch (err) {
         setError("Erreur lors de la création de la conversation");
         console.error(err);
@@ -48,7 +63,7 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
         audioClient.current.cleanup();
       }
     };
-  }, [theme.id]);
+  }, [isExamMode, theme.id]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -172,6 +187,9 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
       };
 
       setMessages((prev) => [...prev, userMessage, assistantMessage]);
+      if (result.examSession) {
+        setExamSession(result.examSession);
+      }
       setStatus("Lecture de la réponse...");
 
       // Play the response
@@ -196,23 +214,43 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const handleEndConversation = async () => {
     if (!conversation) return;
 
+    if (!apiKey) {
+      setError("Veuillez entrer votre clé API OpenAI");
+      return;
+    }
+
     try {
       // Stop the timer
       setTimerActive(false);
+      localStorage.setItem("openai_api_key", apiKey);
 
       await api.updateConversation(conversation.id, {
         endTime: Date.now(),
         messages,
       });
-      alert("Conversation terminée et sauvegardée!");
+
+      if (isExamMode) {
+        const evaluation = await api.evaluateConversation(conversation.id, apiKey);
+        setExamEvaluation(evaluation);
+        setStatus("Examen terminé - Évaluation disponible");
+      } else {
+        alert("Conversation terminée et sauvegardée!");
+      }
 
       if (audioClient.current) {
         audioClient.current.cleanup();
+        audioClient.current = null;
       }
 
-      onBack();
+      if (!isExamMode) {
+        onBack();
+      }
     } catch (err) {
-      setError("Erreur lors de la sauvegarde de la conversation");
+      setError(
+        isExamMode
+          ? "Erreur lors de l'évaluation finale de l'examen"
+          : "Erreur lors de la sauvegarde de la conversation"
+      );
       console.error(err);
     }
   };
@@ -241,6 +279,30 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const examProgress = (() => {
+    if (!examSession) return null;
+
+    const countAsked = (difficulty: "A" | "B" | "C") =>
+      examSession.questionsByDifficulty[difficulty].filter((question) =>
+        examSession.askedQuestionIds.includes(question.id)
+      ).length;
+
+    return {
+      A: {
+        asked: countAsked("A"),
+        target: examSession.targetQuestionCountByDifficulty.A,
+      },
+      B: {
+        asked: countAsked("B"),
+        target: examSession.targetQuestionCountByDifficulty.B,
+      },
+      C: {
+        asked: countAsked("C"),
+        target: examSession.targetQuestionCountByDifficulty.C,
+      },
+    };
+  })();
+
   return (
     <div className="voice-agent">
       <div className="voice-agent-header">
@@ -264,6 +326,22 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
           Terminer
         </button>
       </div>
+
+      {isExamMode && examSession && (
+        <div className="exam-progress-panel">
+          <div className="exam-progress-main">
+            <strong>Progression examen</strong>
+            <span>A {examProgress?.A.asked}/{examProgress?.A.target}</span>
+            <span>B {examProgress?.B.asked}/{examProgress?.B.target}</span>
+            <span>C {examProgress?.C.asked}/{examProgress?.C.target}</span>
+          </div>
+          {examSession.focusTheme && (
+            <p className="exam-focus-theme">
+              Thème cible : {examSession.focusTheme.title}
+            </p>
+          )}
+        </div>
+      )}
 
       {!audioClient.current ? (
         <div className="connection-panel">
@@ -318,6 +396,39 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
             </div>
           </div>
 
+          {examEvaluation && (
+            <div className="conversation-panel">
+              <div className="messages-container">
+                <div className="message message-assistant" style={{ cursor: "default" }}>
+                  <div className="message-header">
+                    <span className="message-role">Évaluation finale</span>
+                    <span className="message-time">Examen</span>
+                  </div>
+                  <div className="message-content">
+                    <p>
+                      Score global: {typeof examEvaluation.score === "number" ? `${examEvaluation.score}/100` : "N/A"}
+                      {examEvaluation.overallLevel ? ` · Niveau estimé: ${examEvaluation.overallLevel}` : ""}
+                    </p>
+                    {examEvaluation.notes && <p>{examEvaluation.notes}</p>}
+                    {examEvaluation.recommendations && examEvaluation.recommendations.length > 0 && (
+                      <>
+                        <p><strong>Recommandations :</strong></p>
+                        <ul>
+                          {examEvaluation.recommendations.map((recommendation, idx) => (
+                            <li key={idx}>{recommendation}</li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    <button onClick={onBack} className="back-button">
+                      Retour
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="control-panel">
             <div className="status-bar">
               <span
@@ -340,7 +451,7 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
                 onMouseLeave={recording ? stopRecordingAndProcess : undefined}
                 onTouchStart={startRecording}
                 onTouchEnd={stopRecordingAndProcess}
-                disabled={processing}
+                disabled={processing || !!examEvaluation}
               >
                 {recording
                   ? "🔴 Enregistrement..."

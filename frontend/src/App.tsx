@@ -5,9 +5,17 @@ import { ConversationManager } from './components/ConversationManager';
 import type { Theme } from './types';
 import './App.css';
 
+const EXAM_THEME: Theme = {
+  id: 'exam-mode',
+  title: 'Mode examen oral (A → C)',
+  description: 'Examen progressif du niveau A au niveau C avec évaluation finale et recommandations.',
+  level: 'C',
+  questions: []
+};
+
 function App() {
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
-  const [mode, setMode] = useState<'practice' | 'analysis'>('practice');
+  const [mode, setMode] = useState<'practice' | 'exam' | 'analysis'>('practice');
 
   const handleSelectTheme = (theme: Theme) => {
     setSelectedTheme(theme);
@@ -33,6 +41,15 @@ function App() {
             }}
           >
             Pratique vocale
+          </button>
+          <button
+            className={mode === 'exam' ? 'active' : ''}
+            onClick={() => {
+              setMode('exam');
+              setSelectedTheme(null);
+            }}
+          >
+            Mode examen
           </button>
           <button
             className={mode === 'analysis' ? 'active' : ''}
@@ -63,6 +80,13 @@ function App() {
         )}
 
         {mode === 'analysis' && <ConversationManager />}
+
+        {mode === 'exam' && (
+          <VoiceAgent
+            theme={EXAM_THEME}
+            onBack={() => setMode('practice')}
+          />
+        )}
       </main>
     </div>
   );

@@ -7,6 +7,18 @@ const THEMES_FILE = path.join(DATA_DIR, 'themes.json');
 const CONVERSATIONS_FILE = path.join(DATA_DIR, 'conversations.json');
 
 export class DataService {
+  private static readonly EXAM_THEME_ID = 'exam-mode';
+
+  static getExamTheme(): Theme {
+    return {
+      id: this.EXAM_THEME_ID,
+      title: 'Mode examen oral (A → C)',
+      description: 'Examen progressif du niveau A au niveau C avec évaluation finale et recommandations.',
+      level: 'C',
+      questions: []
+    };
+  }
+
   private static ensureDataDir() {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -17,12 +29,13 @@ export class DataService {
     try {
       const data = fs.readFileSync(THEMES_FILE, 'utf-8');
       const themes: Theme[] = JSON.parse(data);
+      const themesWithExam = [...themes, this.getExamTheme()];
 
       if (level) {
-        return themes.filter(theme => theme.level === level);
+        return themesWithExam.filter(theme => theme.level === level);
       }
 
-      return themes;
+      return themesWithExam;
     } catch (error) {
       console.error('Error reading themes:', error);
       return [];
@@ -30,6 +43,10 @@ export class DataService {
   }
 
   static getThemeById(id: string): Theme | undefined {
+    if (id === this.EXAM_THEME_ID) {
+      return this.getExamTheme();
+    }
+
     const themes = this.getThemes();
     const theme = themes.find(theme => theme.id === id);
 

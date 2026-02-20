@@ -1,4 +1,5 @@
 export type Level = 'A' | 'B' | 'C';
+export type ConversationMode = 'practice' | 'exam';
 
 export interface Question {
   text: string;
@@ -11,6 +12,38 @@ export interface Theme {
   description: string;
   level: Level;
   questions: Question[];
+}
+
+export interface ExamQuestion {
+  id: string;
+  text: string;
+  difficulty: Level;
+  source: 'generated' | 'theme-inspired';
+}
+
+export interface ExamRunningAssessment {
+  at: number;
+  difficulty: Level;
+  questionId: string;
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+}
+
+export interface ExamSession {
+  questionsByDifficulty: Record<Level, ExamQuestion[]>;
+  targetQuestionCountByDifficulty: Record<Level, number>;
+  focusTheme?: {
+    id: string;
+    title: string;
+    description: string;
+  };
+  askedQuestionIds: string[];
+  activeQuestionId?: string;
+  followUpAskedForActive?: boolean;
+  currentDifficulty: Level;
+  completed: boolean;
+  runningAssessments: ExamRunningAssessment[];
 }
 
 export interface ConversationMessage {
@@ -29,6 +62,8 @@ export interface Conversation {
   evaluation?: ConversationEvaluation;
   analysis?: ConversationAnalysis;
   voice?: string;
+  mode?: ConversationMode;
+  examSession?: ExamSession;
 }
 
 export type AnalysisSeverity = 'low' | 'medium' | 'high';
@@ -65,6 +100,7 @@ export interface ConversationAnalysis {
 
 export interface ConversationEvaluation {
   score?: number;
+  overallLevel?: Level;
   criteria: {
     [key: string]: {
       score?: number;
@@ -72,4 +108,5 @@ export interface ConversationEvaluation {
     };
   };
   notes?: string;
+  recommendations?: string[];
 }

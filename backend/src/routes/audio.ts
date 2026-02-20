@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import multer from "multer";
 import { AudioService } from "../services/audio.service";
+import { DataService } from "../services/data.service";
 
 const router = Router();
 
@@ -55,6 +56,7 @@ router.post(
         userText: result.text,
         assistantText: result.response,
         audioBase64: audioBase64,
+        examSession: DataService.getConversationById(conversationId)?.examSession,
       });
     } catch (error: unknown) {
       console.error("Audio processing error:", error);

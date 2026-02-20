@@ -3,6 +3,8 @@ import { DataService } from '../services/data.service';
 import { Conversation } from '../types';
 import crypto from 'crypto';
 import { AnalysisService } from '../services/analysis.service';
+import OpenAI from 'openai';
+import { ExamService } from '../services/exam.service';
 
 const router = Router();
 
@@ -44,7 +46,8 @@ router.post('/', (req, res) => {
       id: crypto.randomUUID(),
       themeId,
       startTime: Date.now(),
-      messages: []
+      messages: [],
+      mode: themeId === 'exam-mode' ? 'exam' : 'practice'
     };
 
     DataService.saveConversation(conversation);
@@ -97,6 +100,33 @@ router.post('/:id/analyze', async (req, res) => {
   } catch (error) {
     console.error('Conversation analysis error:', error);
     res.status(500).json({ error: 'Failed to analyze message' });
+  }
+});
+
+router.post('/:id/evaluate', async (req, res) => {
+  try {
+    const { apiKey } = req.body;
+
+    if (!apiKey || typeof apiKey !== 'string') {
+      return res.status(400).json({ error: 'apiKey is required' });
+    }
+
+    const conversation = DataService.getConversationById(req.params.id);
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+
+    if (!ExamService.isExamConversation(conversation)) {
+      return res.status(400).json({ error: 'Evaluation endpoint is only available for exam conversations' });
+    }
+
+    const client = new OpenAI({ apiKey });
+    const evaluation = await ExamService.evaluateExamConversation(conversation, client);
+
+    res.json(evaluation);
+  } catch (error) {
+    console.error('Conversation evaluation error:', error);
+    res.status(500).json({ error: 'Failed to evaluate conversation' });
   }
 });
 
