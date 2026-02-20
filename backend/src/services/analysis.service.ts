@@ -7,7 +7,7 @@ import {
     MessageAnalysis,
 } from "../types";
 
-const DEFAULT_MODEL = "gpt-4o-mini";
+const DEFAULT_MODEL = "gpt-5-nano";
 
 function formatConversationContext(conversation: Conversation, limit = 8): string {
     const recent = conversation.messages.slice(-limit);

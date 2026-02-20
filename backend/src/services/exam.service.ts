@@ -16,6 +16,9 @@ import { DataService } from './data.service';
 const EXAM_THEME_ID = 'exam-mode';
 const MIN_QUESTIONS_PER_LEVEL = 4;
 const MAX_QUESTIONS_PER_LEVEL = 6;
+const MIN_PRIMARY_QUESTIONS_PER_LEVEL = 2;
+const MAX_PRIMARY_QUESTIONS_PER_LEVEL = 3;
+const DEFAULT_MAX_FOLLOW_UPS_PER_QUESTION = 2;
 
 const FALLBACK_QUESTIONS: Record<Level, string[]> = {
   A: [
@@ -47,6 +50,13 @@ function normalizeQuestion(text: string): string {
 
 function randomQuestionCount(): number {
   return MIN_QUESTIONS_PER_LEVEL + Math.floor(Math.random() * (MAX_QUESTIONS_PER_LEVEL - MIN_QUESTIONS_PER_LEVEL + 1));
+}
+
+function getPrimaryQuestionCount(targetTurns: number): number {
+  return Math.max(
+    MIN_PRIMARY_QUESTIONS_PER_LEVEL,
+    Math.min(MAX_PRIMARY_QUESTIONS_PER_LEVEL, Math.ceil(targetTurns / 2))
+  );
 }
 
 function extractUserMessages(conversation: Conversation): string[] {
@@ -119,13 +129,59 @@ function ensureQuestionCount(
 }
 
 function computeNextDifficulty(session: ExamSession): Level {
-  if (session.questionsByDifficulty.A.some((question) => !session.askedQuestionIds.includes(question.id))) {
-    return 'A';
+  const levels: Level[] = ['A', 'B', 'C'];
+  const askedTurns = session.askedTurnCountByDifficulty || { A: 0, B: 0, C: 0 };
+
+  for (const level of levels) {
+    if (askedTurns[level] < session.targetQuestionCountByDifficulty[level]) {
+      return level;
+    }
   }
-  if (session.questionsByDifficulty.B.some((question) => !session.askedQuestionIds.includes(question.id))) {
-    return 'B';
-  }
+
   return 'C';
+}
+
+function getNextQuestionForLevel(session: ExamSession, level: Level): ExamQuestion | undefined {
+  return session.questionsByDifficulty[level].find(
+    (question) => !session.askedQuestionIds.includes(question.id)
+  );
+}
+
+function getQuestionDifficultyById(session: ExamSession, questionId: string): Level | undefined {
+  for (const level of ['A', 'B', 'C'] as const) {
+    if (session.questionsByDifficulty[level].some((question) => question.id === questionId)) {
+      return level;
+    }
+  }
+
+  return undefined;
+}
+
+function normalizeSessionCounters(session: ExamSession): void {
+  if (!session.askedTurnCountByDifficulty) {
+    session.askedTurnCountByDifficulty = { A: 0, B: 0, C: 0 };
+
+    for (const questionId of session.askedQuestionIds) {
+      const difficulty = getQuestionDifficultyById(session, questionId);
+      if (difficulty) {
+        session.askedTurnCountByDifficulty[difficulty] += 1;
+      }
+    }
+  }
+
+  if (typeof session.followUpCountForActive !== 'number') {
+    session.followUpCountForActive = session.followUpAskedForActive ? 1 : 0;
+  }
+
+  if (typeof session.maxFollowUpsPerQuestion !== 'number') {
+    session.maxFollowUpsPerQuestion = DEFAULT_MAX_FOLLOW_UPS_PER_QUESTION;
+  }
+}
+
+function getRemainingTurnsForLevel(session: ExamSession, level: Level): number {
+  const askedTurns = session.askedTurnCountByDifficulty?.[level] ?? 0;
+  const targetTurns = session.targetQuestionCountByDifficulty[level] ?? 0;
+  return Math.max(0, targetTurns - askedTurns);
 }
 
 function chooseFocusTheme(): Theme | undefined {
@@ -176,18 +232,13 @@ export class ExamService {
   }
 
   static getNextQuestion(session: ExamSession): ExamQuestion | undefined {
-    const orderedLevels: Level[] = ['A', 'B', 'C'];
-
-    for (const level of orderedLevels) {
-      const next = session.questionsByDifficulty[level].find(
-        (question) => !session.askedQuestionIds.includes(question.id)
-      );
-      if (next) {
-        return next;
-      }
+    normalizeSessionCounters(session);
+    const level = computeNextDifficulty(session);
+    if (getRemainingTurnsForLevel(session, level) <= 0) {
+      return undefined;
     }
 
-    return undefined;
+    return getNextQuestionForLevel(session, level);
   }
 
   static async ensureExamSession(
@@ -207,6 +258,9 @@ export class ExamService {
     const countA = randomQuestionCount();
     const countB = randomQuestionCount();
     const countC = randomQuestionCount();
+    const primaryCountA = getPrimaryQuestionCount(countA);
+    const primaryCountB = getPrimaryQuestionCount(countB);
+    const primaryCountC = getPrimaryQuestionCount(countC);
 
     const prompt = {
       criteria,
@@ -238,7 +292,7 @@ export class ExamService {
     };
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-nano',
       temperature: 0.7,
       response_format: { type: 'json_object' },
       messages: [
@@ -252,7 +306,7 @@ export class ExamService {
           content:
             `${JSON.stringify(prompt)}\n` +
             'Retourne ce schéma exact: {"A": string[], "B": string[], "C": string[]}. ' +
-            'Chaque liste doit contenir exactement le nombre de questions demandé dans targetQuestionCountByDifficulty. ' +
+            'Chaque liste doit contenir entre 2 et 3 questions principales, cohérentes avec la cible totale de tours (questions + suivis) de targetQuestionCountByDifficulty. ' +
             'Les questions C doivent être cohérentes autour du focusTheme fourni.',
         },
       ],
@@ -273,12 +327,10 @@ export class ExamService {
     }
 
     const questionsByDifficulty: Record<Level, ExamQuestion[]> = {
-      A: ensureQuestionCount(parsed.A, 'A', countA, 'generated'),
-      B: ensureQuestionCount(parsed.B, 'B', countB, 'generated'),
-      C: ensureQuestionCount(parsed.C, 'C', countC, 'generated'),
+      A: ensureQuestionCount(parsed.A, 'A', primaryCountA, 'generated'),
+      B: ensureQuestionCount(parsed.B, 'B', primaryCountB, 'generated'),
+      C: ensureQuestionCount(parsed.C, 'C', primaryCountC, 'generated'),
     };
-
-    const firstQuestion = questionsByDifficulty.A[0] || questionsByDifficulty.B[0] || questionsByDifficulty.C[0];
 
     const session: ExamSession = {
       questionsByDifficulty,
@@ -287,6 +339,13 @@ export class ExamService {
         B: countB,
         C: countC,
       },
+      askedTurnCountByDifficulty: {
+        A: 0,
+        B: 0,
+        C: 0,
+      },
+      followUpCountForActive: 0,
+      maxFollowUpsPerQuestion: DEFAULT_MAX_FOLLOW_UPS_PER_QUESTION,
       focusTheme: focusTheme
         ? {
             id: focusTheme.id,
@@ -294,8 +353,8 @@ export class ExamService {
             description: focusTheme.description,
           }
         : undefined,
-      askedQuestionIds: firstQuestion ? [firstQuestion.id] : [],
-      activeQuestionId: firstQuestion?.id,
+      askedQuestionIds: [],
+      activeQuestionId: undefined,
       followUpAskedForActive: false,
       currentDifficulty: 'A',
       completed: false,
@@ -323,27 +382,82 @@ export class ExamService {
       };
     }
 
-    const activeQuestion = getActiveQuestion(session);
-    const nextQuestion = this.getNextQuestion(session);
+    normalizeSessionCounters(session);
+
+    let activeQuestion = getActiveQuestion(session);
     const criteria = this.getExamCriteriaText();
 
-    if (!activeQuestion && nextQuestion) {
-      session.activeQuestionId = nextQuestion.id;
-      session.followUpAskedForActive = false;
-      if (!session.askedQuestionIds.includes(nextQuestion.id)) {
-        session.askedQuestionIds.push(nextQuestion.id);
-      }
-      session.currentDifficulty = computeNextDifficulty(session);
+    const currentDifficulty = computeNextDifficulty(session);
+    const remainingTurnsAtCurrent = getRemainingTurnsForLevel(session, currentDifficulty);
+
+    if (remainingTurnsAtCurrent <= 0) {
+      session.completed = true;
+      session.currentDifficulty = 'C';
+      session.activeQuestionId = undefined;
+      session.followUpAskedForActive = true;
+      session.followUpCountForActive = 0;
       conversation.examSession = session;
       DataService.saveConversation(conversation);
 
       return {
-        assistantReply: `Très bien. Question (${nextQuestion.difficulty}) : ${nextQuestion.text}`,
+        assistantReply: 'Merci. L’examen est terminé. Vous pouvez lancer l’évaluation finale.',
         updatedSession: session,
       };
     }
 
-    const requiresFollowUpEvaluation = !!activeQuestion && !session.followUpAskedForActive;
+    if (!activeQuestion) {
+      const firstQuestion = getNextQuestionForLevel(session, currentDifficulty);
+      if (!firstQuestion) {
+        session.completed = true;
+        session.currentDifficulty = 'C';
+        session.activeQuestionId = undefined;
+        session.followUpAskedForActive = true;
+        session.followUpCountForActive = 0;
+        conversation.examSession = session;
+        DataService.saveConversation(conversation);
+
+        return {
+          assistantReply: 'Merci. L’examen est terminé. Vous pouvez lancer l’évaluation finale.',
+          updatedSession: session,
+        };
+      }
+
+      session.activeQuestionId = firstQuestion.id;
+      session.followUpAskedForActive = false;
+      session.followUpCountForActive = 0;
+      if (!session.askedQuestionIds.includes(firstQuestion.id)) {
+        session.askedQuestionIds.push(firstQuestion.id);
+      }
+      session.currentDifficulty = currentDifficulty;
+      session.askedTurnCountByDifficulty![firstQuestion.difficulty] += 1;
+
+      const isStart = conversation.messages.length === 0;
+      const opening = isStart
+        ? `Bonjour, nous allons faire un examen oral structuré du niveau A au niveau C. Commençons. Question (${firstQuestion.difficulty}) : ${firstQuestion.text}`
+        : `Très bien. Question (${firstQuestion.difficulty}) : ${firstQuestion.text}`;
+
+      conversation.examSession = session;
+      DataService.saveConversation(conversation);
+
+      return {
+        assistantReply: opening,
+        updatedSession: session,
+      };
+    }
+
+    const difficultyForNextPrompt = computeNextDifficulty(session);
+    const remainingTurnsForNextPrompt = getRemainingTurnsForLevel(session, difficultyForNextPrompt);
+    const canUseFollowUp =
+      difficultyForNextPrompt === activeQuestion.difficulty &&
+      remainingTurnsForNextPrompt > 0 &&
+      (session.followUpCountForActive ?? 0) < (session.maxFollowUpsPerQuestion ?? DEFAULT_MAX_FOLLOW_UPS_PER_QUESTION);
+
+    const candidateNextQuestion =
+      remainingTurnsForNextPrompt > 0
+        ? getNextQuestionForLevel(session, difficultyForNextPrompt)
+        : undefined;
+
+    const requiresFollowUpEvaluation = !!activeQuestion && canUseFollowUp;
 
     const payload = {
       criteria,
@@ -351,12 +465,10 @@ export class ExamService {
         'Tolérance aux erreurs de transcription audio: accepter les homophones, petites fautes lexicales/grammaticales et mots approximatifs si le sens est clair.',
       focusTheme: session.focusTheme || null,
       progression: {
-        askedCount: session.askedQuestionIds.length,
-        totalQuestions:
-          session.questionsByDifficulty.A.length +
-          session.questionsByDifficulty.B.length +
-          session.questionsByDifficulty.C.length,
-        currentDifficulty: session.currentDifficulty,
+        askedQuestionsCount: session.askedQuestionIds.length,
+        askedTurnCountByDifficulty: session.askedTurnCountByDifficulty,
+        targetTurnCountByDifficulty: session.targetQuestionCountByDifficulty,
+        currentDifficulty: difficultyForNextPrompt,
       },
       activeQuestion: activeQuestion
         ? {
@@ -368,17 +480,17 @@ export class ExamService {
       requiresFollowUpEvaluation,
       followUpAlreadyAsked: !!session.followUpAskedForActive,
       userAnswer: userMessage,
-      candidateNextQuestion: nextQuestion
+      candidateNextQuestion: candidateNextQuestion
         ? {
-            id: nextQuestion.id,
-            text: nextQuestion.text,
-            difficulty: nextQuestion.difficulty,
+            id: candidateNextQuestion.id,
+            text: candidateNextQuestion.text,
+            difficulty: candidateNextQuestion.difficulty,
           }
         : null,
     };
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-nano',
       temperature: 0.55,
       response_format: { type: 'json_object' },
       messages: [
@@ -387,7 +499,8 @@ export class ExamService {
           content:
             'Tu es un évaluateur oral francophone. Réponds uniquement en JSON valide. ' +
             'Tu dois faire progresser l\'examen de A vers C, en gardant une cohérence thématique forte au niveau C. ' +
-            'Si requiresFollowUpEvaluation=true, décide si un suivi est nécessaire et crée un follow-up spécifique aux détails de userAnswer (pas de question générique).',
+            'Si requiresFollowUpEvaluation=true, décide si un suivi est nécessaire et crée un follow-up spécifique aux détails de userAnswer (pas de question générique). ' +
+            'Les cibles sont en nombre de tours par niveau (questions principales + suivis).',
         },
         {
           role: 'user',
@@ -404,9 +517,9 @@ export class ExamService {
 
     const content = completion.choices[0]?.message?.content || '{}';
 
-    let action: 'follow_up' | 'next_question' | 'end_exam' = nextQuestion ? 'next_question' : 'end_exam';
-    let assistantReply = nextQuestion
-      ? `Très bien. Question (${nextQuestion.difficulty}) : ${nextQuestion.text}`
+    let action: 'follow_up' | 'next_question' | 'end_exam' = candidateNextQuestion || canUseFollowUp ? 'next_question' : 'end_exam';
+    let assistantReply = candidateNextQuestion
+      ? `Très bien. Question (${candidateNextQuestion.difficulty}) : ${candidateNextQuestion.text}`
       : 'Merci. L’examen est terminé. Vous pouvez lancer l’évaluation finale.';
 
     let runningAssessment: ExamRunningAssessment | undefined;
@@ -453,26 +566,58 @@ export class ExamService {
       // Keep defaults
     }
 
-    if (action === 'follow_up' && activeQuestion) {
+    if (action === 'follow_up' && activeQuestion && canUseFollowUp) {
       session.followUpAskedForActive = true;
+      session.followUpCountForActive = (session.followUpCountForActive ?? 0) + 1;
+      session.askedTurnCountByDifficulty![activeQuestion.difficulty] += 1;
       if (!assistantReply || assistantReply.length < 8) {
         assistantReply = buildFollowUpFallback(userMessage, activeQuestion);
       }
-    } else if (action === 'next_question' && nextQuestion) {
-      session.activeQuestionId = nextQuestion.id;
+    } else if (action === 'next_question' && candidateNextQuestion) {
+      session.activeQuestionId = candidateNextQuestion.id;
       session.followUpAskedForActive = false;
-      if (!session.askedQuestionIds.includes(nextQuestion.id)) {
-        session.askedQuestionIds.push(nextQuestion.id);
+      session.followUpCountForActive = 0;
+      if (!session.askedQuestionIds.includes(candidateNextQuestion.id)) {
+        session.askedQuestionIds.push(candidateNextQuestion.id);
       }
-      session.currentDifficulty = computeNextDifficulty(session);
+      session.currentDifficulty = candidateNextQuestion.difficulty;
+      session.askedTurnCountByDifficulty![candidateNextQuestion.difficulty] += 1;
       if (!assistantReply || assistantReply.length < 8) {
-        assistantReply = `Très bien. Question (${nextQuestion.difficulty}) : ${nextQuestion.text}`;
+        assistantReply = `Très bien. Question (${candidateNextQuestion.difficulty}) : ${candidateNextQuestion.text}`;
+      }
+    } else if (canUseFollowUp && activeQuestion) {
+      session.followUpAskedForActive = true;
+      session.followUpCountForActive = (session.followUpCountForActive ?? 0) + 1;
+      session.askedTurnCountByDifficulty![activeQuestion.difficulty] += 1;
+      assistantReply = buildFollowUpFallback(userMessage, activeQuestion);
+    } else if (getRemainingTurnsForLevel(session, computeNextDifficulty(session)) > 0) {
+      const forcedNextDifficulty = computeNextDifficulty(session);
+      const forcedQuestion = getNextQuestionForLevel(session, forcedNextDifficulty);
+
+      if (forcedQuestion) {
+        session.activeQuestionId = forcedQuestion.id;
+        session.followUpAskedForActive = false;
+        session.followUpCountForActive = 0;
+        session.currentDifficulty = forcedQuestion.difficulty;
+        if (!session.askedQuestionIds.includes(forcedQuestion.id)) {
+          session.askedQuestionIds.push(forcedQuestion.id);
+        }
+        session.askedTurnCountByDifficulty![forcedQuestion.difficulty] += 1;
+        assistantReply = `Très bien. Question (${forcedQuestion.difficulty}) : ${forcedQuestion.text}`;
+      } else {
+        session.completed = true;
+        session.currentDifficulty = 'C';
+        session.activeQuestionId = undefined;
+        session.followUpAskedForActive = true;
+        session.followUpCountForActive = 0;
+        assistantReply = 'Merci. L’examen est terminé. Vous pouvez lancer l’évaluation finale.';
       }
     } else {
       session.completed = true;
       session.currentDifficulty = 'C';
       session.activeQuestionId = undefined;
       session.followUpAskedForActive = true;
+      session.followUpCountForActive = 0;
       assistantReply = 'Merci. L’examen est terminé. Vous pouvez lancer l’évaluation finale.';
     }
 
@@ -529,7 +674,7 @@ export class ExamService {
     };
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-nano',
       temperature: 0.3,
       response_format: { type: 'json_object' },
       messages: [

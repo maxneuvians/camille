@@ -33,6 +33,9 @@ export interface ExamRunningAssessment {
 export interface ExamSession {
   questionsByDifficulty: Record<Level, ExamQuestion[]>;
   targetQuestionCountByDifficulty: Record<Level, number>;
+  askedTurnCountByDifficulty?: Record<Level, number>;
+  followUpCountForActive?: number;
+  maxFollowUpsPerQuestion?: number;
   focusTheme?: {
     id: string;
     title: string;

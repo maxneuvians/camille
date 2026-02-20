@@ -83,12 +83,13 @@ describe('ExamService', () => {
     const session = await ExamService.ensureExamSession(conversation, openai);
 
     expect(session.targetQuestionCountByDifficulty).toEqual({ A: 4, B: 4, C: 4 });
-    expect(session.questionsByDifficulty.A).toHaveLength(4);
-    expect(session.questionsByDifficulty.B).toHaveLength(4);
-    expect(session.questionsByDifficulty.C).toHaveLength(4);
+    expect(session.questionsByDifficulty.A).toHaveLength(2);
+    expect(session.questionsByDifficulty.B).toHaveLength(2);
+    expect(session.questionsByDifficulty.C).toHaveLength(2);
     expect(session.focusTheme?.title).toBe('Leadership stratégique');
-    expect(session.activeQuestionId).toBeDefined();
-    expect(session.askedQuestionIds).toHaveLength(1);
+    expect(session.activeQuestionId).toBeUndefined();
+    expect(session.askedQuestionIds).toHaveLength(0);
+    expect(session.askedTurnCountByDifficulty).toEqual({ A: 0, B: 0, C: 0 });
     expect(mockDataService.saveConversation).toHaveBeenCalled();
 
     randomSpy.mockRestore();
@@ -128,7 +129,7 @@ describe('ExamService', () => {
     const requestPayload = createMock.mock.calls[0][0];
     expect(requestPayload).toEqual(
       expect.objectContaining({
-        model: 'gpt-4o-mini',
+        model: 'gpt-5-nano',
         response_format: { type: 'json_object' },
         messages: expect.arrayContaining([
           expect.objectContaining({ role: 'system' }),
@@ -165,7 +166,7 @@ describe('ExamService', () => {
     randomSpy.mockRestore();
   });
 
-  it('should keep active question and mark follow-up asked when model requests follow_up', async () => {
+  it('should keep active question and increment turn count when model requests follow_up', async () => {
     const activeQuestionId = 'q-a-1';
     const conversation: Conversation = {
       id: 'conv-2',
@@ -183,6 +184,9 @@ describe('ExamService', () => {
           C: [],
         },
         targetQuestionCountByDifficulty: { A: 4, B: 4, C: 4 },
+        askedTurnCountByDifficulty: { A: 1, B: 0, C: 0 },
+        followUpCountForActive: 0,
+        maxFollowUpsPerQuestion: 2,
         askedQuestionIds: [activeQuestionId],
         activeQuestionId,
         followUpAskedForActive: false,
@@ -221,6 +225,8 @@ describe('ExamService', () => {
     expect(turn.assistantReply).toContain('mesure corrective');
     expect(turn.updatedSession.activeQuestionId).toBe(activeQuestionId);
     expect(turn.updatedSession.followUpAskedForActive).toBe(true);
+    expect(turn.updatedSession.followUpCountForActive).toBe(1);
+    expect(turn.updatedSession.askedTurnCountByDifficulty?.A).toBe(2);
     expect(turn.updatedSession.askedQuestionIds).toEqual([activeQuestionId]);
     expect(turn.updatedSession.runningAssessments).toHaveLength(1);
   });
@@ -242,6 +248,9 @@ describe('ExamService', () => {
           C: [],
         },
         targetQuestionCountByDifficulty: { A: 4, B: 4, C: 4 },
+        askedTurnCountByDifficulty: { A: 2, B: 0, C: 0 },
+        followUpCountForActive: 1,
+        maxFollowUpsPerQuestion: 2,
         askedQuestionIds: ['q-a-1'],
         activeQuestionId: 'q-a-1',
         followUpAskedForActive: true,
@@ -275,7 +284,53 @@ describe('ExamService', () => {
 
     expect(turn.updatedSession.activeQuestionId).toBe('q-a-2');
     expect(turn.updatedSession.followUpAskedForActive).toBe(false);
+    expect(turn.updatedSession.followUpCountForActive).toBe(0);
+    expect(turn.updatedSession.askedTurnCountByDifficulty?.A).toBe(3);
     expect(turn.updatedSession.askedQuestionIds).toEqual(['q-a-1', 'q-a-2']);
     expect(turn.updatedSession.completed).toBe(false);
+  });
+
+  it('should open exam with a greeting and first question when no active question exists yet', async () => {
+    const conversation: Conversation = {
+      id: 'conv-start',
+      themeId: 'exam-mode',
+      startTime: Date.now(),
+      mode: 'exam',
+      messages: [],
+      examSession: {
+        questionsByDifficulty: {
+          A: [{ id: 'q-a-1', text: 'Question A1', difficulty: 'A', source: 'generated' }],
+          B: [],
+          C: [],
+        },
+        targetQuestionCountByDifficulty: { A: 4, B: 4, C: 4 },
+        askedTurnCountByDifficulty: { A: 0, B: 0, C: 0 },
+        followUpCountForActive: 0,
+        maxFollowUpsPerQuestion: 2,
+        askedQuestionIds: [],
+        activeQuestionId: undefined,
+        followUpAskedForActive: false,
+        currentDifficulty: 'A',
+        completed: false,
+        runningAssessments: [],
+      },
+    };
+
+    const openai = {
+      chat: {
+        completions: {
+          create: jest.fn(),
+        },
+      },
+    } as any;
+
+    const turn = await ExamService.generateExamTurn(conversation, 'Bonjour.', openai);
+
+    expect(turn.assistantReply).toContain('Bonjour');
+    expect(turn.assistantReply).toContain('Question (A) : Question A1');
+    expect(turn.updatedSession.activeQuestionId).toBe('q-a-1');
+    expect(turn.updatedSession.askedQuestionIds).toEqual(['q-a-1']);
+    expect(turn.updatedSession.askedTurnCountByDifficulty?.A).toBe(1);
+    expect(openai.chat.completions.create).not.toHaveBeenCalled();
   });
 });

@@ -282,10 +282,15 @@ export function VoiceAgent({ theme, onBack }: VoiceAgentProps) {
   const examProgress = (() => {
     if (!examSession) return null;
 
-    const countAsked = (difficulty: "A" | "B" | "C") =>
-      examSession.questionsByDifficulty[difficulty].filter((question) =>
+    const countAsked = (difficulty: "A" | "B" | "C") => {
+      if (examSession.askedTurnCountByDifficulty) {
+        return examSession.askedTurnCountByDifficulty[difficulty] || 0;
+      }
+
+      return examSession.questionsByDifficulty[difficulty].filter((question) =>
         examSession.askedQuestionIds.includes(question.id)
       ).length;
+    };
 
     return {
       A: {

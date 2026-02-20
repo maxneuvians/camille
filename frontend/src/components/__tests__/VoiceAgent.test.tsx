@@ -53,6 +53,9 @@ describe('VoiceAgent', () => {
           C: [{ id: 'c1', text: 'Question C1', difficulty: 'C', source: 'generated' }],
         },
         targetQuestionCountByDifficulty: { A: 4, B: 5, C: 6 },
+        askedTurnCountByDifficulty: { A: 2, B: 1, C: 0 },
+        followUpCountForActive: 1,
+        maxFollowUpsPerQuestion: 2,
         focusTheme: {
           id: 'c-theme-1',
           title: 'Leadership stratégique',
@@ -75,8 +78,8 @@ describe('VoiceAgent', () => {
       expect(screen.getByText('Progression examen')).toBeInTheDocument();
     });
 
-    expect(screen.getByText('A 1/4')).toBeInTheDocument();
-    expect(screen.getByText('B 0/5')).toBeInTheDocument();
+    expect(screen.getByText('A 2/4')).toBeInTheDocument();
+    expect(screen.getByText('B 1/5')).toBeInTheDocument();
     expect(screen.getByText('C 0/6')).toBeInTheDocument();
     expect(screen.getByText(/Thème cible : Leadership stratégique/)).toBeInTheDocument();
   });

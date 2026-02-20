@@ -109,7 +109,7 @@ describe('AnalysisService', () => {
     expect(mockCreate).toHaveBeenCalled();
     expect(mockCreate).toHaveBeenCalledWith(
       expect.objectContaining({
-        model: 'gpt-4o-mini',
+        model: 'gpt-5-nano',
         response_format: { type: 'json_object' },
         messages: expect.arrayContaining([
           expect.objectContaining({
